@@ -64,6 +64,8 @@ public:
 	int funcMakeCtrlIOFusingPacket(char *pszRtnPacket);
 	int execControlIOFusing(void);
 
+	bool funcBarcodeScan();
+
 	CStringArray modelList;
 
 protected:
@@ -194,6 +196,7 @@ public:
 	CString ctrlEdtModelName;
 	CComboBox ctrlSelModelName;
 	afx_msg void OnCbnSelchangeCmbModelName();
+	afx_msg void OnCbnSelchangeCmbModelName(CString Model_Name);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnBnClickedBtnSaveas();
 	CComboBox ctrlGPIO1;

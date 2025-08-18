@@ -356,9 +356,6 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 	{
 		if (::GetKeyState(VK_MENU) < 0) return TRUE;
 	}
-
-	
-
 	if (pMsg->message == WM_KEYDOWN) // 키 입력 로직 추가
 	{
 		CString msg;
@@ -367,16 +364,25 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 		switch (pMsg->wParam)
 		{
 		case 'S':
-			m_bSavePressed = true;  // S 키가 먼저 눌림
+			//m_bSavePressed = true;  // S 키가 먼저 눌림
 			return TRUE;
 
 		case VK_RETURN:
-			if (m_bSavePressed)  // 이전에 S 키가 눌린 상태
-			{
-				AfxMessageBox(_T("OK - 순차입력: S → Enter"));
-				m_bSavePressed = false;  // 플래그 초기화
-			}
-			return TRUE;
+		//{
+		//	CEdit* pEdit_Pn = (CEdit*)GetDlgItem(IDC_EDIT_PN);
+		//	CEdit* pEdit_Model = (CEdit*)GetDlgItem(IDC_EDIT_MODEL_NAME);
+		//	CString strValue;
+		//	
+  //      if (pEdit_Pn)
+		//	
+		//	pEdit_Pn->GetWindowText(strValue);
+		//	/*msg.Format(_T("Enter Input - 값 초기화 완료\n\n입력값: %s"), strValue);
+		//	AfxMessageBox(msg);*/
+		//	pEdit_Pn->SetWindowText(_T(""));  // 텍스트 지움
+		//	pEdit_Model->SetWindowText(strValue);
+		//	OnCbnSelchangeCmbModelName(strValue);
+		//}
+			return funcBarcodeScan();
 
 		case VK_ESCAPE:
 		case VK_SPACE:
@@ -385,8 +391,8 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 	}
 	else if (pMsg->message == WM_KEYUP)
 	{
-		if (pMsg->wParam == 'S')
-			m_bSavePressed = false;  // S 키 뗐을 때도 초기화 가능
+		//if (pMsg->wParam == 'S')
+		//	m_bSavePressed = false;  // S 키 뗐을 때도 초기화 가능
 	}
 
 	return CDialog::PreTranslateMessage(pMsg);
@@ -408,7 +414,25 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return hbr;
 }
 
-void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName()
+bool CTS_WR_HS_FUSINGDlg::funcBarcodeScan()
+{
+	CEdit* pEdit_Pn = (CEdit*)GetDlgItem(IDC_EDIT_PN); // 파트넘버 text
+	CEdit* pEdit_Model = (CEdit*)GetDlgItem(IDC_EDIT_MODEL_NAME); // 모델명 text
+	CString strValue, mesValue;
+
+	if (pEdit_Pn)
+
+		pEdit_Pn->GetWindowText(strValue);
+	/*msg.Format(_T("Enter Input - 값 초기화 완료\n\n입력값: %s"), strValue);
+	AfxMessageBox(msg);*/
+	pEdit_Pn->SetWindowText(_T(""));  // 텍스트 지움
+	pEdit_Model->SetWindowText(strValue); // MES에서 받은 모델명 값
+	OnCbnSelchangeCmbModelName(strValue);
+
+	return true;
+}
+
+void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName() // 모델 변경시 나머지 값들 셋팅 해주는 함수
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CString strGetModelName=_T("");
@@ -430,7 +454,56 @@ void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName()
 	UpdateData(FALSE);
 }
 
-void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSave()
+void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // 바코드 스캔시 모델명 변경 후 셋팅 해주는 함수 (여기에 fusing 기능 추가 필요)
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	CString M_Name;
+
+	if (Model_Name == "EAJ64811801")
+	{
+		M_Name = "07HC650DQG-ABXA2-A111";
+	}
+	else if (Model_Name == "EAJ65329801")
+	{
+		M_Name = "05_HC430DUN-ABXL1-3";
+	}
+	else if (Model_Name == "EAJ65329001")
+	{
+		M_Name = "01_HC55EQH-SLHA1";
+	}
+	else if (Model_Name == "EAJ65863901")
+	{
+		M_Name = "10_HC430DGG-ABWL1(BOE)";
+	}
+	else if (Model_Name == "EAJ64811908")
+	{
+		M_Name = "06_HC430DUN-ABTL1_5_7(BOE)";
+	}
+	else if (Model_Name == "EAJ64811911")
+	{
+		M_Name = "65QNED";
+	}
+
+
+	funcModelEditReadOnly(TRUE);
+
+	//GetDlgItemText(IDC_CMB_MODEL_NAME, M_Name);
+
+	ctrlEdtModelName.Format("%s", M_Name.GetBuffer(0));
+
+	/* 모델 파일 선택시 해당 모델 LOAD 할 것. */
+	funcLoadVariFromModelFile(ctrlEdtModelName.GetBuffer(0));
+
+	funcLoadCtrlFormVari();
+	UpdateData(FALSE);
+
+	/* 패턴 목록을 갱신 한다. */
+	funcUpdatePAT_List();
+	UpdateData(FALSE);
+}
+
+void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSave() // 세이브 버튼 클릭
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
@@ -1034,7 +1107,7 @@ void CTS_WR_HS_FUSINGDlg::fucAllModelList(void)
 	else
 	{
 	}
-	//CStringArray modelList;  // 모델명 저장용 배열
+	CStringArray modelList;  // 모델명 저장용 배열
 
 	int nCount = m_pComboModel->GetCount();
 	CString strModel;

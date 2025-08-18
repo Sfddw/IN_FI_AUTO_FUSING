@@ -154,7 +154,8 @@
 #define IDC_STATIC_STR_PWR_ID           1103
 #define IDC_EDT_STR_CNT3                1104
 #define IDC_EDT_STR_PWR_ID              1104
-#define IDC_EDIT1                       1105
+#define IDC_EDIT_PN                     1105
+#define IDC_EDIT_MODEL_NAME             1106
 #define IDC_BTN_PAT_ADD                 1136
 #define IDC_BTN_PAT_DEL                 1137
 #define IDC_BTN_PAT_CHG                 1138
