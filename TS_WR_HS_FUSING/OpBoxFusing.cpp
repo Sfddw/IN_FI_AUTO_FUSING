@@ -384,14 +384,14 @@ void COpBoxFusing::funcUpdateFusingModelList(void)
 	int nLoop;
 	CString strTemp;
 
-	ctrlFusingModelList.DeleteAllItems();
+	ctrlFusingModelList.DeleteAllItems(); // 모든 아이템 삭제
 
 	for(nLoop=0; nLoop<50; nLoop++)
 	{
 		if(strlen(szFusingModelList[nLoop]) == 0)	return;
 
-		strTemp.Format("%s", szFusingModelList[nLoop]);
-		ctrlFusingModelList.InsertItem(nLoop, strTemp);
+		strTemp.Format("%s", szFusingModelList[nLoop]); // szFusingModelList[nLoop]을 CString으로 변환해서 strTemp에 저장
+		ctrlFusingModelList.InsertItem(nLoop, strTemp); // 리스트 컨트롤에 새 아이템을 추가
 
 		ctrlFusingModelList.SetSelectionMark(nLoop);				// Item Select & Focus
 		ctrlFusingModelList.SetItemState(nLoop, LVIS_SELECTED | LVIS_FOCUSED, LVNI_SELECTED | LVNI_FOCUSED);
@@ -1152,6 +1152,48 @@ void COpBoxFusing::OnBnClickedBtnFusing()
 
 	//AfxMessageBox("OP-Box FUSING SUCCESS.", MB_ICONWARNING|MB_OK);
 	ctrlOpBoxFusingMsg.SetWindowText("OP-Box FUSING SUCCESS.");
+}
+
+void COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	int nLoop;
+	int nResult = 0;
+	CString strMsg = _T("");
+
+	lpModelInfo = new MODEL_INFO;
+
+	strcpy(szFusingModelList[0], Model_Name);
+
+	nResult = execDelAllMod();
+	if (nResult == 0)
+	{
+		for (nLoop = 0; nLoop < 1; nLoop++)
+		{
+			if (strlen(szFusingModelList[nLoop]) == 0)	break;
+
+			if (procOpBoxFusing(nLoop) != 0) // ng일 경우
+			{
+				CString msg;
+				msg.Format(_T("Fusing Fail [%s]\nCable & Op-Box Check Please"), _T(Model_Name));
+				AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);
+				return;
+			}
+			CString msg;
+			msg.Format(_T("Fusing Success [%s]"), _T(Model_Name));
+			AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);
+			 // ok일 경우
+
+		}
+	}
+	else
+	{
+		CString msg;
+		msg.Format(_T("Fusing Fail [%s]\nCable & Op-Box Check Please"), _T(Model_Name));
+		AfxMessageBox(msg, MB_ICONERROR | MB_OK);
+		return;
+	}
 }
 
 

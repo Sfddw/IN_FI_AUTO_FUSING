@@ -382,11 +382,23 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 		//	pEdit_Model->SetWindowText(strValue);
 		//	OnCbnSelchangeCmbModelName(strValue);
 		//}
-			return funcBarcodeScan();
+			funcBarcodeScan();
+			m_strKeyBuffer = _T("");
+			return TRUE;
 
 		case VK_ESCAPE:
 		case VK_SPACE:
 			return TRUE;
+
+		default:
+		{
+			TCHAR ch = (TCHAR)pMsg->wParam;
+			if (_istprint(ch))
+			{
+				m_strKeyBuffer.AppendChar(ch);
+			}
+		}
+		return TRUE;
 		}
 	}
 	else if (pMsg->message == WM_KEYUP)
@@ -416,20 +428,46 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 bool CTS_WR_HS_FUSINGDlg::funcBarcodeScan()
 {
-	CEdit* pEdit_Pn = (CEdit*)GetDlgItem(IDC_EDIT_PN); // 파트넘버 text
-	CEdit* pEdit_Model = (CEdit*)GetDlgItem(IDC_EDIT_MODEL_NAME); // 모델명 text
-	CString strValue, mesValue;
+	if (true)
+	{
+		CEdit* pEdit_Pn = (CEdit*)GetDlgItem(IDC_EDIT_PN); // 파트넘버 text
+		CEdit* pEdit_Model = (CEdit*)GetDlgItem(IDC_EDIT_MODEL_NAME); // 모델명 text
+		CString strValue, mesValue;
+		pEdit_Pn->SetWindowText(_T(""));
 
-	if (pEdit_Pn)
+		//if (pEdit_Pn)
 
-		pEdit_Pn->GetWindowText(strValue);
-	/*msg.Format(_T("Enter Input - 값 초기화 완료\n\n입력값: %s"), strValue);
-	AfxMessageBox(msg);*/
-	pEdit_Pn->SetWindowText(_T(""));  // 텍스트 지움
-	pEdit_Model->SetWindowText(strValue); // MES에서 받은 모델명 값
-	OnCbnSelchangeCmbModelName(strValue);
+		//	pEdit_Pn->GetWindowText(strValue);
+		//
+		//pEdit_Pn->SetWindowText(_T(""));  // 텍스트 지움
+		
+		pEdit_Pn->SetWindowText(_T(m_strKeyBuffer));
+		 // MES에서 받은 모델명 값
+		CString Model_Name = OnCbnSelchangeCmbModelName(m_strKeyBuffer);
+		pEdit_Model->SetWindowText(Model_Name);
 
-	return true;
+		if (Model_Name == _T(""))
+		{
+			CString msg;
+			msg.Format(_T("There is no Matching Model Name"));
+			AfxMessageBox(msg);
+			return false;
+		}
+		else
+		{
+			COpBoxFusing Cof;
+			//Cof.OnBnClickedBtnFusing();
+			Cof.OnBnBcrScanFusing(Model_Name);
+			return true;
+		}
+	}
+	else
+	{
+		/*CString msg;
+		msg.Format(_T("Port Not Connect"));
+		AfxMessageBox(msg);*/
+		return false;
+	}
 }
 
 void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName() // 모델 변경시 나머지 값들 셋팅 해주는 함수
@@ -454,11 +492,13 @@ void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName() // 모델 변경시 나머지 값�
 	UpdateData(FALSE);
 }
 
-void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // 바코드 스캔시 모델명 변경 후 셋팅 해주는 함수 (여기에 fusing 기능 추가 필요)
+CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // 바코드 스캔시 모델명 변경 후 셋팅 해주는 함수 (여기에 fusing 기능 추가 필요)
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
 	CString M_Name;
+
+	M_Name = _T("");
 
 	if (Model_Name == "EAJ64811801")
 	{
@@ -466,7 +506,7 @@ void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // 바코
 	}
 	else if (Model_Name == "EAJ65329801")
 	{
-		M_Name = "05_HC430DUN-ABXL1-3";
+		M_Name = "05_HC430DUN-ABXL1_3";
 	}
 	else if (Model_Name == "EAJ65329001")
 	{
@@ -484,23 +524,70 @@ void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // 바코
 	{
 		M_Name = "65QNED";
 	}
+	else if (Model_Name == "EAJ65329210")
+	{
+		M_Name = "22_HC500DQG-SLDA_1_3(LGD)";
+	}
+	else if (Model_Name == "EAJ65288601")
+	{
+		M_Name = "23_HC500DQG-VKDA(HKC)";
+	}
+	else if (Model_Name == "EAJ65740101")
+	{
+		M_Name = "24_HC500DQG-VKFL_1";
+	}
+	else if (Model_Name == "EAJ65740201")
+	{
+		M_Name = "25_HC500DQG-VKXL(A)1_3(HKC)";
+	}
+	else if (Model_Name == "EAJ65794101")
+	{
+		M_Name = "26_HC550DQG-ABDA_1_3(BOE)";
+	}
+	else if (Model_Name == "EAJ65794201")
+	{
+		M_Name = "39_HC700DQG-VHDA_1DDD";
+	}
 
+	if (M_Name == _T(""))
+	{
+		return _T("");
+	}
+	else
+	{
+		bool bFound = false;
+		for (int i = 0; i < modelList.GetCount(); i++) // 모델리스트 처음부터 길이만큼 반복
+		{
+			if (M_Name.Compare(modelList[i]) == 0)
+			{
+				bFound = true;
+				break;
+			}
+		}
 
-	funcModelEditReadOnly(TRUE);
+		if (bFound == false) // 모델 리스트에 MES로 받은 모델명이 없을 경우
+		{
+			//return _T("");
+		}
 
-	//GetDlgItemText(IDC_CMB_MODEL_NAME, M_Name);
+		funcModelEditReadOnly(TRUE);
 
-	ctrlEdtModelName.Format("%s", M_Name.GetBuffer(0));
+		//GetDlgItemText(IDC_CMB_MODEL_NAME, M_Name);
 
-	/* 모델 파일 선택시 해당 모델 LOAD 할 것. */
-	funcLoadVariFromModelFile(ctrlEdtModelName.GetBuffer(0));
+		ctrlEdtModelName.Format("%s", M_Name.GetBuffer(0));
 
-	funcLoadCtrlFormVari();
-	UpdateData(FALSE);
+		/* 모델 파일 선택시 해당 모델 LOAD 할 것. */
+		funcLoadVariFromModelFile(ctrlEdtModelName.GetBuffer(0));
 
-	/* 패턴 목록을 갱신 한다. */
-	funcUpdatePAT_List();
-	UpdateData(FALSE);
+		funcLoadCtrlFormVari();
+		UpdateData(FALSE);
+
+		/* 패턴 목록을 갱신 한다. */
+		funcUpdatePAT_List();
+		UpdateData(FALSE);
+
+		return M_Name;
+	}
 }
 
 void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSave() // 세이브 버튼 클릭
@@ -1107,7 +1194,6 @@ void CTS_WR_HS_FUSINGDlg::fucAllModelList(void)
 	else
 	{
 	}
-	CStringArray modelList;  // 모델명 저장용 배열
 
 	int nCount = m_pComboModel->GetCount();
 	CString strModel;
@@ -2122,6 +2208,25 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 		strTemp.Format("COM%d, PORT OPEN OK.", nPortNum+1);
 		AfxMessageBox(strTemp, MB_ICONINFORMATION|MB_OK);
 	}
+}
+
+bool CTS_WR_HS_FUSINGDlg::OnBnClickedBcrPortOpen() // bcr 스캔시 포트 연결
+{
+	int nPortNum;
+	CString strTemp = _T("");
+
+	UpdateData(TRUE);
+
+	nPortNum = ctrlComPort.GetCurSel();
+
+	if (m_pApp->cfgUart(nPortNum + 1) == TRUE)
+	{//OK
+		/*strTemp.Format("COM%d, PORT OPEN OK.", nPortNum + 1);
+		AfxMessageBox(strTemp, MB_ICONINFORMATION | MB_OK);*/
+
+		return TRUE;
+	}
+	return FALSE;
 }
 
 void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnFwUpdate()
