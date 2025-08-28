@@ -232,6 +232,8 @@ public:
 	CString ctrlStrPwrId;
 
 	CString m_strKeyBuffer;
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnStnClickedLogo();
 };
 
 

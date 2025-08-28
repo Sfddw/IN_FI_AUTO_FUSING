@@ -12,6 +12,10 @@
 #include "SetFlicker.h"
 #include "VersionInfo.h"
 
+#include <windows.h>
+#include <sql.h>
+#include <sqlext.h>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -251,6 +255,8 @@ BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_OPBOX, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnOpbox)
 	ON_BN_CLICKED(IDC_BTN_SYSTEM_MENU, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSystemMenu)
 	ON_BN_CLICKED(IDC_BUTTON_FLICKER, &CTS_WR_HS_FUSINGDlg::OnBnClickedButtonFlicker)
+	ON_BN_CLICKED(IDC_BUTTON2, &CTS_WR_HS_FUSINGDlg::OnBnClickedButton2)
+	ON_STN_CLICKED(IDC_LOGO, &CTS_WR_HS_FUSINGDlg::OnStnClickedLogo)
 END_MESSAGE_MAP()
 
 
@@ -2275,4 +2281,133 @@ void CTS_WR_HS_FUSINGDlg::UpdateModelTotal()
 {
 	lpModelInfo->nHtotal = lpModelInfo->nHwidth + lpModelInfo->nHBP + lpModelInfo->nHFP + lpModelInfo->nHact;
 	lpModelInfo->nVtotal = lpModelInfo->nVwidth + lpModelInfo->nVBP + lpModelInfo->nVFP + lpModelInfo->nVact;
+}
+
+// '연결 테스트' 버튼을 클릭했을 때 실행되는 함수
+void CTS_WR_HS_FUSINGDlg::OnBnClickedButton2()
+{
+	SQLHENV hEnv;
+	SQLHDBC hDbc;
+	SQLHSTMT hStmt;
+	SQLRETURN ret;
+
+	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
+	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
+
+	// DSN 연결 (유니코드 버전으로 되돌립니다. SQLConnectW를 사용하므로 이게 맞습니다.)
+	ret = SQLConnectW(hDbc,
+		(SQLWCHAR*)L"OracleDB", SQL_NTS,
+		(SQLWCHAR*)L"system", SQL_NTS,
+		(SQLWCHAR*)L"1234", SQL_NTS);
+
+	if (SQL_SUCCEEDED(ret)) {
+		AfxMessageBox(_T("DB Connect 성공"));
+
+		SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+		// 유니코드 함수 SQLExecDirectW를 사용하므로 쿼리도 유니코드로 변경
+		SQLExecDirectW(hStmt, (SQLWCHAR*)L"SELECT MODEL_NUM, PN, NAME FROM BARCORD", SQL_NTS);
+
+		// 데이터를 담을 변수들을 선언합니다.
+		SQLINTEGER modelNum;
+		SQLCHAR pn[64];
+		SQLCHAR name[64];
+
+		// 각 변수를 몇 번째 컬럼에 연결할지 지정합니다 (그릇 준비)
+		SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum, 0, NULL);
+		SQLBindCol(hStmt, 2, SQL_C_CHAR, pn, sizeof(pn), NULL);
+		SQLBindCol(hStmt, 3, SQL_C_CHAR, name, sizeof(name), NULL);
+
+		// ===== 이 부분이 핵심입니다! (음식 담기) =====
+		// SQLFetch를 호출하여 결과가 있을 때까지 반복합니다.
+		while (SQLFetch(hStmt) == SQL_SUCCESS) {
+			// 가져온 데이터를 CString으로 변환하여 메시지 박스로 출력합니다.
+			CString strMessage;
+			strMessage.Format(_T("Model Num: %d\nPN: %s\nName: %s"),
+				modelNum,
+				CString(pn), // SQLCHAR*를 CString으로 변환
+				CString(name)); // SQLCHAR*를 CString으로 변환
+
+			AfxMessageBox(strMessage);
+		}
+		// ===========================================
+
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	}
+	else {
+		AfxMessageBox(_T("DB Connect 실패"));
+	}
+
+	SQLDisconnect(hDbc);
+	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	//SQLHENV hEnv = NULL;    // 환경 핸들
+	//SQLHDBC hDbc = NULL;    // 연결 핸들
+	//SQLHSTMT hStmt = NULL;  // 구문 핸들
+	//SQLRETURN ret;
+
+	//// 1. 환경 핸들 할당
+	//if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv)) {
+	//	AfxMessageBox(_T("환경 핸들을 할당할 수 없습니다."));
+	//	return;
+	//}
+	//SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, 0);
+
+	//// 2. 연결 핸들 할당
+	//if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc)) {
+	//	AfxMessageBox(_T("연결 핸들을 할당할 수 없습니다."));
+	//	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+	//	return;
+	//}
+
+	//// 3. 데이터베이스 연결 (DSN 방식)
+	//// DSN 이름, 사용자 ID, 비밀번호를 SQLCHAR* 타입으로 변경
+	//SQLCHAR* dsnName = (SQLCHAR*)"OracleDB"; // 1단계에서 만든 DSN 이름
+	//SQLCHAR* userID = (SQLCHAR*)"system";
+	//SQLCHAR* password = (SQLCHAR*)"1234";
+
+	//ret = SQLConnect(hDbc, dsnName, SQL_NTS, userID, SQL_NTS, password, SQL_NTS);
+
+	//if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO) {
+	//	AfxMessageBox(_T("데이터베이스 연결에 실패했습니다. ODBC DSN 설정을 확인하세요."));
+	//	// 여기에 상세 오류 출력 코드를 추가할 수 있습니다.
+	//	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	//	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+	//	return;
+	//}
+
+	//AfxMessageBox(_T("Oracle XE 연결 성공!"));
+
+	//// 4. 쿼리 실행
+	//SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+	//SQLCHAR* query = (SQLCHAR*)"SELECT SYSDATE FROM dual";
+	//if (SQL_SUCCESS == SQLExecDirect(hStmt, query, SQL_NTS)) {
+
+	//	// 5. 결과 가져오기
+	//	SQLCHAR dbTime[30]; // 결과를 저장할 버퍼
+	//	SQLLEN indicator;
+
+	//	SQLBindCol(hStmt, 1, SQL_C_CHAR, dbTime, sizeof(dbTime), &indicator);
+
+	//	if (SQLFetch(hStmt) == SQL_SUCCESS) {
+	//		CString strTime(dbTime); // char*를 CString으로 변환
+	//		AfxMessageBox(_T("DB 시간: ") + strTime);
+	//	}
+	//}
+
+	//// 6. 모든 핸들 정리 및 연결 종료
+	//SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	//SQLDisconnect(hDbc);
+	//SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	//SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+}
+
+
+
+void CTS_WR_HS_FUSINGDlg::OnStnClickedLogo()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
