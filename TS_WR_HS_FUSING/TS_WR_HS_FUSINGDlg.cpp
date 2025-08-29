@@ -369,25 +369,11 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 		OutputDebugString(msg + _T("\n"));
 		switch (pMsg->wParam)
 		{
-		case 'S':
-			//m_bSavePressed = true;  // S Å°°¡ ¸ÕÀú ´­¸²
-			return TRUE;
+		//case 'S':
+		//	//m_bSavePressed = true;  // S Å°°¡ ¸ÕÀú ´­¸²
+		//	return TRUE;
 
-		case VK_RETURN:
-		//{
-		//	CEdit* pEdit_Pn = (CEdit*)GetDlgItem(IDC_EDIT_PN);
-		//	CEdit* pEdit_Model = (CEdit*)GetDlgItem(IDC_EDIT_MODEL_NAME);
-		//	CString strValue;
-		//	
-  //      if (pEdit_Pn)
-		//	
-		//	pEdit_Pn->GetWindowText(strValue);
-		//	/*msg.Format(_T("Enter Input - °ª ÃÊ±âÈ­ ¿Ï·á\n\nÀÔ·Â°ª: %s"), strValue);
-		//	AfxMessageBox(msg);*/
-		//	pEdit_Pn->SetWindowText(_T(""));  // ÅØ½ºÆ® Áö¿ò
-		//	pEdit_Model->SetWindowText(strValue);
-		//	OnCbnSelchangeCmbModelName(strValue);
-		//}
+		case VK_RETURN: // ¿£ÅÍÅ° ÀÔ·Â½Ã
 			funcBarcodeScan();
 			m_strKeyBuffer = _T("");
 			return TRUE;
@@ -432,75 +418,30 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return hbr;
 }
 
-bool CTS_WR_HS_FUSINGDlg::funcBarcodeScan()
+bool CTS_WR_HS_FUSINGDlg::funcBarcodeScan() // ¹ÙÄÚµå ½ºÄµ
 {
-	if (true)
-	{
 		CEdit* pEdit_Pn = (CEdit*)GetDlgItem(IDC_EDIT_PN); // ÆÄÆ®³Ñ¹ö text
 		CEdit* pEdit_Model = (CEdit*)GetDlgItem(IDC_EDIT_MODEL_NAME); // ¸ðµ¨¸í text
-		CString strValue, mesValue;
 		pEdit_Pn->SetWindowText(_T(""));
 
-		//if (pEdit_Pn)
+		pEdit_Pn->SetWindowText(_T(m_strKeyBuffer));
+		CString Model_Name = OnCbnSelchangeCmbModelName(m_strKeyBuffer);
+		pEdit_Model->SetWindowText(Model_Name);
 
-		//	pEdit_Pn->GetWindowText(strValue);
-		//
-		//pEdit_Pn->SetWindowText(_T(""));  // ÅØ½ºÆ® Áö¿ò
-		
-		pEdit_Pn->SetWindowText(_T(m_strKeyBuffer)); //m_strKeyBuffer¶û ºñ±³
-		 // MES¿¡¼­ ¹ÞÀº ¸ðµ¨¸í °ª 
-
-		BarcodeInfo info = FindDataInDB(m_strKeyBuffer);
-		// 2. DB¿¡¼­ µ¥ÀÌÅÍ¸¦ Ã£¾Ò´ÂÁö È®ÀÎ
-		if (info.found)
+		return true;
+		/*if (Model_Name == _T(""))
 		{
-			// 3. Ã£Àº Á¤º¸(¸ðµ¨¸í)¸¦ È­¸é¿¡ Ç¥½Ã
-			// ¿©±â¼­´Â DB¿¡¼­ Ã£Àº nameÀ» ¸ðµ¨¸íÀ¸·Î »ç¿ëÇÑ´Ù°í °¡Á¤
-			pEdit_Model->SetWindowText(info.name);
-
 			CString msg;
-			msg.Format(_T("DB µ¥ÀÌÅÍ¿Í ÀÏÄ¡!\nModel Num: %d\nPN: %s\nName: %s"),
-				info.modelNum, info.pn, info.name);
+			msg.Format(_T("There is no Matching Model Name"));
 			AfxMessageBox(msg);
-
-			// 4. ´ÙÀ½ ÀÛ¾÷ ¼öÇà
-			COpBoxFusing Cof;
-			Cof.OnBnBcrScanFusing(info.name); // ¸ðµ¨¸í(info.name)À¸·Î ´ÙÀ½ ÀÛ¾÷ È£Ãâ
-			return true;
+			return false;
 		}
 		else
 		{
-			// 5. DB¿¡ ÀÏÄ¡ÇÏ´Â µ¥ÀÌÅÍ°¡ ¾ø´Â °æ¿ì
-			pEdit_Model->SetWindowText(_T("")); // ¸ðµ¨¸í Ä­ ºñ¿ì±â
-			AfxMessageBox(_T("DB¿¡ ÀÏÄ¡ÇÏ´Â ÆÄÆ®³Ñ¹ö°¡ ¾ø½À´Ï´Ù."));
-			return false;
-		}
-
-		//CString Model_Name = OnCbnSelchangeCmbModelName(m_strKeyBuffer); //¸ÅÄª
-		//pEdit_Model->SetWindowText(Model_Name);
-
-		//if (Model_Name == _T(""))
-		//{
-		//	CString msg;
-		//	msg.Format(_T("There is no Matching Model Name"));
-		//	AfxMessageBox(msg);
-		//	return false;
-		//}
-		//else
-		//{
-		//	COpBoxFusing Cof;
-		//	//Cof.OnBnClickedBtnFusing();
-		//	Cof.OnBnBcrScanFusing(Model_Name);
-		//	return true;
-		//}
-	}
-	else
-	{
-		/*CString msg;
-		msg.Format(_T("Port Not Connect"));
-		AfxMessageBox(msg);*/
-		return false;
-	}
+			COpBoxFusing Cof;
+			Cof.OnBnBcrScanFusing(Model_Name);
+			return true;
+		}*/
 }
 
 void CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName() // ¸ðµ¨ º¯°æ½Ã ³ª¸ÓÁö °ªµé ¼ÂÆÃ ÇØÁÖ´Â ÇÔ¼ö
@@ -531,9 +472,11 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 
 	CString M_Name;
 
-	M_Name = _T("");
+	BarcodeInfo info = FindDataInDB(Model_Name);
 
-	if (Model_Name == "EAJ64811801")
+	M_Name = info.name;
+
+	/*if (Model_Name == "EAJ64811801")
 	{
 		M_Name = "07HC650DQG-ABXA2-A111";
 	}
@@ -580,7 +523,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 	else if (Model_Name == "EAJ65794201")
 	{
 		M_Name = "39_HC700DQG-VHDA_1DDD";
-	}
+	}*/
 
 	if (M_Name == _T(""))
 	{
@@ -601,25 +544,36 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 		if (bFound == false) // ¸ðµ¨ ¸®½ºÆ®¿¡ MES·Î ¹ÞÀº ¸ðµ¨¸íÀÌ ¾øÀ» °æ¿ì
 		{
 			//return _T("");
+			CString msg;
+			msg.Format(_T("There is no Matching Model Name"));
+			AfxMessageBox(msg);
+
+			return M_Name;
 		}
+		else
+		{
 
-		funcModelEditReadOnly(TRUE);
+			funcModelEditReadOnly(TRUE);
 
-		//GetDlgItemText(IDC_CMB_MODEL_NAME, M_Name);
+			//GetDlgItemText(IDC_CMB_MODEL_NAME, M_Name);
 
-		ctrlEdtModelName.Format("%s", M_Name.GetBuffer(0));
+			ctrlEdtModelName.Format("%s", M_Name.GetBuffer(0));
 
-		/* ¸ðµ¨ ÆÄÀÏ ¼±ÅÃ½Ã ÇØ´ç ¸ðµ¨ LOAD ÇÒ °Í. */
-		funcLoadVariFromModelFile(ctrlEdtModelName.GetBuffer(0));
+			/* ¸ðµ¨ ÆÄÀÏ ¼±ÅÃ½Ã ÇØ´ç ¸ðµ¨ LOAD ÇÒ °Í. */
+			funcLoadVariFromModelFile(ctrlEdtModelName.GetBuffer(0));
 
-		funcLoadCtrlFormVari();
-		UpdateData(FALSE);
+			funcLoadCtrlFormVari();
+			UpdateData(FALSE);
 
-		/* ÆÐÅÏ ¸ñ·ÏÀ» °»½Å ÇÑ´Ù. */
-		funcUpdatePAT_List();
-		UpdateData(FALSE);
+			/* ÆÐÅÏ ¸ñ·ÏÀ» °»½Å ÇÑ´Ù. */
+			funcUpdatePAT_List();
+			UpdateData(FALSE);
 
-		return M_Name;
+			COpBoxFusing Op_Fusing;
+			Op_Fusing.OnBnBcrScanFusing(M_Name);
+
+			return M_Name;
+		}
 	}
 }
 
