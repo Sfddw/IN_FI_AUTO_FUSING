@@ -447,25 +447,52 @@ bool CTS_WR_HS_FUSINGDlg::funcBarcodeScan()
 		//
 		//pEdit_Pn->SetWindowText(_T(""));  // 텍스트 지움
 		
-		pEdit_Pn->SetWindowText(_T(m_strKeyBuffer));
-		 // MES에서 받은 모델명 값
-		CString Model_Name = OnCbnSelchangeCmbModelName(m_strKeyBuffer);
-		pEdit_Model->SetWindowText(Model_Name);
+		pEdit_Pn->SetWindowText(_T(m_strKeyBuffer)); //m_strKeyBuffer랑 비교
+		 // MES에서 받은 모델명 값 
 
-		if (Model_Name == _T(""))
+		BarcodeInfo info = FindDataInDB(m_strKeyBuffer);
+		// 2. DB에서 데이터를 찾았는지 확인
+		if (info.found)
 		{
+			// 3. 찾은 정보(모델명)를 화면에 표시
+			// 여기서는 DB에서 찾은 name을 모델명으로 사용한다고 가정
+			pEdit_Model->SetWindowText(info.name);
+
 			CString msg;
-			msg.Format(_T("There is no Matching Model Name"));
+			msg.Format(_T("DB 데이터와 일치!\nModel Num: %d\nPN: %s\nName: %s"),
+				info.modelNum, info.pn, info.name);
 			AfxMessageBox(msg);
-			return false;
+
+			// 4. 다음 작업 수행
+			COpBoxFusing Cof;
+			Cof.OnBnBcrScanFusing(info.name); // 모델명(info.name)으로 다음 작업 호출
+			return true;
 		}
 		else
 		{
-			COpBoxFusing Cof;
-			//Cof.OnBnClickedBtnFusing();
-			Cof.OnBnBcrScanFusing(Model_Name);
-			return true;
+			// 5. DB에 일치하는 데이터가 없는 경우
+			pEdit_Model->SetWindowText(_T("")); // 모델명 칸 비우기
+			AfxMessageBox(_T("DB에 일치하는 파트넘버가 없습니다."));
+			return false;
 		}
+
+		//CString Model_Name = OnCbnSelchangeCmbModelName(m_strKeyBuffer); //매칭
+		//pEdit_Model->SetWindowText(Model_Name);
+
+		//if (Model_Name == _T(""))
+		//{
+		//	CString msg;
+		//	msg.Format(_T("There is no Matching Model Name"));
+		//	AfxMessageBox(msg);
+		//	return false;
+		//}
+		//else
+		//{
+		//	COpBoxFusing Cof;
+		//	//Cof.OnBnClickedBtnFusing();
+		//	Cof.OnBnBcrScanFusing(Model_Name);
+		//	return true;
+		//}
 	}
 	else
 	{
@@ -2283,126 +2310,70 @@ void CTS_WR_HS_FUSINGDlg::UpdateModelTotal()
 	lpModelInfo->nVtotal = lpModelInfo->nVwidth + lpModelInfo->nVBP + lpModelInfo->nVFP + lpModelInfo->nVact;
 }
 
-// '연결 테스트' 버튼을 클릭했을 때 실행되는 함수
-void CTS_WR_HS_FUSINGDlg::OnBnClickedButton2()
+// .cpp 파일에 새 함수 구현
+BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 {
-	SQLHENV hEnv;
-	SQLHDBC hDbc;
-	SQLHSTMT hStmt;
+	BarcodeInfo result; // 반환할 결과 객체
+
+	// 1. ODBC 핸들 변수 선언
+	SQLHENV hEnv = NULL;
+	SQLHDBC hDbc = NULL;
+	SQLHSTMT hStmt = NULL;
 	SQLRETURN ret;
 
+	// 2. ODBC 환경 설정 및 DB 연결
 	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
 	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
 	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
 
-	// DSN 연결 (유니코드 버전으로 되돌립니다. SQLConnectW를 사용하므로 이게 맞습니다.)
 	ret = SQLConnectW(hDbc,
 		(SQLWCHAR*)L"OracleDB", SQL_NTS,
 		(SQLWCHAR*)L"system", SQL_NTS,
 		(SQLWCHAR*)L"1234", SQL_NTS);
 
+	// 3. 연결 성공 시 쿼리 실행
 	if (SQL_SUCCEEDED(ret)) {
-		AfxMessageBox(_T("DB Connect 성공"));
-
 		SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
-		// 유니코드 함수 SQLExecDirectW를 사용하므로 쿼리도 유니코드로 변경
 		SQLExecDirectW(hStmt, (SQLWCHAR*)L"SELECT MODEL_NUM, PN, NAME FROM BARCORD", SQL_NTS);
 
-		// 데이터를 담을 변수들을 선언합니다.
-		SQLINTEGER modelNum;
-		SQLCHAR pn[64];
-		SQLCHAR name[64];
+		SQLINTEGER modelNum_db;
+		SQLCHAR pn_db[64];
+		SQLCHAR name_db[64];
 
-		// 각 변수를 몇 번째 컬럼에 연결할지 지정합니다 (그릇 준비)
-		SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum, 0, NULL);
-		SQLBindCol(hStmt, 2, SQL_C_CHAR, pn, sizeof(pn), NULL);
-		SQLBindCol(hStmt, 3, SQL_C_CHAR, name, sizeof(name), NULL);
+		SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum_db, 0, NULL);
+		SQLBindCol(hStmt, 2, SQL_C_CHAR, pn_db, sizeof(pn_db), NULL);
+		SQLBindCol(hStmt, 3, SQL_C_CHAR, name_db, sizeof(name_db), NULL);
 
-		// ===== 이 부분이 핵심입니다! (음식 담기) =====
-		// SQLFetch를 호출하여 결과가 있을 때까지 반복합니다.
+		// 4. 결과를 한 줄씩 가져와서 입력받은 partNumber와 비교
 		while (SQLFetch(hStmt) == SQL_SUCCESS) {
-			// 가져온 데이터를 CString으로 변환하여 메시지 박스로 출력합니다.
-			CString strMessage;
-			strMessage.Format(_T("Model Num: %d\nPN: %s\nName: %s"),
-				modelNum,
-				CString(pn), // SQLCHAR*를 CString으로 변환
-				CString(name)); // SQLCHAR*를 CString으로 변환
-
-			AfxMessageBox(strMessage);
+			// DB에서 읽은 pn_db 값을 CString으로 변환하여 비교
+			if (partNumber == CString(pn_db))
+			{
+				// 일치하는 데이터를 찾았으면 결과 객체에 저장
+				result.modelNum = modelNum_db;
+				result.pn = CString(pn_db);
+				result.name = CString(name_db);
+				result.found = true; // 찾았다고 표시
+				break; // 루프 종료
+			}
 		}
-		// ===========================================
-
 		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	}
 	else {
-		AfxMessageBox(_T("DB Connect 실패"));
+		AfxMessageBox(_T("DB 연결에 실패했습니다."));
 	}
 
+	// 5. 연결 해제 및 핸들 정리
 	SQLDisconnect(hDbc);
 	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
 	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
 
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	return result; // 최종 결과 반환
+}
 
-	//SQLHENV hEnv = NULL;    // 환경 핸들
-	//SQLHDBC hDbc = NULL;    // 연결 핸들
-	//SQLHSTMT hStmt = NULL;  // 구문 핸들
-	//SQLRETURN ret;
-
-	//// 1. 환경 핸들 할당
-	//if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv)) {
-	//	AfxMessageBox(_T("환경 핸들을 할당할 수 없습니다."));
-	//	return;
-	//}
-	//SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, 0);
-
-	//// 2. 연결 핸들 할당
-	//if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc)) {
-	//	AfxMessageBox(_T("연결 핸들을 할당할 수 없습니다."));
-	//	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
-	//	return;
-	//}
-
-	//// 3. 데이터베이스 연결 (DSN 방식)
-	//// DSN 이름, 사용자 ID, 비밀번호를 SQLCHAR* 타입으로 변경
-	//SQLCHAR* dsnName = (SQLCHAR*)"OracleDB"; // 1단계에서 만든 DSN 이름
-	//SQLCHAR* userID = (SQLCHAR*)"system";
-	//SQLCHAR* password = (SQLCHAR*)"1234";
-
-	//ret = SQLConnect(hDbc, dsnName, SQL_NTS, userID, SQL_NTS, password, SQL_NTS);
-
-	//if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO) {
-	//	AfxMessageBox(_T("데이터베이스 연결에 실패했습니다. ODBC DSN 설정을 확인하세요."));
-	//	// 여기에 상세 오류 출력 코드를 추가할 수 있습니다.
-	//	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
-	//	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
-	//	return;
-	//}
-
-	//AfxMessageBox(_T("Oracle XE 연결 성공!"));
-
-	//// 4. 쿼리 실행
-	//SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
-	//SQLCHAR* query = (SQLCHAR*)"SELECT SYSDATE FROM dual";
-	//if (SQL_SUCCESS == SQLExecDirect(hStmt, query, SQL_NTS)) {
-
-	//	// 5. 결과 가져오기
-	//	SQLCHAR dbTime[30]; // 결과를 저장할 버퍼
-	//	SQLLEN indicator;
-
-	//	SQLBindCol(hStmt, 1, SQL_C_CHAR, dbTime, sizeof(dbTime), &indicator);
-
-	//	if (SQLFetch(hStmt) == SQL_SUCCESS) {
-	//		CString strTime(dbTime); // char*를 CString으로 변환
-	//		AfxMessageBox(_T("DB 시간: ") + strTime);
-	//	}
-	//}
-
-	//// 6. 모든 핸들 정리 및 연결 종료
-	//SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
-	//SQLDisconnect(hDbc);
-	//SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
-	//SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+//// '연결 테스트' 버튼을 클릭했을 때 실행되는 함수
+void CTS_WR_HS_FUSINGDlg::OnBnClickedButton2()
+{
 }
 
 

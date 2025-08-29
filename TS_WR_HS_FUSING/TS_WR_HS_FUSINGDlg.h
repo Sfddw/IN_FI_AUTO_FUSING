@@ -6,7 +6,13 @@
 #include "afxwin.h"
 #include "afxcmn.h"
 
-
+struct BarcodeInfo
+{
+	int modelNum = 0;
+	CString pn = _T("");
+	CString name = _T("");
+	bool found = false; // 데이터를 찾았는지 여부
+};
 
 
 // CTS_WR_HS_FUSINGDlg 대화 상자
@@ -65,7 +71,7 @@ public:
 	int execControlIOFusing(void);
 
 	bool funcBarcodeScan();
-
+	BarcodeInfo FindDataInDB(CString partNumber);
 	CStringArray modelList;
 
 protected:
