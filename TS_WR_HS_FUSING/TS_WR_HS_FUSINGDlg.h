@@ -12,6 +12,101 @@ struct BarcodeInfo
 	CString pn = _T("");
 	CString name = _T("");
 	bool found = false; // 데이터를 찾았는지 여부
+
+	// RESOLUTION
+	int PIXEL;
+	int SWAP;
+	float MCLK;
+	int H_TOTAL;
+	int H_WIDTH;
+	int H_ACTIVE;
+	int H_BP;
+	int H_FP;
+	int V_TOTAL;
+	int V_WIDTH;
+	int V_ACTIVE;
+	int V_BP;
+	int V_FP;
+
+	// INTERFACE
+	int SIGNAL_TYPE;
+	int SIGNAL_BIT;
+	int BIT_SEL;
+	int LVDS_SEL;
+	int DATA_FORMAT;
+	int PRE_EMPHASTS;
+	int DIV_MODE;
+	int COPEN_CHK;
+	int GPIO1;
+	int GPIO2;
+	int GPIO3;
+	int GPIO4; 
+	int GPIO5;
+	int GPIO6;
+	int GPIO7;
+	int GPIO8;
+
+	// POWER_SEQ
+	int SEQ_SELECTION;
+	int SEQ_TIME_1;
+	int SEQ_TIME_2;
+	int SEQ_TIME_3;
+	int SEQ_TIME_4;
+	int SEQ_OFF_DIN;
+
+	// POWER SET
+	float VCC;
+	float VDD;
+	float VBL;
+	float VCC_OFFSET;
+	float VBL_OFFSET;
+	float VBL2;
+	float VBL2_OFFSET;
+
+	// POWER_LIMIT
+
+	int ICC_LOW;
+	int IDD_LOW;
+	int IBL_LOW;
+	int ICC_HIGH;
+	int IDD_HIGH;
+	int IBL_HIGH;
+	float VCC_LOW;
+	float VDD_LOW;
+	float VBL_LOW;
+	float VCC_HIGH;
+	float VDD_HIGH;
+	float VBL_HIGH;
+	int IBL2_LOW;
+	int IBL2_HIGH;
+	float VBL2_LOW;
+	float VBL2_HIGH;
+
+	// FLICKER
+	int VCOM_MODE;
+	int VCOM_IC;
+	int VCOM_DEFAULT;
+	int VCOM_MIN;
+	int VCOM_MAX;
+	int VCOM_DEV_ADDR;
+	int VCOM_DATA_SIZE;
+	int VCOM_REG_ADDR;
+	int VCOM_CONTROL_ADDR;
+	int VCOM_WR_DATA;
+	int VCOM_RD_DATA;
+
+	// PTN00_NAME ~ PTN08_NAME
+	CString PTN00_NAME;
+	CString PTN01_NAME;
+	CString PTN02_NAME;
+	CString PTN03_NAME;
+	CString PTN04_NAME;
+	CString PTN05_NAME;
+	CString PTN06_NAME;
+	CString PTN07_NAME;
+	CString PTN08_NAME;
+
+
 };
 
 
@@ -72,6 +167,8 @@ public:
 
 	bool funcBarcodeScan();
 	BarcodeInfo FindDataInDB(CString partNumber);
+
+	bool InsertModelInfoToDB(const BarcodeInfo& info);
 	CStringArray modelList;
 
 protected:
@@ -237,9 +334,12 @@ public:
 	CString ctrlStrCnt2;
 	CString ctrlStrPwrId;
 
+	CString m_strFolderPath; // 폴더 경로
+
 	CString m_strKeyBuffer;
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnStnClickedLogo();
+	afx_msg void OnBnClickedBtnBrowse();
 };
 
 

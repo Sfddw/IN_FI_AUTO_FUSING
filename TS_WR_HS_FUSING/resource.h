@@ -157,6 +157,9 @@
 #define IDC_EDIT_PN                     1105
 #define IDC_EDIT_MODEL_NAME             1106
 #define IDC_BUTTON2                     1107
+#define IDC_EDIT_PN2                    1108
+#define IDC_EDIT_FOLDER                 1108
+#define IDC_BTN_BROWSE                  1109
 #define IDC_BTN_PAT_ADD                 1136
 #define IDC_BTN_PAT_DEL                 1137
 #define IDC_BTN_PAT_CHG                 1138

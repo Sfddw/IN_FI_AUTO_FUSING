@@ -146,42 +146,55 @@ static void Read_SysIniFile(char *lpTitle, char *lpKey, CString *szRetString)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, char *lpValue)
+static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, char *lpValue, const CString& folderPath)
 {
 	CString szModelPath;
+	CString szModelPath_FTP;
 
 	szModelPath.Format(_T(".\\Model\\%s.MOD"), lpModelName);
-	::WritePrivateProfileString(lpTitle, lpKey, lpValue, szModelPath);        
+	szModelPath_FTP.Format(_T("%s\\%s.MOD"), folderPath, lpModelName);
+	::WritePrivateProfileString(lpTitle, lpKey, lpValue, szModelPath);   
+	::WritePrivateProfileString(lpTitle, lpKey, lpValue, szModelPath_FTP);
 }
 
-static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, int ndata)
+static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, int ndata, const CString& folderPath)
 {
 	CString szData;
 	CString szModelPath;
+	CString szModelPath_FTP;
 
 	szData.Format(_T("%d"), ndata);
 	szModelPath.Format(_T(".\\Model\\%s.MOD"), lpModelName);
+	//szModelPath_FTP.Format(_T("Z:\\FTP_MODEL_INFO\\%s.MOD"), lpModelName);
+	szModelPath_FTP.Format(_T("%s\\%s.MOD"), folderPath, lpModelName);
 	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath);        
+	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath_FTP);
 }
 
-static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, long nData)
+static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, long nData, const CString& folderPath)
 {
 	CString szData;
 	CString szModelPath;
+	CString szModelPath_FTP;
 
 	szData.Format(_T("%d"), nData);
 	szModelPath.Format(_T(".\\Model\\%s.MOD"), lpModelName);
+	szModelPath_FTP.Format(_T("%s\\%s.MOD"), folderPath, lpModelName);
 	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath);        
+	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath_FTP);
 }
 
-static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, double fdata)
+static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, double fdata, const CString& folderPath)
 {
 	CString szData;
 	CString szModelPath;
+	CString szModelPath_FTP;
 
 	szData.Format(_T("%f"), fdata);
 	szModelPath.Format(_T(".\\Model\\%s.MOD"), lpModelName);
+	szModelPath_FTP.Format(_T("%s\\%s.MOD"), folderPath, lpModelName);
 	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath);        
+	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath_FTP);
 }
 
 static void Read_ModelFile(CString lpModelName, char *lpTitle, char *lpKey, CString *szRetString)

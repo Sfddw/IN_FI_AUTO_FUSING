@@ -229,6 +229,8 @@ void CTS_WR_HS_FUSINGDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MaxChars(pDX, ctrlStrCnt2, 2);
 	DDX_Text(pDX, IDC_EDT_STR_PWR_ID, ctrlStrPwrId);
 	DDV_MaxChars(pDX, ctrlStrPwrId, 2);
+
+	DDX_Text(pDX, IDC_EDIT_FOLDER, m_strFolderPath);
 }
 
 BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
@@ -257,6 +259,7 @@ BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_FLICKER, &CTS_WR_HS_FUSINGDlg::OnBnClickedButtonFlicker)
 	ON_BN_CLICKED(IDC_BUTTON2, &CTS_WR_HS_FUSINGDlg::OnBnClickedButton2)
 	ON_STN_CLICKED(IDC_LOGO, &CTS_WR_HS_FUSINGDlg::OnStnClickedLogo)
+	ON_BN_CLICKED(IDC_BTN_BROWSE, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnBrowse)
 END_MESSAGE_MAP()
 
 
@@ -364,9 +367,6 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 	}
 	if (pMsg->message == WM_KEYDOWN) // 키 입력 로직 추가
 	{
-		CString msg;
-		msg.Format(_T("key: %d, msg: %d, hwnd: 0x%08X"), pMsg->wParam, pMsg->message, (DWORD_PTR)pMsg->hwnd);
-		OutputDebugString(msg + _T("\n"));
 		switch (pMsg->wParam)
 		{
 		//case 'S':
@@ -390,7 +390,8 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 				m_strKeyBuffer.AppendChar(ch);
 			}
 		}
-		return TRUE;
+		//return TRUE;
+		return CDialog::PreTranslateMessage(pMsg);
 		}
 	}
 	else if (pMsg->message == WM_KEYUP)
@@ -606,6 +607,8 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSave() // 세이브 버튼 클릭
 	funcUpdateModel_List();
 
 	UpdateData(FALSE);
+
+	//SetDlgItemText(IDC_EDIT_FOLDER, "");
 
 }
 
@@ -1425,98 +1428,98 @@ void CTS_WR_HS_FUSINGDlg::funcSaveVariToModelFile(char *pModelName)
 	UpdateModelTotal();
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "RESOLUTION", "PIXEL",	lpModelInfo->nPixel);
-	Write_ModelFile(pModelName, "RESOLUTION", "SWAP",	lpModelInfo->nSwap);
-	Write_ModelFile(pModelName, "RESOLUTION", "MCLK",	lpModelInfo->fMclk);
+	Write_ModelFile(pModelName, "RESOLUTION", "PIXEL",	lpModelInfo->nPixel, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "SWAP",	lpModelInfo->nSwap, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "MCLK",	lpModelInfo->fMclk, m_strFolderPath);
 
-	Write_ModelFile(pModelName, "RESOLUTION", "H_TOTAL", lpModelInfo->nHtotal);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_WIDTH", lpModelInfo->nHwidth);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_ACTIVE", lpModelInfo->nHact);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_BP",	lpModelInfo->nHBP);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_FP",	lpModelInfo->nHFP);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_TOTAL", lpModelInfo->nHtotal, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_WIDTH", lpModelInfo->nHwidth, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_ACTIVE", lpModelInfo->nHact, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_BP",	lpModelInfo->nHBP, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_FP",	lpModelInfo->nHFP, m_strFolderPath);
 
-	Write_ModelFile(pModelName, "RESOLUTION", "V_TOTAL", lpModelInfo->nVtotal);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_WIDTH", lpModelInfo->nVwidth);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_ACTIVE", lpModelInfo->nVact);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_BP",	lpModelInfo->nVBP);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_FP",	lpModelInfo->nVFP);
-
-	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_TYPE",		lpModelInfo->nSigType);
-	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_BIT",		lpModelInfo->nSigBit);
-	Write_ModelFile(pModelName, "INTERFACE", "BIT_SEL",			lpModelInfo->nBitSel);
-	Write_ModelFile(pModelName, "INTERFACE", "LVDS_SEL",		lpModelInfo->nLvdsSel);
-	Write_ModelFile(pModelName, "INTERFACE", "DATA_FORMAT",		lpModelInfo->nDataFormat);
-	Write_ModelFile(pModelName, "INTERFACE", "PRE_EMPHASIS",	lpModelInfo->nPreEmph);
-	Write_ModelFile(pModelName, "INTERFACE", "DIV_MODE",		lpModelInfo->nDIVmode);
-	Write_ModelFile(pModelName, "INTERFACE", "COPEN_CHK",		lpModelInfo->nCopenChk);
-
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO1",	lpModelInfo->nGPIO[0]);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO2",	lpModelInfo->nGPIO[1]);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO3",	lpModelInfo->nGPIO[2]);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO4",	lpModelInfo->nGPIO[3]);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO5",	lpModelInfo->nGPIO[4]);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO6",	lpModelInfo->nGPIO[5]);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO7",	lpModelInfo->nGPIO[6]);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO8",	lpModelInfo->nGPIO[7]);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_TOTAL", lpModelInfo->nVtotal, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_WIDTH", lpModelInfo->nVwidth, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_ACTIVE", lpModelInfo->nVact, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_BP",	lpModelInfo->nVBP, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_FP",	lpModelInfo->nVFP, m_strFolderPath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_SELECTION",	lpModelInfo->nSeqSel);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_1",		lpModelInfo->nTSeq[0]);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_2",		lpModelInfo->nTSeq[1]);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_3",		lpModelInfo->nTSeq[2]);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_4",		lpModelInfo->nTSeq[3]);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_OFF_DIN",		lpModelInfo->nPowerSeqOffDinCount);
+	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_TYPE",		lpModelInfo->nSigType, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_BIT",		lpModelInfo->nSigBit, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "BIT_SEL",			lpModelInfo->nBitSel, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "LVDS_SEL",		lpModelInfo->nLvdsSel, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "DATA_FORMAT",		lpModelInfo->nDataFormat, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "PRE_EMPHASIS",	lpModelInfo->nPreEmph, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "DIV_MODE",		lpModelInfo->nDIVmode, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "COPEN_CHK",		lpModelInfo->nCopenChk, m_strFolderPath);
+
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO1",	lpModelInfo->nGPIO[0], m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO2",	lpModelInfo->nGPIO[1], m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO3",	lpModelInfo->nGPIO[2], m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO4",	lpModelInfo->nGPIO[3], m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO5",	lpModelInfo->nGPIO[4], m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO6",	lpModelInfo->nGPIO[5], m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO7",	lpModelInfo->nGPIO[6], m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO8",	lpModelInfo->nGPIO[7], m_strFolderPath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_SET", "VCC",		lpModelInfo->fPWR_SetVOLT[0]);
-	Write_ModelFile(pModelName, "POWER_SET", "VDD",		lpModelInfo->fPWR_SetVOLT[1]);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL",		lpModelInfo->fPWR_SetVOLT[2]);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL2",	lpModelInfo->fPWR_SetADD_VBL);
-
-	Write_ModelFile(pModelName, "POWER_SET", "VCC_OFFSET",	lpModelInfo->fPWR_OFFSET[0]);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL_OFFSET",	lpModelInfo->fPWR_OFFSET[1]);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL2_OFFSET",	lpModelInfo->fPWR_SetADD_CURR);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_SELECTION",	lpModelInfo->nSeqSel, m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_1",		lpModelInfo->nTSeq[0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_2",		lpModelInfo->nTSeq[1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_3",		lpModelInfo->nTSeq[2], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_4",		lpModelInfo->nTSeq[3], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_OFF_DIN",		lpModelInfo->nPowerSeqOffDinCount, m_strFolderPath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][0]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][1]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][2]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_LOW",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[0]);
+	Write_ModelFile(pModelName, "POWER_SET", "VCC",		lpModelInfo->fPWR_SetVOLT[0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "VDD",		lpModelInfo->fPWR_SetVOLT[1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL",		lpModelInfo->fPWR_SetVOLT[2], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL2",	lpModelInfo->fPWR_SetADD_VBL, m_strFolderPath);
 
-	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][0]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][1]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][2]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_HIGH",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[1]);
-
-	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][0]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][1]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][2]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_LOW",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[0]);
-
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][0]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][1]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][2]);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_HIGH",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[1]);
+	Write_ModelFile(pModelName, "POWER_SET", "VCC_OFFSET",	lpModelInfo->fPWR_OFFSET[0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL_OFFSET",	lpModelInfo->fPWR_OFFSET[1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL2_OFFSET",	lpModelInfo->fPWR_SetADD_CURR, m_strFolderPath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_MODE", lpModelInfo->nVcomMode);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_IC", lpModelInfo->nVcomIc);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEFAULT", lpModelInfo->nVcomDefValue);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_MIN", lpModelInfo->nVcomMinValue);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_MAX", lpModelInfo->nVcomMaxValue);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEV_ADDR", lpModelInfo->nVcomDevAddr);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_DATA_SIZE", lpModelInfo->nVcomDataSize);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_REG_ADDR", lpModelInfo->nVcomVolRegAddr);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_CONTROL_ADDR", lpModelInfo->nVcomNonVol_ControlAddr);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_WR_DATA", lpModelInfo->nVcomNonVol_WrData);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_RD_DATA", lpModelInfo->nVcomNonVol_RdData);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][2], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_LOW",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[0], m_strFolderPath);
+
+	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][2], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_HIGH",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[1], m_strFolderPath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_SET", "POWER_TYPE", lpModelInfo->nPowerType);
-	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT1", lpModelInfo->nStringCount[0]);
-	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT2", lpModelInfo->nStringCount[1]);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][2], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_LOW",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[0], m_strFolderPath);
+
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][2], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_HIGH",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[1], m_strFolderPath);
+
+	/**********************************************************************************************************/
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_MODE", lpModelInfo->nVcomMode, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_IC", lpModelInfo->nVcomIc, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEFAULT", lpModelInfo->nVcomDefValue, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_MIN", lpModelInfo->nVcomMinValue, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_MAX", lpModelInfo->nVcomMaxValue, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEV_ADDR", lpModelInfo->nVcomDevAddr, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_DATA_SIZE", lpModelInfo->nVcomDataSize, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_REG_ADDR", lpModelInfo->nVcomVolRegAddr, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_CONTROL_ADDR", lpModelInfo->nVcomNonVol_ControlAddr, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_WR_DATA", lpModelInfo->nVcomNonVol_WrData, m_strFolderPath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_RD_DATA", lpModelInfo->nVcomNonVol_RdData, m_strFolderPath);
+
+	/**********************************************************************************************************/
+	Write_ModelFile(pModelName, "POWER_SET", "POWER_TYPE", lpModelInfo->nPowerType, m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT1", lpModelInfo->nStringCount[0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT2", lpModelInfo->nStringCount[1], m_strFolderPath);
 
 	funcSavePAT_ModelFile(pModelName);
 }
@@ -1535,10 +1538,10 @@ void CTS_WR_HS_FUSINGDlg::funcSavePAT_ModelFile(char *pModelName)
 	for(nLoop=0; nLoop<16; nLoop++)
 	{
 		sprintf(szModKey, "PTN%02d_NAME", nLoop);
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "");
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "", m_strFolderPath);
 
 		sprintf(szModKey, "PTN%02d_GRAY", nLoop);
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "");
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "", m_strFolderPath);
 	}
 	
 	
@@ -1546,11 +1549,11 @@ void CTS_WR_HS_FUSINGDlg::funcSavePAT_ModelFile(char *pModelName)
 	{
 		sprintf(szModKey, "PTN%02d_NAME", nLoop);
 		m_LCctrlPtnView.GetItemText( nLoop, 0, (LPSTR)(LPCSTR)szPtnName, sizeof(szPtnName));
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnName);
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnName, m_strFolderPath);
 
 		sprintf(szModKey, "PTN%02d_GRAY", nLoop);
 		m_LCctrlPtnView.GetItemText( nLoop, 1, (LPSTR)(LPCSTR)szPtnGray, sizeof(szPtnGray));
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnGray);
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnGray, m_strFolderPath);
 	}
 
 	/* 첫번째 패턴을 저장 한다. */
@@ -2265,6 +2268,66 @@ void CTS_WR_HS_FUSINGDlg::UpdateModelTotal()
 }
 
 // .cpp 파일에 새 함수 구현
+//BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
+//{
+//	BarcodeInfo result; // 반환할 결과 객체
+//
+//	// 1. ODBC 핸들 변수 선언
+//	SQLHENV hEnv = NULL;
+//	SQLHDBC hDbc = NULL;
+//	SQLHSTMT hStmt = NULL;
+//	SQLRETURN ret;
+//
+//	// 2. ODBC 환경 설정 및 DB 연결
+//	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
+//	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+//	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
+//
+//	ret = SQLConnectW(hDbc,
+//		(SQLWCHAR*)L"OracleDB", SQL_NTS,
+//		(SQLWCHAR*)L"system", SQL_NTS,
+//		(SQLWCHAR*)L"1234", SQL_NTS);
+//
+//	// 3. 연결 성공 시 쿼리 실행
+//	if (SQL_SUCCEEDED(ret)) {
+//		SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+//		//SQLExecDirectW(hStmt, (SQLWCHAR*)L"SELECT * FROM BARCORD", SQL_NTS);
+//		SQLExecDirectW(hStmt, (SQLWCHAR*)L"SELECT ID, PN, MODEL_NAME FROM MODEL_INFO", SQL_NTS);
+//
+//		SQLINTEGER modelNum_db;
+//		SQLCHAR pn_db[64];
+//		SQLCHAR name_db[64];
+//
+//		SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum_db, 0, NULL);
+//		SQLBindCol(hStmt, 2, SQL_C_CHAR, pn_db, sizeof(pn_db), NULL);
+//		SQLBindCol(hStmt, 3, SQL_C_CHAR, name_db, sizeof(name_db), NULL);
+//
+//		// 4. 결과를 한 줄씩 가져와서 입력받은 partNumber와 비교
+//		while (SQLFetch(hStmt) == SQL_SUCCESS) {
+//			// DB에서 읽은 pn_db 값을 CString으로 변환하여 비교
+//			if (partNumber == CString(pn_db))
+//			{
+//				// 일치하는 데이터를 찾았으면 결과 객체에 저장
+//				result.modelNum = modelNum_db;
+//				result.pn = CString(pn_db);
+//				result.name = CString(name_db);
+//				result.found = true; // 찾았다고 표시
+//				break; // 루프 종료
+//			}
+//		}
+//		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+//	}
+//	else {
+//		AfxMessageBox(_T("DB 연결에 실패했습니다."));
+//	}
+//
+//	// 5. 연결 해제 및 핸들 정리
+//	SQLDisconnect(hDbc);
+//	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+//	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+//
+//	return result; // 최종 결과 반환
+//}
 BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 {
 	BarcodeInfo result; // 반환할 결과 객체
@@ -2288,29 +2351,32 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 	// 3. 연결 성공 시 쿼리 실행
 	if (SQL_SUCCEEDED(ret)) {
 		SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
-		SQLExecDirectW(hStmt, (SQLWCHAR*)L"SELECT MODEL_NUM, PN, NAME FROM BARCORD", SQL_NTS);
 
-		SQLINTEGER modelNum_db;
-		SQLCHAR pn_db[64];
-		SQLCHAR name_db[64];
+		// 3-1. partNumber를 쿼리에 포함
+		CStringW queryW;
+		queryW.Format(L"SELECT * FROM MODEL_INFO WHERE PN = '%s'", (LPCWSTR)CStringW(partNumber));
+		//queryW.Format(L"SELECT * FROM MODEL_INFO WHERE PN = 'EAJ65813801'");
 
-		SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum_db, 0, NULL);
-		SQLBindCol(hStmt, 2, SQL_C_CHAR, pn_db, sizeof(pn_db), NULL);
-		SQLBindCol(hStmt, 3, SQL_C_CHAR, name_db, sizeof(name_db), NULL);
+		ret = SQLExecDirectW(hStmt, (SQLWCHAR*)queryW.GetString(), SQL_NTS);
 
-		// 4. 결과를 한 줄씩 가져와서 입력받은 partNumber와 비교
-		while (SQLFetch(hStmt) == SQL_SUCCESS) {
-			// DB에서 읽은 pn_db 값을 CString으로 변환하여 비교
-			if (partNumber == CString(pn_db))
-			{
-				// 일치하는 데이터를 찾았으면 결과 객체에 저장
+		if (SQL_SUCCEEDED(ret)) {
+			SQLINTEGER modelNum_db;
+			SQLCHAR pn_db[64];
+			SQLCHAR name_db[64];
+
+			SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum_db, 0, NULL);
+			SQLBindCol(hStmt, 2, SQL_C_CHAR, pn_db, sizeof(pn_db), NULL);
+			SQLBindCol(hStmt, 3, SQL_C_CHAR, name_db, sizeof(name_db), NULL);
+
+			// 결과가 1건이면 가져옴
+			if (SQLFetch(hStmt) == SQL_SUCCESS) {
 				result.modelNum = modelNum_db;
 				result.pn = CString(pn_db);
 				result.name = CString(name_db);
-				result.found = true; // 찾았다고 표시
-				break; // 루프 종료
+				result.found = true;
 			}
 		}
+
 		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	}
 	else {
@@ -2322,12 +2388,87 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
 	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
 
-	return result; // 최종 결과 반환
+	return result;
+}
+
+bool CTS_WR_HS_FUSINGDlg::InsertModelInfoToDB(const BarcodeInfo& info)
+{
+	SQLHENV hEnv = NULL;
+	SQLHDBC hDbc = NULL;
+	SQLHSTMT hStmt = NULL;
+	SQLRETURN ret;
+
+	// 1. ODBC 환경 초기화
+	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
+	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
+
+	// 2. Oracle 연결
+	ret = SQLConnectW(hDbc,
+		(SQLWCHAR*)L"OracleDB", SQL_NTS,
+		(SQLWCHAR*)L"system", SQL_NTS,
+		(SQLWCHAR*)L"1234", SQL_NTS);
+
+	if (!SQL_SUCCEEDED(ret)) {
+		AfxMessageBox(_T("DB 연결 실패"));
+		SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+		SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+		return false;
+	}
+
+	// 3. Statement 핸들 생성
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+
+	// 4. INSERT 쿼리 문자열 작성 (간단한 예시로 고정된 값 사용)
+	CStringW queryW;
+	queryW.Format(
+		L"INSERT INTO MODEL_INFO (ID, PIXEL, SWAP, MCLK, H_TOTAL, H_WIDTH, H_ACTIVE, H_BP, H_FP, "
+		L"V_TOTAL, V_WIDTH, V_ACTIVE, V_BP, V_FP, SIGNAL_TYPE, SIGNAL_BIT, BIT_SEL, LVDS_SEL, DATA_FORMAT, "
+		L"PRE_EMPHASIS, DIV_MODE, COPEN_CHK, GPIO1, GPIO2, GPIO3, GPIO4, GPIO5, GPIO6, GPIO7, GPIO8, "
+		L"SEQ_SELECTION, SEQ_TIME_1, SEQ_TIME_2, SEQ_TIME_3, SEQ_TIME_4, SEQ_OFF_DIN, VCC, VDD, VBL, "
+		L"VCC_OFFSET, VBL_OFFSET, VBL2, VBL2_OFFSET, ICC_LOW, IDD_LOW, IBL_LOW, IBL2_LOW, ICC_HIGH, IDD_HIGH, "
+		L"IBL_HIGH, IBL2_HIGH, VCC_LOW, VDD_LOW, VBL_LOW, VBL2_LOW, VCC_HIGH, VDD_HIGH, VBL_HIGH, VBL2_HIGH, "
+		L"VCOM_MODE, VCOM_IC, VCOM_DEFAULT, VCOM_MIN, VCOM_MAX, VCOM_DEV_ADDR, VCOM_DATA_SIZE, VCOM_REG_ADDR, "
+		L"VCOM_CONTROL_ADDR, VCOM_WR_DATA, VCOM_RD_DATA, PTN00_NAME, PTN01_NAME, PTN02_NAME, PTN03_NAME, "
+		L"PTN04_NAME, PTN05_NAME, PTN06_NAME, PTN07_NAME, PTN08_NAME, PN, MODEL_NAME) "
+		L"VALUES (4, 3, 0, 594.000000, 4400, 160, 3840, 40, 360, 2250, 10, 2160, 30, 50, 1, 2, 0, 0, 0, 1, 0, 0, "
+		L"1, 1, 1, 1, 1, 1, 1, 1, 0, 10, 100, 300, 500, 11, 12.000000, 5.000000, 76.000000, 0.000000, 0.680000, "
+		L"76.000000, 0.680000, 0, 0, 0, 0, 2000, 500, 1000, 1000, 0.000000, 0.000000, 0.000000, 0.000000, "
+		L"14.000000, 7.000000, 200.000000, 200.000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "
+		L"'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+		L"GRAY_255", L"GRAY_200", L"GRAY_127", L"GRAY_64", L"GRAY_0",
+		L"RED", L"GREEN", L"BLUE", L"COMPLEX-K(HSE)",
+		(LPCWSTR)CStringW(info.pn), (LPCWSTR)CStringW(info.name)
+	);
+
+	// 5. SQL 실행
+
+	ret = SQLExecDirectW(hStmt, queryW.GetBuffer(), SQL_NTS);
+	queryW.ReleaseBuffer();
+
+	if (SQL_SUCCEEDED(ret)) {
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		SQLDisconnect(hDbc);
+		SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+		SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+		return true;
+	}
+	else {
+		AfxMessageBox(_T("INSERT 실패"));
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	SQLDisconnect(hDbc);
+	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+	return false;
 }
 
 //// '연결 테스트' 버튼을 클릭했을 때 실행되는 함수
 void CTS_WR_HS_FUSINGDlg::OnBnClickedButton2()
 {
+	/*BarcodeInfo bcr;
+	InsertModelInfoToDB(bcr);*/
 }
 
 
@@ -2335,4 +2476,28 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedButton2()
 void CTS_WR_HS_FUSINGDlg::OnStnClickedLogo()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnBrowse()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	BROWSEINFO bi = { 0 };
+	bi.lpszTitle = _T("폴더를 선택하세요");
+	bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
+
+	LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+
+	if (pidl != NULL)
+	{
+		TCHAR szPath[MAX_PATH];
+		if (SHGetPathFromIDList(pidl, szPath))
+		{
+			m_strFolderPath = szPath;
+
+			// UI에 경로 표시
+			SetDlgItemText(IDC_EDIT_FOLDER, m_strFolderPath);
+		}
+		CoTaskMemFree(pidl);
+	}
 }
