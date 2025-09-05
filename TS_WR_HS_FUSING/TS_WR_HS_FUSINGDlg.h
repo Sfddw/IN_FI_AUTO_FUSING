@@ -340,6 +340,7 @@ public:
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnStnClickedLogo();
 	afx_msg void OnBnClickedBtnBrowse();
+	afx_msg void OnBnClickedButtonSystem();
 };
 
 

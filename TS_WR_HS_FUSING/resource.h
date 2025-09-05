@@ -10,6 +10,7 @@
 #define IDD_SYSTEM_MENU                 134
 #define IDD_CHECK_MODELNAME             135
 #define IDD_SET_FLICKER                 137
+#define IDC_SET_SYSTEM                  143
 #define IDC_GRP_TIMMING                 1000
 #define IDC_GRP_SIGNAL                  1001
 #define IDC_GRP_PATTERN                 1002
@@ -72,6 +73,7 @@
 #define IDC_STT_MODEL_NAME_PATH         1047
 #define IDC_EDIT_MODELNAME_PATH         1048
 #define IDC_BTN_MODELFILE_PATH          1049
+#define IDC_EDIT_PATTERNNAME_PATH       1049
 #define IDC_STT_SYSTEM_MENU_TITLE       1050
 #define IDC_STT_CHECKING_MODEL_NAME_TITLE 1051
 #define IDC_STT_CUR_MODEL_NAME_TIT      1052
@@ -81,8 +83,12 @@
 #define IDC_STT_FUSING_STATUS_TIT       1054
 #define IDC_BUTTON1                     1054
 #define IDC_BUTTON_FLICKER              1054
+#define IDC_BUTTON_MODELCOPY_MOD        1054
 #define IDC_STT_FUSING_STATUS           1055
 #define IDC_COMBO_MODE                  1055
+#define IDC_BUTTON_SYSTEM               1055
+#define IDC_BUTTON_COPY_MOD2            1055
+#define IDC_BUTTON_PATTERNCOPY_MOD      1055
 #define IDC_COMBO_VCOM_IC               1056
 #define IDC_GRP_FUNCTION                1057
 #define IDC_COMBO_VCOM_IC2              1057
@@ -157,9 +163,14 @@
 #define IDC_EDIT_PN                     1105
 #define IDC_EDIT_MODEL_NAME             1106
 #define IDC_BUTTON2                     1107
-#define IDC_EDIT_PN2                    1108
 #define IDC_EDIT_FOLDER                 1108
 #define IDC_BTN_BROWSE                  1109
+#define IDOK                            1109
+#define IDC_EDIT_ORACLE_NAME            1110
+#define IDC_EDIT_USER_ID                1111
+#define IDC_EDIT_PASSWORD               1112
+#define IDC_BUTTON_MODEL_PATH           1115
+#define IDC_BUTTON_PATTERN_PATH         1116
 #define IDC_BTN_PAT_ADD                 1136
 #define IDC_BTN_PAT_DEL                 1137
 #define IDC_BTN_PAT_CHG                 1138
@@ -178,9 +189,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        141
+#define _APS_NEXT_RESOURCE_VALUE        145
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1108
+#define _APS_NEXT_CONTROL_VALUE         1116
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

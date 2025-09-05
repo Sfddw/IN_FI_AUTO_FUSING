@@ -11,6 +11,7 @@
 #include "CheckModelNAme.h"
 #include "SetFlicker.h"
 #include "VersionInfo.h"
+#include "CSetSystemDlg.h"
 
 #include <windows.h>
 #include <sql.h>
@@ -260,6 +261,7 @@ BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON2, &CTS_WR_HS_FUSINGDlg::OnBnClickedButton2)
 	ON_STN_CLICKED(IDC_LOGO, &CTS_WR_HS_FUSINGDlg::OnStnClickedLogo)
 	ON_BN_CLICKED(IDC_BTN_BROWSE, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnBrowse)
+	ON_BN_CLICKED(IDC_BUTTON_SYSTEM, &CTS_WR_HS_FUSINGDlg::OnBnClickedButtonSystem)
 END_MESSAGE_MAP()
 
 
@@ -2343,10 +2345,14 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
 	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
 
-	ret = SQLConnectW(hDbc,
+	/*ret = SQLConnectW(hDbc,
 		(SQLWCHAR*)L"OracleDB", SQL_NTS,
 		(SQLWCHAR*)L"system", SQL_NTS,
-		(SQLWCHAR*)L"1234", SQL_NTS);
+		(SQLWCHAR*)L"1234", SQL_NTS);*/
+	ret = SQLConnectW(hDbc,
+		(SQLWCHAR*)L"Oracle1523", SQL_NTS,
+		(SQLWCHAR*)L"system", SQL_NTS,
+		(SQLWCHAR*)L"4321", SQL_NTS);
 
 	// 3. 연결 성공 시 쿼리 실행
 	if (SQL_SUCCEEDED(ret)) {
@@ -2354,7 +2360,7 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 
 		// 3-1. partNumber를 쿼리에 포함
 		CStringW queryW;
-		queryW.Format(L"SELECT * FROM MODEL_INFO WHERE PN = '%s'", (LPCWSTR)CStringW(partNumber));
+		queryW.Format(L"SELECT GET_MODEL_NAME_BY_BARCODE('%s') FROM DUAL", (LPCWSTR)CStringW(partNumber));
 		//queryW.Format(L"SELECT * FROM MODEL_INFO WHERE PN = 'EAJ65813801'");
 
 		ret = SQLExecDirectW(hStmt, (SQLWCHAR*)queryW.GetString(), SQL_NTS);
@@ -2364,14 +2370,18 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 			SQLCHAR pn_db[64];
 			SQLCHAR name_db[64];
 
-			SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum_db, 0, NULL);
-			SQLBindCol(hStmt, 2, SQL_C_CHAR, pn_db, sizeof(pn_db), NULL);
-			SQLBindCol(hStmt, 3, SQL_C_CHAR, name_db, sizeof(name_db), NULL);
+			/*SQLBindCol(hStmt, 1, SQL_C_SLONG, &modelNum_db, 0, NULL);
+			SQLBindCol(hStmt, 2, SQL_C_CHAR, pn_db, sizeof(pn_db), NULL);*/
+			SQLBindCol(hStmt, 1, SQL_C_CHAR, name_db, sizeof(name_db), NULL);
 
 			// 결과가 1건이면 가져옴
-			if (SQLFetch(hStmt) == SQL_SUCCESS) {
+			/*if (SQLFetch(hStmt) == SQL_SUCCESS) {
 				result.modelNum = modelNum_db;
 				result.pn = CString(pn_db);
+				result.name = CString(name_db);
+				result.found = true;
+			}*/
+			if (SQLFetch(hStmt) == SQL_SUCCESS) {
 				result.name = CString(name_db);
 				result.found = true;
 			}
@@ -2499,5 +2509,16 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnBrowse()
 			SetDlgItemText(IDC_EDIT_FOLDER, m_strFolderPath);
 		}
 		CoTaskMemFree(pidl);
+	}
+}
+
+
+void CTS_WR_HS_FUSINGDlg::OnBnClickedButtonSystem()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CSetSystemDlg dlg;
+	if (dlg.DoModal() == IDOK)
+	{
+		
 	}
 }
