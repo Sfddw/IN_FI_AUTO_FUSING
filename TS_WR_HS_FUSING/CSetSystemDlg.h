@@ -23,12 +23,18 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
+	LPSYSTEMINFO	lpSysInfo;
+
+	virtual BOOL OnInitDialog();
+
 	CString m_strOracleName;
 	CString m_strUserID;
 	CString m_strPassword;
 
 	CString m_strModelFolderPath;
 	CString m_strPatternFolderPath;
+
+	CComboBox ctrlComPort;
 
 	virtual void OnOK();
 

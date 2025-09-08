@@ -265,6 +265,8 @@ BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
 END_MESSAGE_MAP()
 
 
+
+
 // CTS_WR_HS_FUSINGDlg 메시지 처리기
 LRESULT CTS_WR_HS_FUSINGDlg::OnRs232Receive1(WPARAM wParam, LPARAM lParam)
 {
@@ -291,6 +293,7 @@ BOOL CTS_WR_HS_FUSINGDlg::OnInitDialog()
 	//lpModelInfo	= new MODEL_INFO;
 	m_pApp = (CTS_WR_HS_FUSINGApp*)AfxGetApp();
 	lpModelInfo	= m_pApp->GetModelInfo();
+	lpSysInfo = m_pApp->GetSystemInfo();
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	initControl();
@@ -301,6 +304,8 @@ BOOL CTS_WR_HS_FUSINGDlg::OnInitDialog()
 	CVersionInfo::GetVersionInfo(version);
 	windowText.Append(version);
 	SetWindowTextA(windowText);
+
+	//SetTimer(10, 10000, NULL);
 
 	return FALSE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -354,7 +359,10 @@ void CTS_WR_HS_FUSINGDlg::OnTimer(UINT_PTR nIDEvent)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	if(nIDEvent == 10)
 	{
-
+		/*CString msg;
+		msg.Format(_T("There is no Matching Model Name"));
+		AfxMessageBox(msg);*/
+		OnBnClickedBtnPortOpen();
 	}
 
 	CDialog::OnTimer(nIDEvent);
@@ -1215,6 +1223,8 @@ void CTS_WR_HS_FUSINGDlg::initControl(void)
 {
 	fucAllPtnList();
 	fucAllModelList();
+
+	WriteInitFile(); // init txt 생성
 
 	fucInsertListColum();
 
@@ -2193,12 +2203,19 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 
 	UpdateData(TRUE);
 
-	nPortNum = ctrlComPort.GetCurSel();
+	//nPortNum = lpSysInfo->m_ComPort - 1;
 
-	if(m_pApp->cfgUart(nPortNum+1) == TRUE)
+	//if(m_pApp->cfgUart(nPortNum+1) == TRUE)
+	if(m_pApp->cfgUart(lpSysInfo->m_ComPort) == TRUE)
 	{//OK
-		strTemp.Format("COM%d, PORT OPEN OK.", nPortNum+1);
+		//strTemp.Format("COM%d, PORT OPEN OK.", nPortNum+1);
+		strTemp.Format("COM%d, PORT OPEN OK. ", lpSysInfo->m_ComPort);
 		AfxMessageBox(strTemp, MB_ICONINFORMATION|MB_OK);
+	}
+	else
+	{
+		/*strTemp.Format("NOT CONNECT COM%d PORT.", nPortNum + 1);
+		AfxMessageBox(strTemp, MB_ICONINFORMATION | MB_OK);*/
 	}
 }
 
@@ -2522,3 +2539,49 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedButtonSystem()
 		
 	}
 }
+
+void CTS_WR_HS_FUSINGDlg::WriteInitFile()
+{
+	// 1. INFO 폴더 경로
+	CString folderPath = _T(".\\INFO");
+
+	// 2. 파일 경로 설정
+	CString filePath = folderPath + _T("\\init.txt");
+
+	// 3. 이미 파일이 존재하면 아무 작업 없이 종료
+	if (GetFileAttributes(filePath) != INVALID_FILE_ATTRIBUTES)
+	{
+		// 파일이 이미 존재하므로 다시 쓰지 않음
+		Read_InitFile("SYSTEM", "PORT", &lpSysInfo->m_ComPort);
+		return;
+	}
+
+	// 4. INFO 폴더 존재 확인, 없으면 생성
+	if (GetFileAttributes(folderPath) == INVALID_FILE_ATTRIBUTES)
+	{
+		if (!CreateDirectory(folderPath, NULL))
+		{
+			AfxMessageBox(_T("INFO FOLDER CREATE FAIL"));
+			return;
+		}
+	}
+
+	// 5. 저장할 내용 구성
+	CString content;
+	content += _T("[SYSTEM]\r\n");
+	content += _T("PORT=1\r\n");
+
+	// 6. 파일 쓰기
+	CStdioFile file;
+	if (file.Open(filePath, CFile::modeCreate | CFile::modeWrite | CFile::typeText))
+	{
+		file.WriteString(content);
+		file.Close();
+	}
+	else
+	{
+		AfxMessageBox(_T("init.txt File Create Fail"));
+	}
+}
+
+

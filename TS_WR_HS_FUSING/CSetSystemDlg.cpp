@@ -5,6 +5,7 @@
 #include "TS_WR_HS_FUSING.h"
 #include "afxdialogex.h"
 #include "CSetSystemDlg.h"
+#include "TS_WR_HS_FUSINGDlg.h"
 
 
 // CSetSystemDlg 대화 상자
@@ -29,6 +30,61 @@ void CSetSystemDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_PASSWORD, m_strPassword);
     DDX_Text(pDX, IDC_EDIT_MODELNAME_PATH, m_strModelFolderPath);
     DDX_Text(pDX, IDC_EDIT_PATTERNNAME_PATH, m_strPatternFolderPath);
+    DDX_Control(pDX, IDC_CBOX_PORT, ctrlComPort);
+}
+
+BOOL CSetSystemDlg::OnInitDialog()
+{
+    CDialogEx::OnInitDialog();
+
+    lpSysInfo = m_pApp->GetSystemInfo();
+    int Com_Index;
+    if (lpSysInfo->m_ComPort == 1)
+    {
+        Com_Index = 0;
+    }
+    else if (lpSysInfo->m_ComPort == 2)
+    {
+        Com_Index = 1;
+    }
+    else if (lpSysInfo->m_ComPort == 3)
+    {
+        Com_Index = 2;
+    }
+    else if (lpSysInfo->m_ComPort == 4)
+    {
+        Com_Index = 3;
+    }
+    else if (lpSysInfo->m_ComPort == 5)
+    {
+        Com_Index = 4;
+    }
+    else if (lpSysInfo->m_ComPort == 6)
+    {
+        Com_Index = 5;
+    }
+    else if (lpSysInfo->m_ComPort == 7)
+    {
+        Com_Index = 6;
+    }
+    else if (lpSysInfo->m_ComPort == 8)
+    {
+        Com_Index = 7;
+    }
+    else if (lpSysInfo->m_ComPort == 9)
+    {
+        Com_Index = 8;
+    }
+    else if (lpSysInfo->m_ComPort == 10)
+    {
+        Com_Index = 9;
+    }
+
+
+    // 콤보박스 기본값: COM3
+    ctrlComPort.SetCurSel(Com_Index);  // 인덱스 2 → COM3
+
+    return TRUE;
 }
 
 
@@ -48,9 +104,20 @@ void CSetSystemDlg::OnOK()
 {
 	UpdateData(TRUE);
 
-	AfxMessageBox(_T("Oracle Info Saved:\n") + m_strOracleName + _T(", ") + m_strUserID + _T(", ") + m_strPassword);
+	/*AfxMessageBox(_T("Oracle Info Saved:\n") + m_strOracleName + _T(", ") + m_strUserID + _T(", ") + m_strPassword);
 
-	CDialogEx::OnOK();
+	CDialogEx::OnOK();*/
+    int result = AfxMessageBox(_T("저장하시겠습니까?"), MB_OKCANCEL | MB_ICONQUESTION);
+    int ComBoBox_Flag = 0;
+
+    if (result == 1)
+    {
+        // (선택사항) 저장 성공 메시지 출력
+        lpSysInfo->m_ComPort = ctrlComPort.GetCurSel() + 1;
+        Write_InitFile("SYSTEM", "PORT", lpSysInfo->m_ComPort);
+        // 다이얼로그 종료
+        CDialogEx::OnOK();
+    }
 }
 
 void CSetSystemDlg::OnBnClickedButtonSelModel()

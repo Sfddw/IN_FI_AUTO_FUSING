@@ -171,6 +171,8 @@
 #define IDC_EDIT_PASSWORD               1112
 #define IDC_BUTTON_MODEL_PATH           1115
 #define IDC_BUTTON_PATTERN_PATH         1116
+#define IDC_CBOX_PORT                   1117
+#define IDC_COMBO_COMPORT               1119
 #define IDC_BTN_PAT_ADD                 1136
 #define IDC_BTN_PAT_DEL                 1137
 #define IDC_BTN_PAT_CHG                 1138
@@ -189,9 +191,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        145
+#define _APS_NEXT_RESOURCE_VALUE        146
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1116
+#define _APS_NEXT_CONTROL_VALUE         1120
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

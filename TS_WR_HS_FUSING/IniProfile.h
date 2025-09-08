@@ -197,6 +197,16 @@ static void Write_ModelFile(char *lpModelName, char *lpTitle, char *lpKey, doubl
 	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath_FTP);
 }
 
+static void Write_InitFile(char* lpTitle, char* lpKey, int fdata)
+{
+	CString szData;
+	CString szModelPath;
+
+	szData.Format(_T("%d"), fdata);
+	szModelPath.Format(_T(".\\INFO\\init.txt"));
+	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath);
+}
+
 static void Read_ModelFile(CString lpModelName, char *lpTitle, char *lpKey, CString *szRetString)
 {
 	char wszData[100] = {0,};
@@ -298,6 +308,19 @@ static void Read_ModelFile(CString lpModelName, char *lpTitle, char *lpKey, doub
 	*pRetValue = atof(wszData);
 }
 
+/////////////////////////////////////////////////////////////////////////////
+static void Read_InitFile(char* lpTitle, char* lpKey, int *Port)
+{
+	CString szModelPath;
+	char wszData[100] = { 0, };
+
+
+	szModelPath.Format(_T(".\\INFO\\init.txt"));
+
+	::GetPrivateProfileString(lpTitle, lpKey, 0, wszData, sizeof(wszData), szModelPath);
+
+	*Port = atoi(wszData);
+}
 /////////////////////////////////////////////////////////////////////////////
 static void wchar_To_char(wchar_t* wszOrg, char* szConv)
 {

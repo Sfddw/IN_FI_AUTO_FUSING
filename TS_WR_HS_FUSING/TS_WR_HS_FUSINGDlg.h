@@ -149,6 +149,8 @@ public:
 	void funcUpdatePAT_List(void);
 	void funcUpdateModel_List(void);
 
+	void WriteInitFile(); // init 메모장 생성
+
 	/* Command Function */
 	int execGetVersionCheck(void);
 
@@ -174,6 +176,7 @@ public:
 protected:
 	CTS_WR_HS_FUSINGApp* m_pApp;
 	LPMODELINFO		lpModelInfo;
+	LPSYSTEMINFO	lpSysInfo;
 	
 	CComboBox* m_pComboInternal;
 	//CComboBox* m_pCmb1stPtn;		/* 2019.04.02. KSM. 1st 패턴 삭제. */
@@ -203,6 +206,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg LRESULT OnRs232Receive1(WPARAM wParam, LPARAM lParam);
+
 	DECLARE_MESSAGE_MAP()
 public:
 	CComboBox ctrlPgType;
