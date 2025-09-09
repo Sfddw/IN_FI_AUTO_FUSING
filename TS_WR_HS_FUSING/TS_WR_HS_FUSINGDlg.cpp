@@ -25,7 +25,7 @@
 // CTS_WR_HS_FUSINGDlg 대화 상자
 
 
-
+int St_flag = 0;
 
 CTS_WR_HS_FUSINGDlg::CTS_WR_HS_FUSINGDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CTS_WR_HS_FUSINGDlg::IDD, pParent)
@@ -305,7 +305,11 @@ BOOL CTS_WR_HS_FUSINGDlg::OnInitDialog()
 	windowText.Append(version);
 	SetWindowTextA(windowText);
 
-	//SetTimer(10, 10000, NULL);
+	OnBnClickedBtnPortOpen();
+
+	SetTimer(10, 1000, NULL);
+
+	//m_colorRs232Bg = RGB(0, 255, 0);
 
 	return FALSE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -359,10 +363,29 @@ void CTS_WR_HS_FUSINGDlg::OnTimer(UINT_PTR nIDEvent)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	if(nIDEvent == 10)
 	{
-		/*CString msg;
-		msg.Format(_T("There is no Matching Model Name"));
-		AfxMessageBox(msg);*/
-		OnBnClickedBtnPortOpen();
+		if (lpSysInfo->f_ComPort == true)
+		{
+			m_colorRs232Bg = RGB(0, 255, 0); // 초록색;
+			GetDlgItem(IDC_STATIC_RS232)->Invalidate();
+		}
+		else
+		{
+			m_colorRs232Bg = RGB(255, 0, 0);
+			GetDlgItem(IDC_STATIC_RS232)->Invalidate();
+		}
+
+		/*if (CheckOracleDBConnection())
+		{ 
+			AfxMessageBox(_T("DB 연결 성공!"));
+			m_colorMesBg = RGB(0, 255, 0);
+			GetDlgItem(IDC_STATIC_MES)->Invalidate();
+		}
+		else
+		{
+			AfxMessageBox(_T("DB 연결 실패..."));
+			m_colorMesBg = RGB(255, 0, 0);
+				GetDlgItem(IDC_STATIC_MES)->Invalidate();
+		}*/
 	}
 
 	CDialog::OnTimer(nIDEvent);
@@ -423,6 +446,33 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SetBkColor(COLOR_GRAY224);
 		pDC->SetTextColor(COLOR_BLUE);
 		return mHbr;
+	}
+
+	if (pWnd->GetDlgCtrlID() == IDC_STATIC_RS232)
+	{
+		pDC->SetBkColor(m_colorRs232Bg);
+
+		// 텍스트색도 함께 바꿀 수 있음 (선택)
+		if (m_colorRs232Bg == RGB(255, 0, 0))
+			pDC->SetTextColor(RGB(255, 255, 255)); // 빨간배경엔 흰글씨
+
+		// 브러시 반환 (배경용)
+		static CBrush brush;
+		brush.DeleteObject(); // 이전 브러시 제거
+		brush.CreateSolidBrush(m_colorRs232Bg); // 현재 색상으로 생성
+		return brush;
+	}
+	else if (pWnd->GetDlgCtrlID() == IDC_STATIC_MES)
+	{
+		pDC->SetBkColor(m_colorMesBg);
+
+		if (m_colorMesBg == RGB(255, 0, 0))
+			pDC->SetTextColor(RGB(255, 255, 255));
+
+		static CBrush brushMes;
+		brushMes.DeleteObject();
+		brushMes.CreateSolidBrush(m_colorMesBg);
+		return brushMes;
 	}
 
 	// TODO:  기본값이 적당하지 않으면 다른 브러시를 반환합니다.
@@ -2206,17 +2256,35 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 	//nPortNum = lpSysInfo->m_ComPort - 1;
 
 	//if(m_pApp->cfgUart(nPortNum+1) == TRUE)
-	if(m_pApp->cfgUart(lpSysInfo->m_ComPort) == TRUE)
+	//if(m_pApp->cfgUart(lpSysInfo->m_ComPort) == TRUE && lpSysInfo->f_ComPort == false)
+	if(m_pApp->cfgUart(lpSysInfo->m_ComPort))
 	{//OK
 		//strTemp.Format("COM%d, PORT OPEN OK.", nPortNum+1);
-		strTemp.Format("COM%d, PORT OPEN OK. ", lpSysInfo->m_ComPort);
-		AfxMessageBox(strTemp, MB_ICONINFORMATION|MB_OK);
+		/*strTemp.Format("COM%d, PORT OPEN OK. ", lpSysInfo->m_ComPort);
+		AfxMessageBox(strTemp, MB_ICONINFORMATION|MB_OK);*/
+		lpSysInfo->f_ComPort = true;
+		//m_colorRs232Bg = RGB(0, 255, 0);  // 초록색
+		//GetDlgItem(IDC_STATIC_RS232)->Invalidate();
 	}
 	else
 	{
+		/*m_colorRs232Bg = RGB(255, 0, 0);
+		GetDlgItem(IDC_STATIC_RS232)->Invalidate();*/
 		/*strTemp.Format("NOT CONNECT COM%d PORT.", nPortNum + 1);
 		AfxMessageBox(strTemp, MB_ICONINFORMATION | MB_OK);*/
 	}
+	if (CheckOracleDBConnection())
+		{
+			//AfxMessageBox(_T("DB 연결 성공!"));
+			m_colorMesBg = RGB(0, 255, 0);
+			GetDlgItem(IDC_STATIC_MES)->Invalidate();
+		}
+		else
+		{
+			//AfxMessageBox(_T("DB 연결 실패..."));
+			m_colorMesBg = RGB(255, 0, 0);
+				GetDlgItem(IDC_STATIC_MES)->Invalidate();
+		}
 }
 
 bool CTS_WR_HS_FUSINGDlg::OnBnClickedBcrPortOpen() // bcr 스캔시 포트 연결
@@ -2417,6 +2485,38 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 
 	return result;
 }
+
+bool CTS_WR_HS_FUSINGDlg::CheckOracleDBConnection()
+{
+	// 1. ODBC 핸들 변수 선언
+	SQLHENV hEnv = NULL;
+	SQLHDBC hDbc = NULL;
+	SQLRETURN ret;
+
+	// 2. ODBC 환경 설정 및 연결 시도
+	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
+	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
+
+	// 3. 연결 시도 (DSN, ID, PW는 실제 환경에 맞게 수정)
+	ret = SQLConnectW(hDbc,
+		(SQLWCHAR*)L"Oracle1523", SQL_NTS,
+		(SQLWCHAR*)L"system", SQL_NTS,
+		(SQLWCHAR*)L"4321", SQL_NTS);
+
+	bool isConnected = SQL_SUCCEEDED(ret);
+
+	// 4. 정리
+	if (isConnected)
+		SQLDisconnect(hDbc);
+
+	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+
+	return isConnected;
+}
+
+
 
 bool CTS_WR_HS_FUSINGDlg::InsertModelInfoToDB(const BarcodeInfo& info)
 {

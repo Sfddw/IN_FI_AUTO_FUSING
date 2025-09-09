@@ -1,2 +1,2 @@
 [SYSTEM]
-PORT=10
+PORT=2

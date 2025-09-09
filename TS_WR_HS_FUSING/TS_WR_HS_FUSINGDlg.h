@@ -169,6 +169,7 @@ public:
 
 	bool funcBarcodeScan();
 	BarcodeInfo FindDataInDB(CString partNumber);
+	bool CheckOracleDBConnection();
 
 	bool InsertModelInfoToDB(const BarcodeInfo& info);
 	CStringArray modelList;
@@ -229,6 +230,9 @@ public:
 	CComboBox ctrlIfLvSEL;
 	CComboBox ctrlIfDatForm;
 	CComboBox ctrlIfPreEmph;
+
+	COLORREF m_colorRs232Bg;
+	COLORREF m_colorMesBg;
 
 	CEdit ctrlTseq1;
 	CEdit ctrlTseq2;

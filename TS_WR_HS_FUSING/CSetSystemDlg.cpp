@@ -83,6 +83,7 @@ BOOL CSetSystemDlg::OnInitDialog()
 
     // 콤보박스 기본값: COM3
     ctrlComPort.SetCurSel(Com_Index);  // 인덱스 2 → COM3
+    lpSysInfo->c_ComPort = lpSysInfo->m_ComPort;
 
     return TRUE;
 }
@@ -116,6 +117,17 @@ void CSetSystemDlg::OnOK()
         lpSysInfo->m_ComPort = ctrlComPort.GetCurSel() + 1;
         Write_InitFile("SYSTEM", "PORT", lpSysInfo->m_ComPort);
         // 다이얼로그 종료
+        if (lpSysInfo->c_ComPort != lpSysInfo->m_ComPort)
+        {
+            lpSysInfo->f_ComPort = false;
+            if (m_pApp->cfgUart(lpSysInfo->m_ComPort) == TRUE && lpSysInfo->f_ComPort == false)
+            {//OK
+                CString strTemp;
+                strTemp.Format("COM%d, PORT OPEN OK. ", lpSysInfo->m_ComPort);
+                AfxMessageBox(strTemp, MB_ICONINFORMATION | MB_OK);
+                lpSysInfo->f_ComPort = true;
+            }
+        }
         CDialogEx::OnOK();
     }
 }

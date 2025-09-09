@@ -84,5 +84,7 @@ typedef struct{
 typedef struct{
 	CString m_sModelNamePath;
 	int m_ComPort = 0;
+	int c_ComPort = 0;
+	bool f_ComPort = false;
 }SYSTEMINFO, *LPSYSTEMINFO;
 
