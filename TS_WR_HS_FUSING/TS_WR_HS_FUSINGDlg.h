@@ -233,6 +233,8 @@ public:
 
 	COLORREF m_colorRs232Bg;
 	COLORREF m_colorMesBg;
+	COLORREF m_colorFusingStatus;
+	CEdit m_editSearch;
 
 	CEdit ctrlTseq1;
 	CEdit ctrlTseq2;
@@ -309,6 +311,11 @@ public:
 	afx_msg void OnCbnSelchangeCmbModelName();
 	afx_msg CString OnCbnSelchangeCmbModelName(CString Model_Name);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
+	CBrush m_Brush[COLOR_IDX_MAX];
+	CFont m_Font[FONT_IDX_MAX];
+	void Lf_InitColorBrush();
+
 	afx_msg void OnBnClickedBtnSaveas();
 	CComboBox ctrlGPIO1;
 	CComboBox ctrlGPIO2;
@@ -325,6 +332,8 @@ public:
 	CString strSeqOffDinCount;
 	afx_msg void OnBnClickedBtnFwUpdate();
 	CStatic CtrlLogo;
+	CStatic CtrlSelect;
+	CStatic CtrlSystem;
 	CComboBox ctrlCopenchk;
 	afx_msg void OnBnClickedBtnOpbox();
 	afx_msg void OnLvnItemchangedListPatview(NMHDR *pNMHDR, LRESULT *pResult);
@@ -349,6 +358,9 @@ public:
 	afx_msg void OnStnClickedLogo();
 	afx_msg void OnBnClickedBtnBrowse();
 	afx_msg void OnBnClickedButtonSystem();
+	afx_msg void OnBnClickedBtnSearch();
+	afx_msg void OnStnClickedPicSelect();
+	afx_msg void OnStnClickedPicSystem();
 };
 
 

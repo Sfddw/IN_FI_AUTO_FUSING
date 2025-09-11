@@ -28,6 +28,7 @@ void CSetSystemDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_ORACLE_NAME, m_strOracleName);
 	DDX_Text(pDX, IDC_EDIT_USER_ID, m_strUserID);
 	DDX_Text(pDX, IDC_EDIT_PASSWORD, m_strPassword);
+    DDX_Text(pDX, IDC_EDIT_MAIN_MODELPATH, m_strMainModelPath);
     DDX_Text(pDX, IDC_EDIT_MODELNAME_PATH, m_strModelFolderPath);
     DDX_Text(pDX, IDC_EDIT_PATTERNNAME_PATH, m_strPatternFolderPath);
     DDX_Control(pDX, IDC_CBOX_PORT, ctrlComPort);
@@ -96,6 +97,7 @@ BEGIN_MESSAGE_MAP(CSetSystemDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BUTTON_PATTERNCOPY_MOD, &CSetSystemDlg::OnBnClickedButtonPatternCopyMod)
     ON_BN_CLICKED(IDC_BUTTON_MODEL_PATH, &CSetSystemDlg::OnBnClickedButtonSelModel)
     ON_BN_CLICKED(IDC_BUTTON_PATTERN_PATH, &CSetSystemDlg::OnBnClickedButtonSelPattern)
+    ON_BN_CLICKED(IDC_BUTTON_SAVE_PATH, &CSetSystemDlg::OnBnClickedButtonSavePath)
 END_MESSAGE_MAP()
 
 
@@ -113,8 +115,9 @@ void CSetSystemDlg::OnOK()
 
     if (result == 1)
     {
+        lpSysInfo->m_sModelSavePath = m_strMainModelPath; // 파일 경로 저장
         // (선택사항) 저장 성공 메시지 출력
-        lpSysInfo->m_ComPort = ctrlComPort.GetCurSel() + 1;
+        lpSysInfo->m_ComPort = ctrlComPort.GetCurSel() + 1; // COM PORT 저장
         Write_InitFile("SYSTEM", "PORT", lpSysInfo->m_ComPort);
         // 다이얼로그 종료
         if (lpSysInfo->c_ComPort != lpSysInfo->m_ComPort)
@@ -272,4 +275,27 @@ void CSetSystemDlg::OnBnClickedButtonPatternCopyMod()
     CString msg;
     msg.Format(_T("총 %d개 .PDB 파일을 복사했습니다."), copiedCount);
     AfxMessageBox(msg);
+}
+
+void CSetSystemDlg::OnBnClickedButtonSavePath()
+{
+    // TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+    BROWSEINFO bi = { 0 };
+    TCHAR szDisplayName[MAX_PATH];
+    TCHAR szSelectedPath[MAX_PATH];
+
+    bi.hwndOwner = this->m_hWnd;
+    bi.lpszTitle = _T("복사할 대상 폴더를 선택하세요");
+    bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
+    bi.pszDisplayName = szDisplayName;
+
+    LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+    if (pidl != NULL)
+    {
+        if (SHGetPathFromIDList(pidl, szSelectedPath))
+        {
+            m_strMainModelPath = szSelectedPath;
+            UpdateData(FALSE); // Edit Control에 갱신
+        }
+    }
 }

@@ -121,6 +121,15 @@
     <Image Include="res\TS_WR_HS_FUSING.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\TEST.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\TEST(2).bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\System.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TS_WR_HS_FUSING.rc">

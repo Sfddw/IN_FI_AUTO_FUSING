@@ -468,6 +468,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\System.bmp" />
+    <Image Include="res\TEST(2).bmp" />
+    <Image Include="res\TEST.bmp" />
     <Image Include="res\timeSys_Logo.bmp" />
     <Image Include="res\TS_WR_HS_FUSING.ico" />
   </ItemGroup>

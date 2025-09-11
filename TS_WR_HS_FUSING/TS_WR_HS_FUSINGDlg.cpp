@@ -197,6 +197,7 @@ void CTS_WR_HS_FUSINGDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDT_MODEL, ctrlEdtModelName);
 	DDV_MaxChars(pDX, ctrlEdtModelName, 32);
 	DDX_Control(pDX, IDC_CMB_MODEL_NAME, ctrlSelModelName);
+	DDX_Control(pDX, IDC_EDT_MODELSEARCH, m_editSearch);
 	DDX_Control(pDX, IDC_CMB_GP1, ctrlGPIO1);
 	DDX_Control(pDX, IDC_CMB_GP2, ctrlGPIO2);
 	DDX_Control(pDX, IDC_CMB_GP3, ctrlGPIO3);
@@ -210,6 +211,8 @@ void CTS_WR_HS_FUSINGDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDT_SEQOFF_COUNT, strSeqOffDinCount);
 	DDV_MaxChars(pDX, strSeqOffDinCount, 2);
 	DDX_Control(pDX, IDC_LOGO, CtrlLogo);
+	DDX_Control(pDX, IDC_PIC_SELECT, CtrlSelect);
+	DDX_Control(pDX, IDC_PIC_SYSTEM, CtrlSystem);
 	DDX_Control(pDX, IDC_CMB_COPEN, ctrlCopenchk);
 	DDX_Text(pDX, IDC_EDT_SVBL2, ctrlEdtSVBL2);
 	DDV_MaxChars(pDX, ctrlEdtSVBL2, 5);
@@ -262,6 +265,9 @@ BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
 	ON_STN_CLICKED(IDC_LOGO, &CTS_WR_HS_FUSINGDlg::OnStnClickedLogo)
 	ON_BN_CLICKED(IDC_BTN_BROWSE, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnBrowse)
 	ON_BN_CLICKED(IDC_BUTTON_SYSTEM, &CTS_WR_HS_FUSINGDlg::OnBnClickedButtonSystem)
+	ON_BN_CLICKED(IDC_BTN_SEARCH, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch)
+	ON_STN_CLICKED(IDC_PIC_SELECT, &CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect)
+	ON_STN_CLICKED(IDC_PIC_SYSTEM, &CTS_WR_HS_FUSINGDlg::OnStnClickedPicSystem)
 END_MESSAGE_MAP()
 
 
@@ -306,6 +312,7 @@ BOOL CTS_WR_HS_FUSINGDlg::OnInitDialog()
 	SetWindowTextA(windowText);
 
 	OnBnClickedBtnPortOpen();
+	Lf_InitColorBrush();
 
 	SetTimer(10, 1000, NULL);
 
@@ -441,6 +448,21 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  여기서 DC의 특성을 변경합니다.
+
+	switch (nCtlColor)
+	{
+	case CTLCOLOR_STATIC:
+		/*if ((pWnd->GetDlgCtrlID() == IDC_STATIC)
+			|| pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT)*/
+		if ((pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT))
+		{
+			pDC->SetBkColor(COLOR_SKYBLUE);
+			pDC->SetTextColor(COLOR_BLACK);
+			return m_Brush[COLOR_IDX_SKYBLUE];
+		}
+	}
+
+
 	if ( GetDlgItem(IDC_EDT_MODEL)->GetSafeHwnd() == pWnd->m_hWnd )
 	{
 		pDC->SetBkColor(COLOR_GRAY224);
@@ -474,9 +496,59 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		brushMes.CreateSolidBrush(m_colorMesBg);
 		return brushMes;
 	}
+	else if (pWnd->GetDlgCtrlID() == IDC_EDIT_MODEL_NAME)
+	{
+		pDC->SetBkColor(m_colorFusingStatus);
+
+		if (m_colorFusingStatus == RGB(255, 0, 0))
+			pDC->SetTextColor(RGB(255, 255, 255));
+
+		static CBrush brushFusing;
+		brushFusing.DeleteObject();
+		brushFusing.CreateSolidBrush(m_colorFusingStatus);
+		return brushFusing;
+	}
 
 	// TODO:  기본값이 적당하지 않으면 다른 브러시를 반환합니다.
 	return hbr;
+}
+
+void CTS_WR_HS_FUSINGDlg::Lf_InitColorBrush()
+{
+	m_Brush[COLOR_IDX_USER_BACKGROUND].CreateSolidBrush(COLOR_USER_BACKGROUND);
+	m_Brush[COLOR_IDX_BLACK].CreateSolidBrush(COLOR_BLACK);
+	m_Brush[COLOR_IDX_WHITE].CreateSolidBrush(COLOR_WHITE);
+	m_Brush[COLOR_IDX_RED].CreateSolidBrush(COLOR_RED);
+	m_Brush[COLOR_IDX_RED128].CreateSolidBrush(COLOR_RED128);
+	m_Brush[COLOR_IDX_GREEN].CreateSolidBrush(COLOR_GREEN);
+	m_Brush[COLOR_IDX_GREEN128].CreateSolidBrush(COLOR_GREEN128);
+	m_Brush[COLOR_IDX_BLUE].CreateSolidBrush(COLOR_BLUE);
+	m_Brush[COLOR_IDX_BLUE128].CreateSolidBrush(COLOR_BLUE128);
+	m_Brush[COLOR_IDX_ORANGE].CreateSolidBrush(COLOR_ORANGE);
+	m_Brush[COLOR_IDX_YELLOW].CreateSolidBrush(COLOR_YELLOW);
+	m_Brush[COLOR_IDX_MAGENTA].CreateSolidBrush(COLOR_MAGENTA);
+	m_Brush[COLOR_IDX_VERDANT2].CreateSolidBrush(COLOR_VERDANT2);
+	m_Brush[COLOR_IDX_SKYBLUE].CreateSolidBrush(COLOR_SKYBLUE);
+	m_Brush[COLOR_IDX_JADEBLUE].CreateSolidBrush(COLOR_JADEBLUE);
+	m_Brush[COLOR_IDX_JADEGREEN].CreateSolidBrush(COLOR_JADEGREEN);
+	m_Brush[COLOR_IDX_BLUISH].CreateSolidBrush(COLOR_BLUISH);
+	m_Brush[COLOR_IDX_PURPLE].CreateSolidBrush(COLOR_PURPLE);
+	m_Brush[COLOR_IDX_LIGHT_GREEN].CreateSolidBrush(COLOR_LIGHT_GREEN);
+	m_Brush[COLOR_IDX_LIGHT_RED].CreateSolidBrush(COLOR_LIGHT_RED);
+	m_Brush[COLOR_IDX_LIGHT_YELLOW].CreateSolidBrush(COLOR_LIGHT_YELLOW);
+	m_Brush[COLOR_IDX_LIGHT_ORANGE].CreateSolidBrush(COLOR_LIGHT_ORANGE);
+	m_Brush[COLOR_IDX_DARK_RED].CreateSolidBrush(COLOR_DARK_RED);
+	m_Brush[COLOR_IDX_DARK_GREEN].CreateSolidBrush(COLOR_DARK_GREEN);
+	m_Brush[COLOR_IDX_DARK_BLUE].CreateSolidBrush(COLOR_DARK_BLUE);
+	m_Brush[COLOR_IDX_DARK_MAGENTA].CreateSolidBrush(COLOR_DARK_MAGENTA);
+	m_Brush[COLOR_IDX_DARK_ORANGE].CreateSolidBrush(COLOR_DARK_ORANGE);
+	m_Brush[COLOR_IDX_DARK_YELLOW].CreateSolidBrush(COLOR_DARK_YELLOW);
+	m_Brush[COLOR_IDX_GRAY96].CreateSolidBrush(COLOR_GRAY96);
+	m_Brush[COLOR_IDX_GRAY128].CreateSolidBrush(COLOR_GRAY128);
+	m_Brush[COLOR_IDX_GRAY159].CreateSolidBrush(COLOR_GRAY159);
+	m_Brush[COLOR_IDX_GRAY192].CreateSolidBrush(COLOR_GRAY192);
+	m_Brush[COLOR_IDX_GRAY224].CreateSolidBrush(COLOR_GRAY224);
+	m_Brush[COLOR_IDX_GRAY240].CreateSolidBrush(COLOR_GRAY240);
 }
 
 bool CTS_WR_HS_FUSINGDlg::funcBarcodeScan() // 바코드 스캔
@@ -609,6 +681,9 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 			msg.Format(_T("There is no Matching Model Name"));
 			AfxMessageBox(msg);
 
+			m_colorFusingStatus = RGB(255,0, 0);
+			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
+
 			return M_Name;
 		}
 		else
@@ -632,6 +707,9 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 
 			COpBoxFusing Op_Fusing;
 			Op_Fusing.OnBnBcrScanFusing(M_Name);
+
+			m_colorFusingStatus = RGB(0, 255, 0);
+			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
 
 			return M_Name;
 		}
@@ -672,34 +750,44 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSave() // 세이브 버튼 클릭
 
 }
 
+//void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnFusing()
+//{
+//	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+//
+//	//execGetVersionCheck();
+//
+//	OnBnClickedBtnSave();
+//
+//	if(m_pApp->m_b232Open == FALSE)
+//	{
+//		AfxMessageBox("Fusing FAIL. Comport is not Opened.", MB_ICONERROR|MB_OK);
+//		return;
+//	}
+//
+//	if(execSystemFusing() == 0)
+//	{
+//		/* 2019.04.02. KSM. 1st 패턴 삭제. */
+//		//Sleep(100);
+//		//exec1stPatternFusing();
+//
+//		Sleep(100);
+//		execPatternFusing();
+//
+//		Sleep(100);
+//		execControlIOFusing();
+//
+//		AfxMessageBox("Fusing Success.", MB_ICONINFORMATION|MB_OK);
+//	}
+//}
+
 void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnFusing()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
-	//execGetVersionCheck();
-
-	OnBnClickedBtnSave();
-
-	if(m_pApp->m_b232Open == FALSE)
-	{
-		AfxMessageBox("Fusing FAIL. Comport is not Opened.", MB_ICONERROR|MB_OK);
-		return;
-	}
-
-	if(execSystemFusing() == 0)
-	{
-		/* 2019.04.02. KSM. 1st 패턴 삭제. */
-		//Sleep(100);
-		//exec1stPatternFusing();
-
-		Sleep(100);
-		execPatternFusing();
-
-		Sleep(100);
-		execControlIOFusing();
-
-		AfxMessageBox("Fusing Success.", MB_ICONINFORMATION|MB_OK);
-	}
+	COpBoxFusing OpFusing;
+	CString modelText;
+	GetDlgItemText(IDC_EDT_MODEL, modelText);
+	OpFusing.OnBnBcrScanFusing(modelText);
 }
 
 
@@ -862,10 +950,14 @@ void CTS_WR_HS_FUSINGDlg::fuc1stPtnDataChange(void)
 
 void CTS_WR_HS_FUSINGDlg::fucDrawLogo(void)
 {
-	HBITMAP hbit;
+	HBITMAP hbit, tbit, sbit;
 	hbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_LOGO));
+	tbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_TEST));
+	sbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_SYSTEM));
 
 	CtrlLogo.SetBitmap(hbit);
+	CtrlSelect.SetBitmap(tbit);
+	CtrlSystem.SetBitmap(sbit);
 }
 
 
@@ -1266,6 +1358,30 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	mHbr = CreateSolidBrush(COLOR_GRAY224);
 	mFontH1.CreateFont(28, 10, 0, 0, 800, FALSE, FALSE, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Times New Roman");
 	GetDlgItem(IDC_EDT_MODEL)->SetFont(&mFontH1);
+
+	m_Font[0].CreateFont(150, 70, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[1].CreateFont(80, 35, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[2].CreateFont(50, 20, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[3].CreateFont(23, 10, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[4].CreateFont(21, 9, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[5].CreateFont(19, 8, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[6].CreateFont(17, 7, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[7].CreateFont(15, 6, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[8].CreateFont(13, 5, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	m_Font[9].CreateFont(11, 4, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
+	GetDlgItem(IDC_STATIC_RS232)->SetFont(&m_Font[6]);
+	GetDlgItem(IDC_STATIC_MES)->SetFont(&m_Font[6]);
+	GetDlgItem(IDC_STATIC_CONNECT)->SetFont(&m_Font[6]);
 }
 
 
@@ -1490,98 +1606,98 @@ void CTS_WR_HS_FUSINGDlg::funcSaveVariToModelFile(char *pModelName)
 	UpdateModelTotal();
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "RESOLUTION", "PIXEL",	lpModelInfo->nPixel, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "SWAP",	lpModelInfo->nSwap, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "MCLK",	lpModelInfo->fMclk, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "PIXEL",	lpModelInfo->nPixel, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "SWAP",	lpModelInfo->nSwap, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "MCLK",	lpModelInfo->fMclk, lpSysInfo->m_sModelSavePath);
 
-	Write_ModelFile(pModelName, "RESOLUTION", "H_TOTAL", lpModelInfo->nHtotal, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_WIDTH", lpModelInfo->nHwidth, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_ACTIVE", lpModelInfo->nHact, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_BP",	lpModelInfo->nHBP, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "H_FP",	lpModelInfo->nHFP, m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_TOTAL", lpModelInfo->nHtotal, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_WIDTH", lpModelInfo->nHwidth, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_ACTIVE", lpModelInfo->nHact, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_BP",	lpModelInfo->nHBP, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "H_FP",	lpModelInfo->nHFP, lpSysInfo->m_sModelSavePath);
 
-	Write_ModelFile(pModelName, "RESOLUTION", "V_TOTAL", lpModelInfo->nVtotal, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_WIDTH", lpModelInfo->nVwidth, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_ACTIVE", lpModelInfo->nVact, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_BP",	lpModelInfo->nVBP, m_strFolderPath);
-	Write_ModelFile(pModelName, "RESOLUTION", "V_FP",	lpModelInfo->nVFP, m_strFolderPath);
-
-	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_TYPE",		lpModelInfo->nSigType, m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_BIT",		lpModelInfo->nSigBit, m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "BIT_SEL",			lpModelInfo->nBitSel, m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "LVDS_SEL",		lpModelInfo->nLvdsSel, m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "DATA_FORMAT",		lpModelInfo->nDataFormat, m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "PRE_EMPHASIS",	lpModelInfo->nPreEmph, m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "DIV_MODE",		lpModelInfo->nDIVmode, m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "COPEN_CHK",		lpModelInfo->nCopenChk, m_strFolderPath);
-
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO1",	lpModelInfo->nGPIO[0], m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO2",	lpModelInfo->nGPIO[1], m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO3",	lpModelInfo->nGPIO[2], m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO4",	lpModelInfo->nGPIO[3], m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO5",	lpModelInfo->nGPIO[4], m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO6",	lpModelInfo->nGPIO[5], m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO7",	lpModelInfo->nGPIO[6], m_strFolderPath);
-	Write_ModelFile(pModelName, "INTERFACE", "GPIO8",	lpModelInfo->nGPIO[7], m_strFolderPath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_TOTAL", lpModelInfo->nVtotal, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_WIDTH", lpModelInfo->nVwidth, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_ACTIVE", lpModelInfo->nVact, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_BP",	lpModelInfo->nVBP, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "RESOLUTION", "V_FP",	lpModelInfo->nVFP, lpSysInfo->m_sModelSavePath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_SELECTION",	lpModelInfo->nSeqSel, m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_1",		lpModelInfo->nTSeq[0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_2",		lpModelInfo->nTSeq[1], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_3",		lpModelInfo->nTSeq[2], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_4",		lpModelInfo->nTSeq[3], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_OFF_DIN",		lpModelInfo->nPowerSeqOffDinCount, m_strFolderPath);
+	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_TYPE",		lpModelInfo->nSigType, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "SIGNAL_BIT",		lpModelInfo->nSigBit, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "BIT_SEL",			lpModelInfo->nBitSel, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "LVDS_SEL",		lpModelInfo->nLvdsSel, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "DATA_FORMAT",		lpModelInfo->nDataFormat, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "PRE_EMPHASIS",	lpModelInfo->nPreEmph, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "DIV_MODE",		lpModelInfo->nDIVmode, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "COPEN_CHK",		lpModelInfo->nCopenChk, lpSysInfo->m_sModelSavePath);
+
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO1",	lpModelInfo->nGPIO[0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO2",	lpModelInfo->nGPIO[1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO3",	lpModelInfo->nGPIO[2], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO4",	lpModelInfo->nGPIO[3], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO5",	lpModelInfo->nGPIO[4], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO6",	lpModelInfo->nGPIO[5], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO7",	lpModelInfo->nGPIO[6], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "INTERFACE", "GPIO8",	lpModelInfo->nGPIO[7], lpSysInfo->m_sModelSavePath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_SET", "VCC",		lpModelInfo->fPWR_SetVOLT[0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SET", "VDD",		lpModelInfo->fPWR_SetVOLT[1], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL",		lpModelInfo->fPWR_SetVOLT[2], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL2",	lpModelInfo->fPWR_SetADD_VBL, m_strFolderPath);
-
-	Write_ModelFile(pModelName, "POWER_SET", "VCC_OFFSET",	lpModelInfo->fPWR_OFFSET[0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL_OFFSET",	lpModelInfo->fPWR_OFFSET[1], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SET", "VBL2_OFFSET",	lpModelInfo->fPWR_SetADD_CURR, m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_SELECTION",	lpModelInfo->nSeqSel, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_1",		lpModelInfo->nTSeq[0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_2",		lpModelInfo->nTSeq[1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_3",		lpModelInfo->nTSeq[2], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_TIME_4",		lpModelInfo->nTSeq[3], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SEQ", "SEQ_OFF_DIN",		lpModelInfo->nPowerSeqOffDinCount, lpSysInfo->m_sModelSavePath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][1], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][2], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_LOW",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[0], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "VCC",		lpModelInfo->fPWR_SetVOLT[0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SET", "VDD",		lpModelInfo->fPWR_SetVOLT[1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL",		lpModelInfo->fPWR_SetVOLT[2], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL2",	lpModelInfo->fPWR_SetADD_VBL, lpSysInfo->m_sModelSavePath);
 
-	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][1], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][2], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_HIGH",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[1], m_strFolderPath);
-
-	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][1], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][2], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_LOW",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[0], m_strFolderPath);
-
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][1], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][2], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_HIGH",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_SET", "VCC_OFFSET",	lpModelInfo->fPWR_OFFSET[0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL_OFFSET",	lpModelInfo->fPWR_OFFSET[1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SET", "VBL2_OFFSET",	lpModelInfo->fPWR_SetADD_CURR, lpSysInfo->m_sModelSavePath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_MODE", lpModelInfo->nVcomMode, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_IC", lpModelInfo->nVcomIc, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEFAULT", lpModelInfo->nVcomDefValue, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_MIN", lpModelInfo->nVcomMinValue, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_MAX", lpModelInfo->nVcomMaxValue, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEV_ADDR", lpModelInfo->nVcomDevAddr, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_DATA_SIZE", lpModelInfo->nVcomDataSize, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_REG_ADDR", lpModelInfo->nVcomVolRegAddr, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_CONTROL_ADDR", lpModelInfo->nVcomNonVol_ControlAddr, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_WR_DATA", lpModelInfo->nVcomNonVol_WrData, m_strFolderPath);
-	Write_ModelFile(pModelName, "FLICKER", "VCOM_RD_DATA", lpModelInfo->nVcomNonVol_RdData, m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_LOW",	lpModelInfo->nPWR_currLIMIT[LIMIT_LOW][2], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_LOW",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[0], lpSysInfo->m_sModelSavePath);
+
+	Write_ModelFile(pModelName, "POWER_LIMIT", "ICC_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IDD_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL_HIGH",	lpModelInfo->nPWR_currLIMIT[LIMIT_HIGH][2], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "IBL2_HIGH",	lpModelInfo->nPWR_AddVBL_CurrLIMIT[1], lpSysInfo->m_sModelSavePath);
 
 	/**********************************************************************************************************/
-	Write_ModelFile(pModelName, "POWER_SET", "POWER_TYPE", lpModelInfo->nPowerType, m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT1", lpModelInfo->nStringCount[0], m_strFolderPath);
-	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT2", lpModelInfo->nStringCount[1], m_strFolderPath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_LOW",	lpModelInfo->fPWR_voltLIMIT[LIMIT_LOW][2], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_LOW",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[0], lpSysInfo->m_sModelSavePath);
+
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VCC_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VDD_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][1], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL_HIGH",	lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][2], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_LIMIT", "VBL2_HIGH",	lpModelInfo->fPWR_AddVBL_VoltLIMIT[1], lpSysInfo->m_sModelSavePath);
+
+	/**********************************************************************************************************/
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_MODE", lpModelInfo->nVcomMode, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_IC", lpModelInfo->nVcomIc, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEFAULT", lpModelInfo->nVcomDefValue, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_MIN", lpModelInfo->nVcomMinValue, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_MAX", lpModelInfo->nVcomMaxValue, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_DEV_ADDR", lpModelInfo->nVcomDevAddr, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_DATA_SIZE", lpModelInfo->nVcomDataSize, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_REG_ADDR", lpModelInfo->nVcomVolRegAddr, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_CONTROL_ADDR", lpModelInfo->nVcomNonVol_ControlAddr, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_WR_DATA", lpModelInfo->nVcomNonVol_WrData, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "FLICKER", "VCOM_RD_DATA", lpModelInfo->nVcomNonVol_RdData, lpSysInfo->m_sModelSavePath);
+
+	/**********************************************************************************************************/
+	Write_ModelFile(pModelName, "POWER_SET", "POWER_TYPE", lpModelInfo->nPowerType, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT1", lpModelInfo->nStringCount[0], lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT2", lpModelInfo->nStringCount[1], lpSysInfo->m_sModelSavePath);
 
 	funcSavePAT_ModelFile(pModelName);
 }
@@ -1600,10 +1716,10 @@ void CTS_WR_HS_FUSINGDlg::funcSavePAT_ModelFile(char *pModelName)
 	for(nLoop=0; nLoop<16; nLoop++)
 	{
 		sprintf(szModKey, "PTN%02d_NAME", nLoop);
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "", m_strFolderPath);
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "", lpSysInfo->m_sModelSavePath);
 
 		sprintf(szModKey, "PTN%02d_GRAY", nLoop);
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "", m_strFolderPath);
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, "", lpSysInfo->m_sModelSavePath);
 	}
 	
 	
@@ -1611,11 +1727,11 @@ void CTS_WR_HS_FUSINGDlg::funcSavePAT_ModelFile(char *pModelName)
 	{
 		sprintf(szModKey, "PTN%02d_NAME", nLoop);
 		m_LCctrlPtnView.GetItemText( nLoop, 0, (LPSTR)(LPCSTR)szPtnName, sizeof(szPtnName));
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnName, m_strFolderPath);
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnName, lpSysInfo->m_sModelSavePath);
 
 		sprintf(szModKey, "PTN%02d_GRAY", nLoop);
 		m_LCctrlPtnView.GetItemText( nLoop, 1, (LPSTR)(LPCSTR)szPtnGray, sizeof(szPtnGray));
-		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnGray, m_strFolderPath);
+		Write_ModelFile(pModelName, "FUSING_PATTERN", szModKey, szPtnGray, lpSysInfo->m_sModelSavePath);
 	}
 
 	/* 첫번째 패턴을 저장 한다. */
@@ -2281,7 +2397,7 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 		}
 		else
 		{
-			//AfxMessageBox(_T("DB 연결 실패..."));
+			AfxMessageBox(_T("DB Connect Fail"));
 			m_colorMesBg = RGB(255, 0, 0);
 				GetDlgItem(IDC_STATIC_MES)->Invalidate();
 		}
@@ -2685,3 +2801,76 @@ void CTS_WR_HS_FUSINGDlg::WriteInitFile()
 }
 
 
+
+
+void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString strSearch;
+	m_editSearch.GetWindowText(strSearch); // Edit Control에서 검색어 가져오기
+
+	if (strSearch.IsEmpty()) {
+		AfxMessageBox(_T("검색어를 입력하세요."));
+		return;
+	}
+
+	// ComboBox에서 항목 검색
+	int nCount = ctrlSelModelName.GetCount();
+	for (int i = 0; i < nCount; ++i)
+	{
+		CString strItem;
+		ctrlSelModelName.GetLBText(i, strItem); // i번째 아이템 텍스트 가져오기
+
+		if (strItem.Find(strSearch) != -1) // 대소문자 무시 비교
+		{
+			ctrlSelModelName.SetCurSel(i); // 해당 항목 선택
+			OnCbnSelchangeCmbModelName();
+			return;
+		}
+	}
+
+	// 검색 실패 시 메시지
+	AfxMessageBox(_T("일치하는 모델명이 없습니다."));
+}
+
+
+void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString strSearch;
+	m_editSearch.GetWindowText(strSearch); // Edit Control에서 검색어 가져오기
+
+	if (strSearch.IsEmpty()) {
+		AfxMessageBox(_T("검색어를 입력하세요."));
+		return;
+	}
+
+	// ComboBox에서 항목 검색
+	int nCount = ctrlSelModelName.GetCount();
+	for (int i = 0; i < nCount; ++i)
+	{
+		CString strItem;
+		ctrlSelModelName.GetLBText(i, strItem); // i번째 아이템 텍스트 가져오기
+
+		if (strItem.Find(strSearch) != -1) // 대소문자 무시 비교
+		{
+			ctrlSelModelName.SetCurSel(i); // 해당 항목 선택
+			OnCbnSelchangeCmbModelName();
+			return;
+		}
+	}
+
+	// 검색 실패 시 메시지
+	AfxMessageBox(_T("일치하는 모델명이 없습니다."));
+}
+
+
+void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSystem()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CSetSystemDlg dlg;
+	if (dlg.DoModal() == IDOK)
+	{
+
+	}
+}

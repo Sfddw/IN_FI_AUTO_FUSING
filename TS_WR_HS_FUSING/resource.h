@@ -11,6 +11,8 @@
 #define IDD_CHECK_MODELNAME             135
 #define IDD_SET_FLICKER                 137
 #define IDC_SET_SYSTEM                  143
+#define IDB_TEST                        152
+#define IDB_SYSTEM                      154
 #define IDC_GRP_TIMMING                 1000
 #define IDC_GRP_SIGNAL                  1001
 #define IDC_GRP_PATTERN                 1002
@@ -35,6 +37,7 @@
 #define IDC_BTN_CLOSE                   1021
 #define IDC_GRP_MODEL                   1022
 #define IDC_EDT_MODEL                   1023
+#define IDC_GRP_MODEL4                  1023
 #define IDC_BTN_SAVEAS                  1024
 #define IDC_STT_FILE_NAME               1024
 #define IDC_CMB_GP1                     1025
@@ -54,6 +57,7 @@
 #define IDC_BTN_PORT_OPEN               1034
 #define IDC_BTN_FW_UPDATE               1035
 #define IDC_LOGO                        1036
+#define IDC_LEGO                        1036
 #define IDC_CMB_BIT2                    1037
 #define IDC_CMB_COPEN                   1037
 #define IDC_LIST_SRC_MODEL              1037
@@ -61,20 +65,26 @@
 #define IDC_BTN_OPBOX                   1038
 #define IDC_STT_SRC_MOD                 1039
 #define IDC_GRP_COMMON                  1039
+#define IDC_BTN_SEARCH                  1039
 #define IDC_STT_FUSING_MOD              1040
 #define IDC_BTN_SYSTEM_MENU             1040
 #define IDC_GRP_VOLATILE                1040
 #define IDC_BTN_ADD                     1041
 #define IDC_GRP_NON_VOLATILE            1041
 #define IDC_BTN_DEL                     1042
+#define IDC_PIC_SELECT                  1042
 #define IDC_BTN_UP                      1043
+#define IDC_GRP_MODEL2                  1043
 #define IDC_BTN_DN                      1044
+#define IDC_GRP_MODEL3                  1044
 #define IDC_STT_FUSING_MSG              1045
+#define IDC_PIC_SYSTEM                  1045
 #define IDC_STT_MODEL_NAME_PATH         1047
 #define IDC_EDIT_MODELNAME_PATH         1048
 #define IDC_BTN_MODELFILE_PATH          1049
 #define IDC_EDIT_PATTERNNAME_PATH       1049
 #define IDC_STT_SYSTEM_MENU_TITLE       1050
+#define IDC_EDIT_MAIN_MODELPATH         1050
 #define IDC_STT_CHECKING_MODEL_NAME_TITLE 1051
 #define IDC_STT_CUR_MODEL_NAME_TIT      1052
 #define IDC_STT_HOST_MODEL_NAME_TIT     1052
@@ -167,14 +177,16 @@
 #define IDC_BTN_BROWSE                  1109
 #define IDOK                            1109
 #define IDC_EDIT_ORACLE_NAME            1110
+#define IDC_EDT_MODELSEARCH             1110
 #define IDC_EDIT_USER_ID                1111
 #define IDC_EDIT_PASSWORD               1112
 #define IDC_BUTTON_MODEL_PATH           1115
 #define IDC_BUTTON_PATTERN_PATH         1116
 #define IDC_CBOX_PORT                   1117
+#define IDC_BUTTON_SAVE_PATH            1118
 #define IDC_STATIC_RS232                1120
-#define IDC_STATIC_RS233                1121
 #define IDC_STATIC_MES                  1121
+#define IDC_STATIC_CONNECT              1122
 #define IDC_BTN_PAT_ADD                 1136
 #define IDC_BTN_PAT_DEL                 1137
 #define IDC_BTN_PAT_CHG                 1138
@@ -193,9 +205,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        146
+#define _APS_NEXT_RESOURCE_VALUE        155
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1121
+#define _APS_NEXT_CONTROL_VALUE         1124
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

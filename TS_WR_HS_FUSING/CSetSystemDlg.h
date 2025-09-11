@@ -31,6 +31,7 @@ protected:
 	CString m_strUserID;
 	CString m_strPassword;
 
+	CString m_strMainModelPath;
 	CString m_strModelFolderPath;
 	CString m_strPatternFolderPath;
 
@@ -44,4 +45,6 @@ protected:
 	afx_msg void OnBnClickedButtonPatternCopyMod();
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedButtonSavePath();
 };
