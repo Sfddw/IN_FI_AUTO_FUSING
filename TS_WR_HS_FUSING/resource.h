@@ -190,22 +190,75 @@
 #define IDC_STATIC_RS232                1120
 #define IDC_STATIC_MES                  1121
 #define IDC_STATIC_CONNECT              1122
+#define IDC_STATIC_CONNECT2             1124
+#define IDC_STATIC_CONNECT3             1125
 #define IDOK                            1126
 #define IDC_STT_UI_USERID_TITLE         1127
 #define IDC_STT_UI_IMAGE                1128
+#define IDC_STATIC11                    1129
+#define IDC_STATIC1                     1130
+#define IDC_STATIC2                     1131
+#define IDC_STATIC3                     1132
+#define IDC_STATIC4                     1133
+#define IDC_STATIC5                     1134
+#define IDC_STATIC6                     1135
 #define IDC_BTN_PAT_ADD                 1136
 #define IDC_BTN_PAT_DEL                 1137
 #define IDC_BTN_PAT_CHG                 1138
 #define IDC_BTN_PAT_UP                  1139
 #define IDC_BTN_PAT_DN                  1140
+#define IDC_STATIC7                     1141
+#define IDC_STATIC8                     1142
+#define IDC_STATIC9                     1143
+#define IDC_STATIC10                    1144
+#define IDC_STATIC12                    1145
+#define IDC_STATIC13                    1146
+#define IDC_STATIC14                    1147
+#define IDC_STATIC15                    1148
+#define IDC_STATIC16                    1149
 #define IDC_CMB_PAT_NAME                1150
 #define IDC_LIST_PATVIEW                1151
 #define IDC_CMB_MODEL_NAME              1152
 #define IDC_CMB_1ST_PTN                 1153
+#define IDC_STATIC17                    1154
+#define IDC_STATIC18                    1155
+#define IDC_STATIC19                    1156
 #define IDC_STT_PAT_NAME                1157
 #define IDC_STT_PAT_GRAY                1158
 #define IDC_STT_1ST_PTN                 1159
 #define IDC_STT_SEQOFF_DIN_CNT          1160
+#define IDC_STATIC20                    1161
+#define IDC_STATIC21                    1162
+#define IDC_STATIC22                    1163
+#define IDC_STATIC23                    1164
+#define IDC_STATIC24                    1165
+#define IDC_STATIC25                    1166
+#define IDC_STATIC26                    1167
+#define IDC_STATIC27                    1168
+#define IDC_STATIC28                    1169
+#define IDC_STATIC29                    1170
+#define IDC_STATIC30                    1171
+#define IDC_STATIC31                    1172
+#define IDC_STATIC32                    1173
+#define IDC_STATIC33                    1174
+#define IDC_STATIC34                    1175
+#define IDC_STATIC35                    1176
+#define IDC_STATIC36                    1177
+#define IDC_STATIC37                    1178
+#define IDC_STATIC38                    1179
+#define IDC_STATIC39                    1180
+#define IDC_STATIC40                    1181
+#define IDC_STATIC41                    1182
+#define IDC_STATIC42                    1183
+#define IDC_STATIC43                    1184
+#define IDC_STATIC44                    1185
+#define IDC_STATIC45                    1186
+#define IDC_STATIC46                    1187
+#define IDC_STATIC47                    1188
+#define IDC_STATIC48                    1189
+#define IDC_STATIC49                    1190
+#define IDC_STATIC50                    1191
+#define IDC_STATIC51                    1192
 
 // Next default values for new objects
 // 
@@ -213,7 +266,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        160
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1129
+#define _APS_NEXT_CONTROL_VALUE         1193
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
