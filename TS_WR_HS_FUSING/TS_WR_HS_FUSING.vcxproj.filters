@@ -57,6 +57,9 @@
     <ClCompile Include="CSetSystemDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CUSERDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CheckModelNAme.h">
@@ -113,6 +116,9 @@
     <ClInclude Include="CSetSystemDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="CUSERDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\timeSys_Logo.bmp">
@@ -128,6 +134,9 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="res\System.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bmp00005.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

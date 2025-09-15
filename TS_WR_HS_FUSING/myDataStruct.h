@@ -87,5 +87,6 @@ typedef struct{
 	int c_ComPort = 0;
 	bool f_ComPort = false;
 	CString m_sModelSavePath;
+	CString m_sUserID;
 }SYSTEMINFO, *LPSYSTEMINFO;
 

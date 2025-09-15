@@ -47,4 +47,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonSavePath();
+	afx_msg void OnBnClickedBtnFwUpdate();
+	afx_msg void OnBnClickedBtnOpbox();
 };

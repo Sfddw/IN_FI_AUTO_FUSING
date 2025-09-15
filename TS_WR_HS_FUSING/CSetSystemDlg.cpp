@@ -6,6 +6,8 @@
 #include "afxdialogex.h"
 #include "CSetSystemDlg.h"
 #include "TS_WR_HS_FUSINGDlg.h"
+#include "FWupdateDlg.h"
+#include "OpBoxFusing.h"
 
 
 // CSetSystemDlg 대화 상자
@@ -98,6 +100,8 @@ BEGIN_MESSAGE_MAP(CSetSystemDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BUTTON_MODEL_PATH, &CSetSystemDlg::OnBnClickedButtonSelModel)
     ON_BN_CLICKED(IDC_BUTTON_PATTERN_PATH, &CSetSystemDlg::OnBnClickedButtonSelPattern)
     ON_BN_CLICKED(IDC_BUTTON_SAVE_PATH, &CSetSystemDlg::OnBnClickedButtonSavePath)
+    ON_BN_CLICKED(IDC_BTN_FW_UPDATE, &CSetSystemDlg::OnBnClickedBtnFwUpdate)
+    ON_BN_CLICKED(IDC_BTN_OPBOX, &CSetSystemDlg::OnBnClickedBtnOpbox)
 END_MESSAGE_MAP()
 
 
@@ -298,4 +302,26 @@ void CSetSystemDlg::OnBnClickedButtonSavePath()
             UpdateData(FALSE); // Edit Control에 갱신
         }
     }
+}
+
+
+void CSetSystemDlg::OnBnClickedBtnFwUpdate()
+{
+    // TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+    if (m_pApp->m_b232Open == FALSE)
+    {
+        AfxMessageBox("Comport is not Opened.", MB_ICONERROR | MB_OK);
+        return;
+    }
+
+    CFWupdateDlg	dlg;
+    dlg.DoModal();
+}
+
+
+void CSetSystemDlg::OnBnClickedBtnOpbox()
+{
+    // TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+    COpBoxFusing	dlg;
+    dlg.DoModal();
 }

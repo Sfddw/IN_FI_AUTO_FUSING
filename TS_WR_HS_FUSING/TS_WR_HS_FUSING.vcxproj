@@ -312,6 +312,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CSetSystemDlg.cpp" />
+    <ClCompile Include="CUSERDlg.cpp" />
     <ClCompile Include="FWupdateDlg.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -386,6 +387,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CSetSystemDlg.h" />
+    <ClInclude Include="CUSERDlg.h" />
     <ClInclude Include="FWupdateDlg.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -468,6 +470,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bmp00005.bmp" />
     <Image Include="res\System.bmp" />
     <Image Include="res\TEST(2).bmp" />
     <Image Include="res\TEST.bmp" />

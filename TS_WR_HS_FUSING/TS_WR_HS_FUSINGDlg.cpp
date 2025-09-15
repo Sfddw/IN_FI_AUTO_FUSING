@@ -316,6 +316,15 @@ BOOL CTS_WR_HS_FUSINGDlg::OnInitDialog()
 
 	SetTimer(10, 1000, NULL);
 
+	if (lpSysInfo->m_sUserID == "PM")
+	{
+		GetDlgItem(IDC_BTN_SAVE)->EnableWindow(TRUE);
+	}
+	else
+	{
+		GetDlgItem(IDC_BTN_SAVE)->EnableWindow(FALSE);
+	}
+
 	//m_colorRs232Bg = RGB(0, 255, 0);
 
 	return FALSE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.

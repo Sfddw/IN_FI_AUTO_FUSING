@@ -2,6 +2,7 @@
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
 // TS_WR_HS_FUSING.rc에서 사용되고 있습니다.
 //
+#define IDC_BTN_LOGIN                   1
 #define IDD_TS_WR_HS_FUSING_DIALOG      102
 #define IDR_MAINFRAME                   128
 #define IDD_FW_UPDATE_DIALOG            130
@@ -13,6 +14,8 @@
 #define IDC_SET_SYSTEM                  143
 #define IDB_TEST                        152
 #define IDB_SYSTEM                      154
+#define IDB_BMP_USER_IMG                157
+#define IDD_USER_LOGIN                  158
 #define IDC_GRP_TIMMING                 1000
 #define IDC_GRP_SIGNAL                  1001
 #define IDC_GRP_PATTERN                 1002
@@ -40,6 +43,7 @@
 #define IDC_GRP_MODEL4                  1023
 #define IDC_BTN_SAVEAS                  1024
 #define IDC_STT_FILE_NAME               1024
+#define IDC_GRP_MODEL5                  1024
 #define IDC_CMB_GP1                     1025
 #define IDC_STT_HEX_NAME                1025
 #define IDC_CMB_GP2                     1026
@@ -175,7 +179,6 @@
 #define IDC_BUTTON2                     1107
 #define IDC_EDIT_FOLDER                 1108
 #define IDC_BTN_BROWSE                  1109
-#define IDOK                            1109
 #define IDC_EDIT_ORACLE_NAME            1110
 #define IDC_EDT_MODELSEARCH             1110
 #define IDC_EDIT_USER_ID                1111
@@ -187,6 +190,9 @@
 #define IDC_STATIC_RS232                1120
 #define IDC_STATIC_MES                  1121
 #define IDC_STATIC_CONNECT              1122
+#define IDOK                            1126
+#define IDC_STT_UI_USERID_TITLE         1127
+#define IDC_STT_UI_IMAGE                1128
 #define IDC_BTN_PAT_ADD                 1136
 #define IDC_BTN_PAT_DEL                 1137
 #define IDC_BTN_PAT_CHG                 1138
@@ -205,9 +211,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        155
+#define _APS_NEXT_RESOURCE_VALUE        160
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1124
+#define _APS_NEXT_CONTROL_VALUE         1129
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
