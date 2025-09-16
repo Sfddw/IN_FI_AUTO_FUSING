@@ -193,6 +193,7 @@
 #define IDC_STATIC_CONNECT2             1124
 #define IDC_STATIC_CONNECT3             1125
 #define IDOK                            1126
+#define IDC_STATIC_CONNECT4             1126
 #define IDC_STT_UI_USERID_TITLE         1127
 #define IDC_STT_UI_IMAGE                1128
 #define IDC_STATIC11                    1129
@@ -259,6 +260,8 @@
 #define IDC_STATIC49                    1190
 #define IDC_STATIC50                    1191
 #define IDC_STATIC51                    1192
+#define IDC_STATIC52                    1193
+#define IDC_STATIC53                    1194
 
 // Next default values for new objects
 // 
@@ -266,7 +269,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        160
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1193
+#define _APS_NEXT_CONTROL_VALUE         1195
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

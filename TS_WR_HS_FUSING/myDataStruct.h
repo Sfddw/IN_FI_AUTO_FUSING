@@ -79,6 +79,8 @@ typedef struct{
 	int nStringCount[2] = {6,6};
 	int nPowerId = 1;
 
+	bool f_AutoFusing = false;
+
 }MODEL_INFO, *LPMODELINFO;
 
 typedef struct{
@@ -88,5 +90,6 @@ typedef struct{
 	bool f_ComPort = false;
 	CString m_sModelSavePath;
 	CString m_sUserID;
+	bool f_AutoFusing = false;
 }SYSTEMINFO, *LPSYSTEMINFO;
 

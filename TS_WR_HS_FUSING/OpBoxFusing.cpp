@@ -456,14 +456,29 @@ int COpBoxFusing::execDelAllMod(void)
 	char szTemp[8]={0,};
 	int nResult=0;
 
+	CTS_WR_HS_FUSINGApp* pApp = (CTS_WR_HS_FUSINGApp*)AfxGetApp();
+	LPSYSTEMINFO lpSysInfo = pApp->GetSystemInfo();
+
 	memset(m_pApp->szRecvData, 0, sizeof(m_pApp->szRecvData));
+	if (lpSysInfo->f_AutoFusing == true)
+	{
+		if (m_pApp->PacketSend(CMD_CTRL_DELETE_ONE_MOD, (unsigned char*)szTemp, strlen(szTemp)) == TRUE)
+		{//OK
+			sscanf(&m_pApp->szRecvData[ProtocolData], "%01d", &nResult);
+			if (nResult != 0)		return (-1);
 
-	if(m_pApp->PacketSend(CMD_CTRL_DELETE_ALL_MOD, (unsigned char *)szTemp, strlen(szTemp)) == TRUE)
-	{//OK
-		sscanf(&m_pApp->szRecvData[ProtocolData], "%01d", &nResult);
-		if(nResult != 0)		return (-1);
+			return 0;
+		}
+	}
+	else
+	{
+		if (m_pApp->PacketSend(CMD_CTRL_DELETE_ALL_MOD, (unsigned char*)szTemp, strlen(szTemp)) == TRUE)
+		{//OK
+			sscanf(&m_pApp->szRecvData[ProtocolData], "%01d", &nResult);
+			if (nResult != 0)		return (-1);
 
-		return 0;
+			return 0;
+		}
 	}
 
 	return (-1);
@@ -1060,10 +1075,24 @@ int COpBoxFusing::execModelVoltCurrentFusing(void)
 
 	funcMakeModelVoltCurrentPacket(szFusingPacket);
 
-	if(m_pApp->PacketSend(CMD_CTRL_WRITE_FILE, (unsigned char *)szFusingPacket, strlen(szFusingPacket)) == TRUE)
+	CTS_WR_HS_FUSINGApp* pApp = (CTS_WR_HS_FUSINGApp*)AfxGetApp();
+	LPSYSTEMINFO lpSysInfo = pApp->GetSystemInfo();
+
+	if (lpSysInfo->f_AutoFusing == true)
 	{
-		sscanf(&m_pApp->szRecvData[ProtocolData], "%01d", &nResult);
-		if(nResult == 0)		return 0;
+		if (m_pApp->PacketSend(CMD_CTRL_WRITE_APPLY_FILE, (unsigned char*)szFusingPacket, strlen(szFusingPacket)) == TRUE)
+		{
+			sscanf(&m_pApp->szRecvData[ProtocolData], "%01d", &nResult);
+			if (nResult == 0)		return 0;
+		}
+	}
+	else
+	{
+		if (m_pApp->PacketSend(CMD_CTRL_WRITE_FILE, (unsigned char*)szFusingPacket, strlen(szFusingPacket)) == TRUE)
+		{
+			sscanf(&m_pApp->szRecvData[ProtocolData], "%01d", &nResult);
+			if (nResult == 0)		return 0;
+		}
 	}
 	
 	return (-1);
@@ -1163,6 +1192,8 @@ void COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 	CString strMsg = _T("");
 
 	lpModelInfo = new MODEL_INFO;
+
+	//TRACE("lpModelInfo address = %p, f_AutoFusing = %d\n", lpSysInfo, lpSysInfo->f_AutoFusing);
 
 	strcpy(szFusingModelList[0], Model_Name);
 

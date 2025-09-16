@@ -346,6 +346,7 @@ public:
 	afx_msg void OnBnClickedBtnSystemMenu();
 	afx_msg void OnBnClickedButtonFlicker();
 	void UpdateModelTotal();
+	void WriteLogFile(const CString& Log_Message);
 	CComboBox ctrlPwrType;
 	CString ctrlStrCnt1;
 	CString ctrlStrCnt2;

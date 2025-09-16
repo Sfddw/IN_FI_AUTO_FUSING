@@ -1,0 +1,9 @@
+[17:23:22] : Program Start! [OP MODE]
+[17:23:22] : Port[2] Connect
+[17:23:22] : MES SERVER Connect
+[17:23:28] : Barcode Scan P/N = [EAJ11111111]
+[17:23:28] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:23:28] : Scan Success
+[17:23:28] : Scanned model name = [14_HD430DQG-SLDA1]
+[17:23:28] : Model Matching Success
+[17:23:49] : Program Exit

@@ -351,6 +351,8 @@ enum PG_PIXEL
 #define CMD_CTRL_CREATE_FILE							0xC1
 #define CMD_CTRL_WRITE_FILE								0xC2
 #define CMD_CTRL_DELETE_ALL_MOD							0xC3
+#define CMD_CTRL_DELETE_ONE_MOD							0xC8
+#define CMD_CTRL_WRITE_APPLY_FILE						0xC9
 
 
 #define CMD_CTRL_GOTO_BOOT_DOWNLOAD 					0xF3

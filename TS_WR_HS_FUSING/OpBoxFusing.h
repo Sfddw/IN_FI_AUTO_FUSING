@@ -17,6 +17,7 @@ protected:
 
 	/*****************************************************/
 	LPMODELINFO		lpModelInfo;
+	LPSYSTEMINFO    lpSysInfo;
 
 	void funcLoadPAT_ModelFile(char *pModelName);
 	void funcLoadVariFromModelFile(char *pModelName);

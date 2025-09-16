@@ -302,6 +302,18 @@ BOOL CTS_WR_HS_FUSINGDlg::OnInitDialog()
 	lpModelInfo	= m_pApp->GetModelInfo();
 	lpSysInfo = m_pApp->GetSystemInfo();
 
+	if (lpSysInfo->m_sUserID == "PM")
+	{
+		GetDlgItem(IDC_BTN_SAVE)->EnableWindow(TRUE);
+
+		WriteLogFile(_T("Program Start! [PM MODE]"));
+	}
+	else
+	{
+		GetDlgItem(IDC_BTN_SAVE)->EnableWindow(FALSE);
+		WriteLogFile(_T("Program Start! [OP MODE]"));
+	}
+
 	// TODO: ¿©±â¿¡ Ãß°¡ ÃÊ±âÈ­ ÀÛ¾÷À» Ãß°¡ÇÕ´Ï´Ù.
 	initControl();
 
@@ -312,19 +324,12 @@ BOOL CTS_WR_HS_FUSINGDlg::OnInitDialog()
 	windowText.Append(version);
 	SetWindowTextA(windowText);
 
-	//OnBnClickedBtnPortOpen();
+	OnBnClickedBtnPortOpen();
 	Lf_InitColorBrush();
 
 	SetTimer(10, 1000, NULL);
 
-	if (lpSysInfo->m_sUserID == "PM")
-	{
-		GetDlgItem(IDC_BTN_SAVE)->EnableWindow(TRUE);
-	}
-	else
-	{
-		GetDlgItem(IDC_BTN_SAVE)->EnableWindow(FALSE);
-	}
+	
 
 	//m_colorRs232Bg = RGB(0, 255, 0);
 
@@ -464,7 +469,10 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	case CTLCOLOR_STATIC:
 		/*if ((pWnd->GetDlgCtrlID() == IDC_STATIC)
 			|| pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT)*/
-		if ((pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT))
+		if (((pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT || 
+			pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT2 ||
+			pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT3 ||
+			pWnd->GetDlgCtrlID() == IDC_STATIC_CONNECT4)))
 		{
 			pDC->SetBkColor(COLOR_SKYBLUE);
 			pDC->SetTextColor(COLOR_BLACK);
@@ -615,9 +623,16 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 
 	CString M_Name;
 
+	CString msg;
+	msg.Format(_T("Barcode Scan P/N = [%s]"), Model_Name);
+	WriteLogFile(msg);
+
 	BarcodeInfo info = FindDataInDB(Model_Name);
 
 	M_Name = info.name;
+
+	msg.Format(_T("Scanned model name = [%s]"), M_Name);
+	WriteLogFile(msg);
 
 	/*if (Model_Name == "EAJ64811801")
 	{
@@ -680,6 +695,10 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 			if (M_Name.Compare(modelList[i]) == 0)
 			{
 				bFound = true;
+
+				CString msg;
+				msg.Format(_T("Model Matching Success"));
+				WriteLogFile(msg);
 				break;
 			}
 		}
@@ -693,6 +712,9 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 
 			m_colorFusingStatus = RGB(255,0, 0);
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
+
+			msg.Format(_T("Model Matching Fail"));
+			WriteLogFile(msg);
 
 			return M_Name;
 		}
@@ -715,8 +737,10 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 			funcUpdatePAT_List();
 			UpdateData(FALSE);
 
+			//lpSysInfo->f_AutoFusing = true;
 			COpBoxFusing Op_Fusing;
 			Op_Fusing.OnBnBcrScanFusing(M_Name);
+			lpSysInfo->f_AutoFusing = false;
 
 			m_colorFusingStatus = RGB(0, 255, 0);
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
@@ -804,6 +828,8 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnFusing()
 void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnClose()
 {
 	// TODO: ¿©±â¿¡ ÄÁÆ®·Ñ ¾Ë¸² Ã³¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+
+	WriteLogFile(_T("Program Exit"));
 	CDialog::OnCancel();
 }
 
@@ -1421,6 +1447,8 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 
 	//////////////////
 	GetDlgItem(IDC_STATIC_CONNECT2)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STATIC_CONNECT3)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STATIC_CONNECT4)->SetFont(&m_Font[2]);
 	/// PG TIMMING //
 	GetDlgItem(IDC_GRP_TIMMING)->SetFont(&m_Font[2]);
 
@@ -1590,7 +1618,18 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	GetDlgItem(IDC_EDT_SEQOFF_COUNT)->SetFont(&m_Font[2]);
 	/////////////////////
 
+	// BARCODE SCAN
+	GetDlgItem(IDC_GRP_MODEL3)->SetFont(&m_Font[2]);
 
+	GetDlgItem(IDC_STATIC52)->SetFont(&m_Font[8]);
+	GetDlgItem(IDC_STATIC53)->SetFont(&m_Font[8]);
+	GetDlgItem(IDC_EDIT_PN)->SetFont(&m_Font[8]);
+	GetDlgItem(IDC_EDIT_MODEL_NAME)->SetFont(&m_Font[8]);
+	/////////////////////
+
+	// Title
+
+	/////////////////////
 
 
 	GetDlgItem(IDC_STATIC_RS232)->SetFont(&m_Font[6]);
@@ -2595,6 +2634,9 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 		lpSysInfo->f_ComPort = true;
 		//m_colorRs232Bg = RGB(0, 255, 0);  // ÃÊ·Ï»ö
 		//GetDlgItem(IDC_STATIC_RS232)->Invalidate();
+		CString msg;
+		msg.Format(_T("Port[%d] Connect"), lpSysInfo->m_ComPort);
+		WriteLogFile(msg);
 	}
 	else
 	{
@@ -2602,18 +2644,23 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 		GetDlgItem(IDC_STATIC_RS232)->Invalidate();*/
 		/*strTemp.Format("NOT CONNECT COM%d PORT.", nPortNum + 1);
 		AfxMessageBox(strTemp, MB_ICONINFORMATION | MB_OK);*/
+		CString msg;
+		msg.Format(_T("Port[%d] Fail"), lpSysInfo->m_ComPort);
+		WriteLogFile(msg);
 	}
 	if (CheckOracleDBConnection())
 		{
 			//AfxMessageBox(_T("DB ¿¬°á ¼º°ø!"));
 			m_colorMesBg = RGB(0, 255, 0);
 			GetDlgItem(IDC_STATIC_MES)->Invalidate();
+			WriteLogFile(_T("MES SERVER Connect"));
 		}
 		else
 		{
 			AfxMessageBox(_T("DB Connect Fail"));
 			m_colorMesBg = RGB(255, 0, 0);
 				GetDlgItem(IDC_STATIC_MES)->Invalidate();
+				WriteLogFile(_T("MES SERVER Fail"));
 		}
 }
 
@@ -2778,6 +2825,9 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 		queryW.Format(L"SELECT GET_MODEL_NAME_BY_BARCODE('%s') FROM DUAL", (LPCWSTR)CStringW(partNumber));
 		//queryW.Format(L"SELECT * FROM MODEL_INFO WHERE PN = 'EAJ65813801'");
 
+		CString msg = _T("Barcode Scan ") + CString(queryW);
+		WriteLogFile(msg);
+
 		ret = SQLExecDirectW(hStmt, (SQLWCHAR*)queryW.GetString(), SQL_NTS);
 
 		if (SQL_SUCCEEDED(ret)) {
@@ -2799,6 +2849,10 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 			if (SQLFetch(hStmt) == SQL_SUCCESS) {
 				result.name = CString(name_db);
 				result.found = true;
+
+				CString msg;
+				msg.Format(_T("Scan Success"));
+				WriteLogFile(msg);
 			}
 		}
 
@@ -2806,6 +2860,9 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 	}
 	else {
 		AfxMessageBox(_T("DB ¿¬°á¿¡ ½ÇÆÐÇß½À´Ï´Ù."));
+		CString msg;
+		msg.Format(_T("Scan DB Fail"));
+		WriteLogFile(msg);
 	}
 
 	// 5. ¿¬°á ÇØÁ¦ ¹× ÇÚµé Á¤¸®
@@ -3086,5 +3143,56 @@ void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSystem()
 	if (dlg.DoModal() == IDOK)
 	{
 
+	}
+}
+
+void CTS_WR_HS_FUSINGDlg::WriteLogFile(const CString& Log_Message)
+{
+	// 1. LOG Æú´õ °æ·Î
+	CString folderPath = _T(".\\LOG");
+
+	// 2. Æú´õ Á¸Àç È®ÀÎ, ¾øÀ¸¸é »ý¼º
+	if (GetFileAttributes(folderPath) == INVALID_FILE_ATTRIBUTES)
+	{
+		if (!CreateDirectory(folderPath, NULL))
+		{
+			AfxMessageBox(_T("LOG FOLDER CREATE FAIL"));
+			return;
+		}
+	}
+
+	// 3. ¿À´Ã ³¯Â¥ ÆÄÀÏ¸í ±¸¼º (¿¹: 20250215MLOG.txt)
+	CTime curTime = CTime::GetCurrentTime();
+	CString dateStr;
+	dateStr.Format(_T("%04d%02d%02dMLOG.txt"),
+		curTime.GetYear(),
+		curTime.GetMonth(),
+		curTime.GetDay());
+
+	CString filePath = folderPath + _T("\\") + dateStr;
+
+	// 4. ÇöÀç ½Ã°£ Æ÷¸Ë
+	CString timeStr;
+	timeStr.Format(_T("%02d:%02d:%02d"),
+		curTime.GetHour(),
+		curTime.GetMinute(),
+		curTime.GetSecond());
+
+	// 5. ·Î±× ¶óÀÎ ±¸¼º
+	CString logLine;
+	logLine.Format(_T("[%s] : %s\r\n"), timeStr, Log_Message);
+
+	// 6. ÆÄÀÏ¿¡ Append ¸ðµå·Î ¾²±â
+	CStdioFile file;
+	if (file.Open(filePath,
+		CFile::modeWrite | CFile::modeCreate | CFile::typeText | CFile::modeNoTruncate))
+	{
+		file.SeekToEnd(); // ±âÁ¸ ³»¿ë µÚ¿¡ ÀÌ¾î¾²±â
+		file.WriteString(logLine);
+		file.Close();
+	}
+	else
+	{
+		AfxMessageBox(_T("MLOG.txt File Open Fail"));
 	}
 }

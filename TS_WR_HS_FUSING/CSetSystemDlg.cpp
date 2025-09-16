@@ -3,11 +3,13 @@
 
 #include "stdafx.h"
 #include "TS_WR_HS_FUSING.h"
+#include "TS_WR_HS_FUSINGDlg.h"
 #include "afxdialogex.h"
 #include "CSetSystemDlg.h"
 #include "TS_WR_HS_FUSINGDlg.h"
 #include "FWupdateDlg.h"
 #include "OpBoxFusing.h"
+#include "CSetSystemDlg.h"
 
 
 // CSetSystemDlg 대화 상자
@@ -40,7 +42,9 @@ BOOL CSetSystemDlg::OnInitDialog()
 {
     CDialogEx::OnInitDialog();
 
+    m_pApp = (CTS_WR_HS_FUSINGApp*)AfxGetApp();
     lpSysInfo = m_pApp->GetSystemInfo();
+
     int Com_Index;
     if (lpSysInfo->m_ComPort == 1)
     {
