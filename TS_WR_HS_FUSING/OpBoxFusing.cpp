@@ -669,7 +669,25 @@ int COpBoxFusing::funcMakeSystemFusingPacket(char *pModelName, char *pszRtnPack)
 	int nLenPos=0;
 	float fClock=0;
 
-	strTmp.Format("%s", pModelName);
+	CString modelName(pModelName);
+
+	CString digits;
+
+	for (int i = 0; i < modelName.GetLength(); i++)
+	{
+		if (_istdigit(modelName[i]))   // 숫자면
+			digits += modelName[i];
+		else if (!digits.IsEmpty())
+			break; // 첫 숫자 구간 끝났으면 중단
+	}
+
+	// 결과 조합
+	if (!digits.IsEmpty())
+		digits.Format(_T("%s_%s"), digits, modelName);
+	else
+		digits = modelName;  // 숫자가 없으면 원본 그대로
+
+	strTmp.Format("%s", digits);
 	for(int n=strTmp.GetLength(); n< 30; n++)
 	{
 		strTmp.Insert(n, "*");

@@ -11,6 +11,7 @@ struct BarcodeInfo
 	int modelNum = 0;
 	CString pn = _T("");
 	CString name = _T("");
+	CString OpBox_Send_Name = _T("");
 	bool found = false; // 데이터를 찾았는지 여부
 
 	// RESOLUTION

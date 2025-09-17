@@ -1,0 +1,287 @@
+[10:10:06] : Program Start! [OP MODE]
+[10:10:06] : Port[2] Connect
+[10:10:07] : MES SERVER Connect
+[10:10:32] : Program Exit
+[11:14:09] : Program Start! [OP MODE]
+[11:14:09] : Port[2] Connect
+[11:14:09] : MES SERVER Connect
+[11:14:51] : Barcode Scan P/N = [EAJ64811801]
+[11:14:51] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ64811801') FROM DUAL
+[11:14:51] : Scan Success
+[11:14:51] : Scanned model name = [01_HC55EQH-SLHA1]
+[11:14:51] : Model Matching Success
+[11:16:03] : Barcode Scan P/N = [EAJ65288601]
+[11:16:04] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ65288601') FROM DUAL
+[11:16:04] : Scan Success
+[11:16:04] : Scanned model name = [07_HC430DUN-SLTL1(LGD)]
+[11:16:04] : Model Matching Success
+[11:17:02] : Program Exit
+[11:18:53] : Program Start! [OP MODE]
+[11:18:53] : Port[2] Connect
+[11:18:54] : MES SERVER Connect
+[11:19:02] : Barcode Scan P/N = [EAJ65329802]
+[11:19:02] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ65329802') FROM DUAL
+[11:19:02] : Scan Success
+[11:19:02] : Scanned model name = [04HC550DQG-SLXA1-A14X]
+[11:19:02] : Model Matching Success
+[11:19:43] : Program Exit
+[11:21:00] : Program Start! [OP MODE]
+[11:21:02] : Port[2] Connect
+[11:21:06] : MES SERVER Connect
+[11:21:16] : Barcode Scan P/N = [EAJ65740201]
+[11:21:17] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ65740201') FROM DUAL
+[11:21:17] : Scan Success
+[11:21:17] : Scanned model name = [09_HC430DUN-VKYL1_3(HKC)]
+[11:21:17] : Model Matching Success
+[11:22:18] : Program Exit
+[11:22:31] : Program Start! [OP MODE]
+[11:22:34] : Port[2] Connect
+[11:22:34] : MES SERVER Connect
+[11:22:38] : Barcode Scan P/N = [EAJ65740201]
+[11:22:38] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ65740201') FROM DUAL
+[11:22:38] : Scan Success
+[11:22:38] : Scanned model name = [09_HC430DUN-VKYL1_3(HKC)]
+[11:22:38] : Model Matching Success
+[11:23:39] : Program Start! [OP MODE]
+[11:23:39] : Port[2] Connect
+[11:23:39] : MES SERVER Connect
+[11:23:50] : Barcode Scan P/N = [EAJ65740101]
+[11:23:50] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ65740101') FROM DUAL
+[11:23:50] : Scan Success
+[11:23:50] : Scanned model name = [08_HC430DUN-SLXL(LGD)]
+[11:23:50] : Model Matching Success
+[11:24:05] : Barcode Scan P/N = [EAJ64811801]
+[11:24:05] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ64811801') FROM DUAL
+[11:24:05] : Scan Success
+[11:24:05] : Scanned model name = [01_HC55EQH-SLHA1]
+[11:24:05] : Model Matching Success
+[11:24:54] : Program Exit
+[11:55:32] : Program Start! [OP MODE]
+[11:55:32] : Port[2] Connect
+[11:55:36] : MES SERVER Fail
+[11:55:40] : Program Exit
+[11:55:56] : Program Start! [OP MODE]
+[11:56:01] : Port[2] Connect
+[11:56:02] : MES SERVER Connect
+[11:58:19] : Barcode Scan P/N = [EAJ55555555]
+[11:58:19] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ55555555') FROM DUAL
+[11:58:19] : Scan Success
+[11:58:19] : Scanned model name = [03_HC320DUN-ABXL1_3(BOE)]
+[11:58:19] : Model Matching Success
+[11:58:29] : Program Exit
+[12:00:16] : Program Start! [OP MODE]
+[12:00:17] : Port[2] Connect
+[12:00:20] : MES SERVER Connect
+[12:00:43] : Barcode Scan P/N = [EAJ5555555]
+[12:00:43] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ5555555') FROM DUAL
+[12:00:43] : Scanned model name = []
+[12:00:44] : Barcode Scan P/N = []
+[12:00:44] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('') FROM DUAL
+[12:00:44] : Scanned model name = []
+[12:00:49] : Barcode Scan P/N = [EAJ55555555]
+[12:00:49] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ55555555') FROM DUAL
+[12:00:49] : Scan Success
+[12:00:49] : Scanned model name = [03_HC320DUN-ABXL1_3(BOE)]
+[12:00:49] : Model Matching Success
+[12:01:12] : Program Exit
+[12:01:18] : Program Start! [OP MODE]
+[12:01:18] : Port[2] Connect
+[12:01:19] : MES SERVER Connect
+[12:01:24] : Barcode Scan P/N = [EAJ55555555]
+[12:01:24] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ55555555') FROM DUAL
+[12:01:24] : Scan Success
+[12:01:24] : Scanned model name = [03_HC320DUN-ABXL1_3(BOE)]
+[12:01:24] : Model Matching Success
+[12:02:15] : Program Exit
+[12:02:22] : Program Start! [OP MODE]
+[12:02:22] : Port[2] Connect
+[12:02:23] : MES SERVER Connect
+[12:02:45] : Barcode Scan P/N = [EAJ55555555]
+[12:02:46] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ55555555') FROM DUAL
+[12:02:46] : Scan Success
+[12:02:46] : Scanned model name = [03_HC320DUN-ABXL1_3(BOE)]
+[12:02:46] : Model Matching Success
+[12:03:25] : Barcode Scan P/N = [EAJ44444444]
+[12:03:26] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ44444444') FROM DUAL
+[12:03:26] : Scan Success
+[12:03:26] : Scanned model name = [02_HC320DXN-SLXL1(LGD)]
+[12:03:26] : Model Matching Success
+[13:12:31] : Program Exit
+[13:13:04] : Program Start! [OP MODE]
+[13:13:04] : Port[2] Connect
+[13:13:04] : MES SERVER Connect
+[13:13:11] : Barcode Scan P/N = [EAJ55555555]
+[13:13:11] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ55555555') FROM DUAL
+[13:13:11] : Scan Success
+[13:13:11] : Scanned model name = [03_HC320DUN-ABXL1_3(BOE)]
+[13:13:11] : Model Matching Success
+[13:13:16] : Barcode Scan P/N = []
+[13:13:17] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('') FROM DUAL
+[13:13:17] : Scanned model name = []
+[13:13:23] : Program Exit
+[13:15:12] : Program Start! [OP MODE]
+[13:15:12] : Port[2] Connect
+[13:15:13] : MES SERVER Connect
+[13:15:28] : Barcode Scan P/N = [EAJ33333333]
+[13:15:28] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ33333333') FROM DUAL
+[13:15:28] : Scan Success
+[13:15:28] : Scanned model name = [01_HC320DXN-VKKL1_3(HKC)]
+[13:15:29] : Model Matching Fail
+[13:15:36] : Barcode Scan P/N = [EAJ44444444]
+[13:15:36] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ44444444') FROM DUAL
+[13:15:36] : Scan Success
+[13:15:36] : Scanned model name = [02_HC320DXN-SLXL1(LGD)]
+[13:15:36] : Model Matching Success
+[13:15:57] : Barcode Scan P/N = [EAJ55555555]
+[13:15:59] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ55555555') FROM DUAL
+[13:15:59] : Scan Success
+[13:15:59] : Scanned model name = [03_HC320DUN-ABXL1_3(BOE)]
+[13:15:59] : Model Matching Success
+[13:17:56] : Barcode Scan P/N = [EAJ65740201]
+[13:18:04] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ65740201') FROM DUAL
+[13:18:04] : Scan Success
+[13:18:04] : Scanned model name = [09_HC430DUN-VKYL1_3(HKC)]
+[13:18:04] : Model Matching Success
+[13:19:00] : Barcode Scan P/N = [EAJ65329802]
+[13:19:00] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ65329802') FROM DUAL
+[13:19:00] : Scan Success
+[13:19:00] : Scanned model name = [04HC550DQG-SLXA1-A14X]
+[13:19:00] : Model Matching Success
+[13:20:29] : Barcode Scan P/N = [EAJ55555555]
+[13:20:29] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ55555555') FROM DUAL
+[13:20:29] : Scan Success
+[13:20:29] : Scanned model name = [03_HC320DUN-ABXL1_3(BOE)]
+[13:20:29] : Model Matching Success
+[13:24:15] : Barcode Scan P/N = []
+[17:29:54] : Program Start! [OP MODE]
+[17:29:54] : Port[2] Connect
+[17:29:56] : MES SERVER Connect
+[17:30:06] : Barcode Scan P/N = [EAJ11111111]
+[17:30:13] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:30:13] : Scan Success
+[17:34:49] : Program Start! [OP MODE]
+[17:34:49] : Port[2] Connect
+[17:34:50] : MES SERVER Connect
+[17:34:56] : Barcode Scan P/N = [EAJ22222222]
+[17:35:00] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ22222222') FROM DUAL
+[17:35:00] : Scan Success
+[17:37:31] : Program Start! [OP MODE]
+[17:37:31] : Port[2] Connect
+[17:37:32] : MES SERVER Connect
+[17:37:34] : Program Exit
+[17:40:29] : Program Start! [OP MODE]
+[17:40:29] : Port[2] Connect
+[17:40:30] : MES SERVER Connect
+[17:40:35] : Barcode Scan P/N = [EAJ11111111]
+[17:40:36] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:40:36] : Scan Success
+[17:40:36] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[17:40:36] : Model Matching Success
+[17:40:46] : Program Exit
+[17:41:11] : Program Start! [OP MODE]
+[17:41:11] : Port[2] Connect
+[17:41:12] : MES SERVER Connect
+[17:41:29] : Program Exit
+[17:42:12] : Program Start! [OP MODE]
+[17:42:12] : Port[2] Connect
+[17:42:13] : MES SERVER Connect
+[17:42:19] : Barcode Scan P/N = [EAJ11111111]
+[17:42:20] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:42:20] : Scan Success
+[17:43:47] : Program Start! [OP MODE]
+[17:43:47] : Port[2] Connect
+[17:43:48] : MES SERVER Connect
+[17:43:53] : Barcode Scan P/N = [EAJ11111111]
+[17:43:53] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:43:54] : Scan Success
+[17:43:58] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[17:43:58] : Model Matching Success
+[17:44:36] : Program Exit
+[17:44:44] : Program Start! [OP MODE]
+[17:44:44] : Port[2] Connect
+[17:44:45] : MES SERVER Connect
+[17:44:51] : Program Exit
+[17:45:19] : Program Start! [OP MODE]
+[17:45:19] : Port[2] Connect
+[17:45:20] : MES SERVER Connect
+[17:45:26] : Barcode Scan P/N = [EAJ11111111]
+[17:45:26] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:45:26] : Scan Success
+[17:45:26] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[17:45:28] : Model Matching Fail
+[17:45:37] : Program Exit
+[17:46:19] : Program Start! [OP MODE]
+[17:46:19] : Port[2] Connect
+[17:46:21] : MES SERVER Connect
+[17:46:26] : Barcode Scan P/N = [EAJ11111111]
+[17:46:26] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:46:27] : Scan Success
+[17:46:27] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[17:46:28] : Model Matching Fail
+[17:46:32] : Program Exit
+[17:46:55] : Program Start! [OP MODE]
+[17:46:56] : Port[2] Connect
+[17:46:56] : MES SERVER Connect
+[17:47:01] : Barcode Scan P/N = [EAJ11111111]
+[17:47:02] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:47:02] : Scan Success
+[17:47:02] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[17:47:02] : Model Matching Success
+[17:47:51] : Barcode Scan P/N = [EAJ11111111]
+[17:47:52] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:47:52] : Scan Success
+[17:47:52] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[17:47:52] : Model Matching Success
+[17:48:00] : Barcode Scan P/N = [EAJ22222222]
+[17:48:00] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ22222222') FROM DUAL
+[17:48:00] : Scan Success
+[17:48:01] : Scanned model name = [HC320DUN-ABXL1-91BXA]
+[17:48:01] : Model Matching Fail
+[17:48:05] : Barcode Scan P/N = [EAJ11111111]
+[17:48:06] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[17:48:06] : Scan Success
+[17:48:06] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[17:48:06] : Model Matching Success
+[17:59:12] : Program Exit
+[17:59:50] : Program Start! [OP MODE]
+[17:59:50] : Port[2] Connect
+[17:59:51] : MES SERVER Connect
+[17:59:59] : Barcode Scan P/N = [EAJ11111111]
+[18:00:01] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[18:00:01] : Scan Success
+[18:00:04] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[18:00:04] : Model Matching Success
+[18:02:33] : Program Start! [OP MODE]
+[18:02:33] : Port[2] Connect
+[18:02:34] : MES SERVER Connect
+[18:02:37] : Barcode Scan P/N = [EAJ11111111]
+[18:02:38] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[18:02:38] : Scan Success
+[18:02:41] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[18:02:41] : Model Matching Success
+[18:05:03] : Program Start! [OP MODE]
+[18:05:03] : Port[2] Connect
+[18:05:04] : MES SERVER Connect
+[18:05:09] : Barcode Scan P/N = [EAJ11111111]
+[18:05:10] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[18:05:10] : Scan Success
+[18:05:12] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[18:05:12] : Model Matching Success
+[18:11:55] : Program Start! [OP MODE]
+[18:11:55] : Port[2] Connect
+[18:11:55] : MES SERVER Connect
+[18:12:05] : Barcode Scan P/N = [EAJ11111111]
+[18:12:06] : Barcode Scan SELECT GET_MODEL_NAME_BY_BARCODE('EAJ11111111') FROM DUAL
+[18:12:06] : Scan Success
+[18:12:06] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[18:12:06] : Model Matching Success
+[18:14:52] : Program Exit
+[18:21:56] : Program Start! [OP MODE]
+[18:21:56] : Port[2] Connect
+[18:21:57] : MES SERVER Connect
+[18:22:13] : Barcode Scan P/N = [EAJ11111111]
+[18:22:13] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[18:22:13] : Scan Success
+[18:22:13] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[18:22:13] : Model Matching Success
+[18:22:21] : Program Exit

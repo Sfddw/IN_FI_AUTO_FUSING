@@ -631,6 +631,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 
 	M_Name = info.name;
 
+
 	msg.Format(_T("Scanned model name = [%s]"), M_Name);
 	WriteLogFile(msg);
 
@@ -739,6 +740,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 
 			//lpSysInfo->f_AutoFusing = true;
 			COpBoxFusing Op_Fusing;
+			//Op_Fusing.OnBnBcrScanFusing(info.OpBox_Send_Name);
 			Op_Fusing.OnBnBcrScanFusing(M_Name);
 			lpSysInfo->f_AutoFusing = false;
 
@@ -2812,7 +2814,8 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 		(SQLWCHAR*)L"system", SQL_NTS,
 		(SQLWCHAR*)L"1234", SQL_NTS);*/
 	ret = SQLConnectW(hDbc,
-		(SQLWCHAR*)L"Oracle1523", SQL_NTS,
+		/*(SQLWCHAR*)L"Oracle1523", SQL_NTS,*/
+		(SQLWCHAR*)L"OracleWifi", SQL_NTS,
 		(SQLWCHAR*)L"system", SQL_NTS,
 		(SQLWCHAR*)L"4321", SQL_NTS);
 
@@ -2822,8 +2825,9 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 
 		// 3-1. partNumber를 쿼리에 포함
 		CStringW queryW;
-		queryW.Format(L"SELECT GET_MODEL_NAME_BY_BARCODE('%s') FROM DUAL", (LPCWSTR)CStringW(partNumber));
 		//queryW.Format(L"SELECT * FROM MODEL_INFO WHERE PN = 'EAJ65813801'");
+		//queryW.Format(L"SELECT GET_MODEL_NAME_BY_BARCODE('%s') FROM DUAL", (LPCWSTR)CStringW(partNumber));
+		queryW.Format(L"SELECT FNC_RETURN_MODEL_BY_LCM('%s') FROM DUAL", (LPCWSTR)CStringW(partNumber));
 
 		CString msg = _T("Barcode Scan ") + CString(queryW);
 		WriteLogFile(msg);
@@ -2887,7 +2891,8 @@ bool CTS_WR_HS_FUSINGDlg::CheckOracleDBConnection()
 
 	// 3. 연결 시도 (DSN, ID, PW는 실제 환경에 맞게 수정)
 	ret = SQLConnectW(hDbc,
-		(SQLWCHAR*)L"Oracle1523", SQL_NTS,
+		//(SQLWCHAR*)L"Oracle1523", SQL_NTS,
+		(SQLWCHAR*)L"OracleWifi", SQL_NTS,
 		(SQLWCHAR*)L"system", SQL_NTS,
 		(SQLWCHAR*)L"4321", SQL_NTS);
 
