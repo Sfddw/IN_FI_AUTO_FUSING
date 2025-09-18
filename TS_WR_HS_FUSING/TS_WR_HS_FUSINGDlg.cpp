@@ -269,8 +269,6 @@ BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_SEARCH, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch)
 	ON_STN_CLICKED(IDC_PIC_SELECT, &CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect)
 	ON_STN_CLICKED(IDC_PIC_SYSTEM, &CTS_WR_HS_FUSINGDlg::OnStnClickedPicSystem)
-	ON_WM_LBUTTONDOWN()
-	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -3175,11 +3173,11 @@ void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSystem()
 	else
 		CtrlSystem.SetBitmap(hbit);
 
-	/*CSetSystemDlg dlg;
+	CSetSystemDlg dlg;
 	if (dlg.DoModal() == IDOK)
 	{
 
-	}*/
+	}
 }
 
 void CTS_WR_HS_FUSINGDlg::WriteLogFile(const CString& Log_Message)
@@ -3231,18 +3229,4 @@ void CTS_WR_HS_FUSINGDlg::WriteLogFile(const CString& Log_Message)
 	{
 		AfxMessageBox(_T("MLOG.txt File Open Fail"));
 	}
-}
-
-void CTS_WR_HS_FUSINGDlg::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	CRect rect;
-	CtrlSystem.GetWindowRect(&rect);
-	ScreenToClient(&rect);
-
-	if (rect.PtInRect(point))
-	{
-		CtrlSystem.SetBitmap(m_hBmpSystemPressed);
-	}
-
-	// 부모 클래스 기본 동작 호출
 }
