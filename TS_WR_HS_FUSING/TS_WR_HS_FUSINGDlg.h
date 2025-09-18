@@ -363,6 +363,9 @@ public:
 	afx_msg void OnBnClickedBtnSearch();
 	afx_msg void OnStnClickedPicSelect();
 	afx_msg void OnStnClickedPicSystem();
+
+	bool    m_bSystemClicked = false;
+	HBITMAP hbit, tbit, sbit;
 };
 
 

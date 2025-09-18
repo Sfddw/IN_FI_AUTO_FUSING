@@ -182,6 +182,8 @@
 #define IDC_EDIT_ORACLE_NAME            1110
 #define IDC_EDT_MODELSEARCH             1110
 #define IDC_EDIT_USER_ID                1111
+#define IDC_EDIT_MODEL_NAME2            1111
+#define IDC_EDIT_FUSING_STATUS          1111
 #define IDC_EDIT_PASSWORD               1112
 #define IDC_BUTTON_MODEL_PATH           1115
 #define IDC_BUTTON_PATTERN_PATH         1116

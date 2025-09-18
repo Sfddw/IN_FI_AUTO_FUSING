@@ -1,0 +1,428 @@
+[10:30:33] : Program Start! [OP MODE]
+[10:30:33] : Port[2] Connect
+[10:30:34] : MES SERVER Connect
+[10:30:42] : Barcode Scan P/N = [EAJ64811801]
+[10:30:43] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ64811801') FROM DUAL
+[10:30:43] : Scan Success
+[10:30:43] : Scanned model name = [HC430DQG-ABBAA-9145A]
+[10:30:44] : Model Matching Fail
+[10:30:58] : Barcode Scan P/N = [EAJ11111111]
+[10:30:58] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[10:30:58] : Scan Success
+[10:30:58] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[10:30:58] : Model Matching Success
+[10:31:42] : Barcode Scan P/N = [EAJ22222222]
+[10:31:43] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[10:31:43] : Scan Success
+[10:31:43] : Scanned model name = [HC320DUN-ABXL1-91BXA]
+[10:31:43] : Model Matching Fail
+[10:33:05] : Program Exit
+[10:34:03] : Program Start! [OP MODE]
+[10:34:03] : Port[2] Connect
+[10:34:03] : MES SERVER Connect
+[10:34:11] : Barcode Scan P/N = [EAJ11111111]
+[10:34:11] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[10:34:12] : Scan Success
+[10:34:12] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[10:34:12] : Model Matching Success
+[10:34:42] : Program Exit
+[10:37:25] : Program Start! [OP MODE]
+[10:37:25] : Port[2] Connect
+[10:37:26] : MES SERVER Connect
+[10:37:32] : Barcode Scan P/N = [EAJ33333333]
+[10:37:33] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ33333333') FROM DUAL
+[10:37:33] : Scan Success
+[10:37:33] : Scanned model name = [HC320DUN-ABXL2-91BX]
+[10:37:34] : Model Matching Fail
+[10:39:23] : Barcode Scan P/N = [EQRWER]
+[10:39:24] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EQRWER') FROM DUAL
+[10:39:24] : Scanned model name = []
+[10:39:30] : Barcode Scan P/N = [TEWQREWRQ]
+[10:39:31] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('TEWQREWRQ') FROM DUAL
+[10:39:31] : Scanned model name = []
+[10:39:34] : Barcode Scan P/N = [EAJ3333]
+[10:39:35] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ3333') FROM DUAL
+[10:39:35] : Scanned model name = []
+[10:39:40] : Barcode Scan P/N = [EAJ4444455555]
+[10:39:41] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ4444455555') FROM DUAL
+[10:39:41] : Scanned model name = []
+[10:39:45] : Barcode Scan P/N = [EAJ44445555]
+[10:39:45] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ44445555') FROM DUAL
+[10:39:45] : Scanned model name = []
+[10:40:01] : Barcode Scan P/N = [EAJ11112222]
+[10:40:02] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11112222') FROM DUAL
+[10:40:02] : Scanned model name = []
+[10:44:08] : Barcode Scan P/N = [EAJ11111111]
+[10:44:08] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[10:44:08] : Scan Success
+[10:44:08] : Scanned model name = [HC320DUN-ABXL1-91BX]
+[10:44:08] : Model Matching Success
+[10:44:14] : Barcode Scan P/N = [EAJ444435352]
+[10:44:14] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ444435352') FROM DUAL
+[10:44:14] : Scanned model name = []
+[10:48:12] : Program Exit
+[10:48:28] : Program Start! [OP MODE]
+[10:48:29] : Port[2] Connect
+[10:48:29] : MES SERVER Connect
+[10:48:36] : Barcode Scan P/N = [EAJ34243151]
+[10:48:36] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ34243151') FROM DUAL
+[10:48:36] : Scanned model name = []
+[10:48:40] : Program Exit
+[10:48:59] : Program Start! [OP MODE]
+[10:48:59] : Port[2] Connect
+[10:48:59] : MES SERVER Connect
+[10:49:07] : Barcode Scan P/N = [RWE]
+[10:49:07] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('RWE') FROM DUAL
+[10:49:07] : Scanned model name = []
+[10:49:25] : Barcode Scan P/N = [EAJ12312312312]
+[10:49:56] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ12312312312') FROM DUAL
+[10:49:56] : Scanned model name = []
+[10:50:53] : Barcode Scan P/N = [EAJ123123]
+[10:51:26] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ123123') FROM DUAL
+[10:51:41] : Scanned model name = []
+[10:52:17] : Program Start! [OP MODE]
+[10:52:17] : Port[2] Connect
+[10:52:18] : MES SERVER Connect
+[10:52:21] : Barcode Scan P/N = [EAJ12312312]
+[10:52:22] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ12312312') FROM DUAL
+[10:52:22] : Scanned model name = []
+[10:53:21] : Program Exit
+[10:58:11] : Program Start! [OP MODE]
+[10:58:11] : Port[2] Connect
+[10:58:11] : MES SERVER Connect
+[10:58:18] : Program Exit
+[11:01:05] : Program Start! [OP MODE]
+[11:01:05] : Port[2] Connect
+[11:01:06] : MES SERVER Connect
+[11:01:10] : Barcode Scan LCM ID = [EAJ11111111]
+[11:01:11] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[11:01:11] : Scan Success
+[11:01:11] : Return Model Name = [HC320DUN-ABXL1-91BX]
+[11:01:11] : Model Matching Success
+[11:01:37] : Program Exit
+[11:11:38] : Program Start! [OP MODE]
+[11:11:39] : Port[2] Connect
+[11:11:41] : MES SERVER Connect
+[11:11:45] : Barcode Scan LCM ID = [EAJ33223311]
+[11:11:46] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ33223311') FROM DUAL
+[11:11:47] : Return Model Name = []
+[11:11:50] : Program Exit
+[11:12:14] : Program Start! [OP MODE]
+[11:12:14] : Port[2] Connect
+[11:12:16] : MES SERVER Connect
+[11:12:22] : Barcode Scan LCM ID = [EAJ13123123]
+[11:12:30] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ13123123') FROM DUAL
+[11:12:31] : Return Model Name = []
+[11:12:35] : Program Exit
+[11:12:47] : Program Start! [OP MODE]
+[11:12:48] : Port[2] Connect
+[11:12:52] : MES SERVER Connect
+[11:12:56] : Barcode Scan LCM ID = [EAJ11111111]
+[11:12:59] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[11:12:59] : Scan Success
+[11:13:00] : Return Model Name = [HC320DUN-ABXL1-91BX]
+[11:13:00] : Model Matching Success
+[11:13:16] : Barcode Scan LCM ID = [EAJ22222222]
+[11:13:18] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[11:13:18] : Scan Success
+[11:13:19] : Return Model Name = [HC320DUN-ABXL1-91BXA]
+[11:13:20] : Model Matching Fail
+[11:13:25] : Barcode Scan LCM ID = [EAJ33333333]
+[11:13:26] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ33333333') FROM DUAL
+[11:13:26] : Scan Success
+[11:13:27] : Return Model Name = [HC320DUN-ABXL2-91BX]
+[11:13:27] : Model Matching Fail
+[11:13:31] : Barcode Scan LCM ID = [EAJ11111111]
+[11:13:32] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[11:13:32] : Scan Success
+[11:13:33] : Return Model Name = [HC320DUN-ABXL1-91BX]
+[11:13:33] : Model Matching Success
+[11:13:41] : Program Exit
+[11:15:46] : Program Start! [OP MODE]
+[11:15:46] : Port[2] Connect
+[11:15:47] : MES SERVER Connect
+[11:15:52] : Barcode Scan LCM ID = [EAJ22223333]
+[11:15:54] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22223333') FROM DUAL
+[11:15:56] : Return Model Name = []
+[11:17:06] : Program Exit
+[11:21:27] : Program Start! [OP MODE]
+[11:21:28] : Port[2] Connect
+[11:21:28] : MES SERVER Connect
+[11:21:36] : Barcode Scan LCM ID = [EAJ11111111]
+[11:21:36] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[11:21:36] : Scan Success
+[11:21:37] : Return Model Name = [HC320DUN-ABXL1-91BX]
+[11:21:37] : Model Matching Success
+[11:22:00] : Barcode Scan LCM ID = [EAJ23232323]
+[11:22:00] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ23232323') FROM DUAL
+[11:22:01] : Return Model Name = []
+[11:22:06] : Barcode Scan LCM ID = [EAJ44223311]
+[11:22:06] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ44223311') FROM DUAL
+[11:22:07] : Return Model Name = []
+[11:22:10] : Barcode Scan LCM ID = [EAJ22222222]
+[11:22:11] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[11:22:11] : Scan Success
+[11:22:11] : Return Model Name = [HC320DUN-ABXL1-91BXA]
+[11:22:12] : Model Matching Fail
+[11:25:17] : Program Exit
+[11:25:52] : Program Start! [OP MODE]
+[11:25:52] : Port[2] Connect
+[11:25:53] : MES SERVER Connect
+[11:25:58] : Barcode Scan LCM ID = [EAJ333333333]
+[11:25:58] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ333333333') FROM DUAL
+[11:25:58] : Return Model Name = []
+[11:26:13] : Barcode Scan LCM ID = [EAJ22222222]
+[11:26:13] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[11:26:14] : Scan Success
+[11:26:14] : Return Model Name = [HC320DUN-ABXL1-91BXA]
+[11:26:15] : Model Matching Fail
+[11:26:18] : Program Exit
+[11:29:43] : Program Start! [OP MODE]
+[11:29:43] : Port[2] Connect
+[11:29:43] : MES SERVER Connect
+[11:29:48] : Barcode Scan LCM ID = [EAJ22222222]
+[11:29:48] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[11:29:48] : Scan Success
+[11:29:49] : Return Model Name = [HC320DUN-ABXL1-91BXA]
+[11:29:49] : Model Matching Fail
+[11:30:04] : Program Exit
+[13:51:05] : Program Start! [OP MODE]
+[13:51:05] : Port[2] Connect
+[13:51:07] : Program Exit
+[13:51:14] : Program Start! [PM MODE]
+[13:51:14] : Port[2] Connect
+[13:51:16] : MES SERVER Connect
+[13:51:19] : Program Exit
+[13:51:22] : Program Start! [OP MODE]
+[13:51:22] : Port[2] Connect
+[13:51:27] : Barcode Scan LCM ID = [EAJ11111111]
+[13:51:28] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[13:51:28] : Scan Success
+[13:51:29] : Return Model Name = [HC320DUN-ABXL1-91BX]
+[13:51:29] : Model Matching Success
+[13:51:38] : Program Exit
+[13:55:26] : Program Start! [PM MODE]
+[13:55:26] : Port[2] Connect
+[13:55:27] : MES SERVER Connect
+[13:55:33] : Barcode Scan LCM ID = [EAJ11111111]
+[13:55:34] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[13:55:35] : Scan Success
+[13:55:35] : Return Model Name = [HC320DUN-ABXL1-91BX]
+[13:55:35] : Model Matching Success
+[14:01:00] : Program Exit
+[14:01:06] : Program Start! [OP MODE]
+[14:01:07] : Port[2] Fail
+[14:01:19] : Program Exit
+[14:01:22] : Program Start! [OP MODE]
+[14:01:23] : Port[2] Connect
+[14:02:24] : Program Exit
+[14:02:29] : Program Start! [OP MODE]
+[14:02:29] : Port[2] Connect
+[14:02:37] : Program Exit
+[14:02:42] : Program Start! [PM MODE]
+[14:02:42] : Port[2] Connect
+[14:02:43] : MES SERVER Connect
+[14:02:47] : Program Exit
+[15:15:03] : Program Start! [OP MODE]
+[15:15:03] : Port[2] Connect
+[15:15:07] : Program Exit
+[15:17:55] : Program Start! [OP MODE]
+[15:18:26] : Program Start! [OP MODE]
+[15:18:53] : Program Start! [OP MODE]
+[15:18:54] : Port[2] Connect
+[15:18:55] : Program Exit
+[15:20:20] : Program Start! [OP MODE]
+[15:20:48] : Program Start! [OP MODE]
+[15:21:57] : Program Start! [OP MODE]
+[15:25:22] : Program Start! [OP MODE]
+[15:25:22] : Port[2] Connect
+[15:41:44] : Program Exit
+[15:41:53] : Program Start! [OP MODE]
+[15:41:54] : Port[2] Connect
+[15:41:57] : Program Exit
+[15:43:38] : Program Start! [OP MODE]
+[15:43:38] : Port[2] Connect
+[15:43:46] : Program Exit
+[15:43:53] : Program Start! [OP MODE]
+[15:43:53] : Port[2] Connect
+[15:43:55] : Program Exit
+[15:44:04] : Program Start! [OP MODE]
+[15:44:04] : Port[2] Connect
+[15:44:17] : Program Exit
+[15:52:40] : Program Start! [OP MODE]
+[15:52:40] : Port[2] Connect
+[15:52:48] : Program Exit
+[15:52:56] : Program Start! [OP MODE]
+[15:52:56] : Port[2] Connect
+[15:53:26] : Program Exit
+[15:53:42] : Program Start! [OP MODE]
+[15:53:42] : Port[2] Connect
+[15:53:51] : Program Exit
+[15:53:56] : Program Start! [OP MODE]
+[15:53:56] : Port[2] Connect
+[15:53:59] : Program Exit
+[15:54:16] : Program Start! [OP MODE]
+[15:54:16] : Port[2] Connect
+[15:54:22] : Program Exit
+[15:54:32] : Program Start! [OP MODE]
+[15:54:33] : Port[2] Connect
+[15:55:48] : Program Exit
+[15:56:18] : Program Start! [OP MODE]
+[15:56:19] : Port[2] Connect
+[15:56:28] : Program Exit
+[15:56:57] : Program Start! [OP MODE]
+[15:56:58] : Port[2] Connect
+[15:57:03] : Program Exit
+[15:57:15] : Program Start! [OP MODE]
+[15:57:16] : Port[2] Connect
+[15:57:23] : Program Exit
+[15:57:34] : Program Start! [OP MODE]
+[15:57:35] : Port[2] Connect
+[15:57:42] : Program Exit
+[15:57:48] : Program Start! [OP MODE]
+[15:57:49] : Port[2] Connect
+[15:58:14] : Program Exit
+[15:58:28] : Program Start! [OP MODE]
+[15:58:29] : Port[2] Connect
+[15:58:36] : Program Exit
+[15:59:01] : Program Start! [OP MODE]
+[15:59:01] : Port[2] Connect
+[15:59:07] : Program Exit
+[15:59:31] : Program Start! [OP MODE]
+[15:59:32] : Port[2] Connect
+[16:07:38] : Program Exit
+[16:08:08] : Program Start! [OP MODE]
+[16:08:08] : Port[2] Connect
+[16:10:02] : Program Exit
+[16:10:38] : Program Start! [OP MODE]
+[16:10:39] : Port[2] Connect
+[16:10:41] : Program Exit
+[16:10:47] : Program Start! [OP MODE]
+[16:10:47] : Port[2] Connect
+[16:10:49] : Program Exit
+[16:11:39] : Program Start! [OP MODE]
+[16:11:39] : Port[2] Connect
+[16:11:48] : Program Exit
+[16:12:09] : Program Start! [OP MODE]
+[16:12:10] : Port[2] Connect
+[16:12:16] : Program Exit
+[16:13:15] : Program Start! [OP MODE]
+[16:13:16] : Port[2] Connect
+[16:13:19] : Program Exit
+[16:13:41] : Program Start! [OP MODE]
+[16:13:41] : Port[2] Connect
+[16:13:43] : Program Exit
+[16:13:51] : Program Start! [OP MODE]
+[16:13:52] : Port[2] Connect
+[16:13:54] : Program Exit
+[16:14:03] : Program Start! [OP MODE]
+[16:14:03] : Port[2] Connect
+[16:14:08] : Program Exit
+[16:14:21] : Program Start! [OP MODE]
+[16:14:22] : Port[2] Connect
+[16:14:27] : Program Exit
+[16:14:41] : Program Start! [OP MODE]
+[16:14:42] : Port[2] Connect
+[16:14:53] : Program Exit
+[16:15:03] : Program Start! [OP MODE]
+[16:15:03] : Port[2] Connect
+[16:15:05] : Program Exit
+[16:15:16] : Program Start! [OP MODE]
+[16:15:17] : Port[2] Connect
+[16:15:19] : Program Exit
+[16:15:39] : Program Start! [OP MODE]
+[16:15:40] : Port[2] Connect
+[16:15:42] : Program Exit
+[16:15:55] : Program Start! [OP MODE]
+[16:15:56] : Port[2] Connect
+[16:15:58] : Program Exit
+[16:16:14] : Program Start! [OP MODE]
+[16:16:15] : Port[2] Connect
+[16:16:17] : Program Exit
+[16:16:27] : Program Start! [OP MODE]
+[16:16:27] : Port[2] Connect
+[16:16:30] : Program Exit
+[16:16:40] : Program Start! [OP MODE]
+[16:16:41] : Port[2] Connect
+[16:16:50] : Program Exit
+[16:18:34] : Program Start! [OP MODE]
+[16:18:34] : Port[2] Connect
+[16:18:41] : Program Exit
+[16:20:01] : Program Start! [OP MODE]
+[16:20:02] : Port[2] Connect
+[16:20:17] : Program Exit
+[16:21:08] : Program Start! [OP MODE]
+[16:21:09] : Port[2] Connect
+[16:21:33] : Program Exit
+[16:21:51] : Program Start! [OP MODE]
+[16:21:51] : Port[2] Connect
+[16:21:55] : Program Exit
+[16:22:34] : Program Start! [OP MODE]
+[16:22:35] : Port[2] Connect
+[16:22:39] : Program Exit
+[16:22:48] : Program Start! [OP MODE]
+[16:22:48] : Port[2] Connect
+[16:26:30] : Program Exit
+[16:27:03] : Program Start! [OP MODE]
+[16:27:03] : Port[2] Connect
+[16:27:51] : Program Exit
+[16:28:08] : Program Start! [OP MODE]
+[16:28:08] : Port[2] Connect
+[16:28:10] : Program Exit
+[16:29:28] : Program Start! [OP MODE]
+[16:29:29] : Port[2] Connect
+[16:38:24] : Program Exit
+[16:40:21] : Program Start! [OP MODE]
+[16:40:22] : Port[2] Connect
+[16:40:25] : Program Exit
+[16:47:35] : Program Start! [OP MODE]
+[16:47:35] : Port[2] Connect
+[16:47:39] : Program Exit
+[16:49:37] : Program Start! [OP MODE]
+[16:49:37] : Port[2] Connect
+[16:49:40] : Program Exit
+[16:49:52] : Program Start! [OP MODE]
+[16:49:52] : Port[2] Connect
+[16:49:54] : Program Exit
+[16:50:07] : Program Start! [OP MODE]
+[16:50:07] : Port[2] Connect
+[16:50:10] : Program Exit
+[16:51:26] : Program Start! [OP MODE]
+[16:51:27] : Port[2] Connect
+[16:51:30] : Program Exit
+[16:56:35] : Program Start! [OP MODE]
+[16:56:35] : Port[2] Connect
+[16:56:40] : Program Exit
+[16:56:53] : Program Start! [OP MODE]
+[16:56:54] : Port[2] Connect
+[16:56:58] : Program Exit
+[16:57:06] : Program Start! [OP MODE]
+[16:57:06] : Port[2] Connect
+[16:57:16] : Program Exit
+[16:57:26] : Program Start! [OP MODE]
+[16:57:26] : Port[2] Connect
+[16:57:29] : Program Exit
+[16:58:30] : Program Start! [OP MODE]
+[16:58:30] : Port[2] Connect
+[16:58:36] : Program Exit
+[16:59:29] : Program Start! [OP MODE]
+[16:59:29] : Port[2] Connect
+[16:59:33] : Program Exit
+[17:00:51] : Program Start! [OP MODE]
+[17:00:52] : Port[2] Connect
+[17:00:57] : Program Exit
+[17:01:07] : Program Start! [OP MODE]
+[17:01:07] : Port[2] Connect
+[17:01:12] : Program Exit
+[17:01:47] : Program Start! [OP MODE]
+[17:01:48] : Port[2] Connect
+[17:01:53] : Program Exit
+[17:02:11] : Program Start! [OP MODE]
+[17:02:11] : Port[2] Connect
+[17:02:13] : Program Exit
+[17:08:16] : Program Start! [OP MODE]
+[17:08:16] : Port[2] Connect
+[17:08:28] : Program Exit
+[17:09:13] : Program Start! [OP MODE]
+[17:09:13] : Port[2] Connect
+[17:09:34] : Program Exit

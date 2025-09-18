@@ -256,7 +256,7 @@ typedef enum _COLOR_IDX_{
 	COLOR_IDX_MAX
 };
 
-#define FONT_IDX_MAX				10
+#define FONT_IDX_MAX				11
 
 
 /////////////////////////////////////////////////////////////////////////////

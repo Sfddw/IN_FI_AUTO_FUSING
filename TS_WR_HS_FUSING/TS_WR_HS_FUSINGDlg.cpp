@@ -269,6 +269,8 @@ BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_SEARCH, &CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch)
 	ON_STN_CLICKED(IDC_PIC_SELECT, &CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect)
 	ON_STN_CLICKED(IDC_PIC_SYSTEM, &CTS_WR_HS_FUSINGDlg::OnStnClickedPicSystem)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -514,7 +516,9 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		brushMes.CreateSolidBrush(m_colorMesBg);
 		return brushMes;
 	}
-	else if (pWnd->GetDlgCtrlID() == IDC_EDIT_MODEL_NAME)
+	else if ((pWnd->GetDlgCtrlID() == IDC_EDIT_MODEL_NAME ||
+		pWnd->GetDlgCtrlID() == IDC_EDIT_FUSING_STATUS))
+	//else if (pWnd->GetDlgCtrlID() == IDC_EDIT_MODEL_NAME)
 	{
 		pDC->SetBkColor(m_colorFusingStatus);
 
@@ -624,7 +628,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 	CString M_Name;
 
 	CString msg;
-	msg.Format(_T("Barcode Scan P/N = [%s]"), Model_Name);
+	msg.Format(_T("Barcode Scan LCM ID = [%s]"), Model_Name);
 	WriteLogFile(msg);
 
 	BarcodeInfo info = FindDataInDB(Model_Name);
@@ -632,7 +636,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 	M_Name = info.name;
 
 
-	msg.Format(_T("Scanned model name = [%s]"), M_Name);
+	msg.Format(_T("Return Model Name = [%s]"), M_Name);
 	WriteLogFile(msg);
 
 	/*if (Model_Name == "EAJ64811801")
@@ -686,6 +690,12 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 
 	if (M_Name == _T(""))
 	{
+		m_colorFusingStatus = RGB(255, 0, 0);
+		GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
+		GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
+
+		GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(_T("FUSING FAIL"));
+
 		return _T("");
 	}
 	else
@@ -713,6 +723,9 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 
 			m_colorFusingStatus = RGB(255,0, 0);
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
+			GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
+
+			GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(_T("Model Matching Fail\r\nPlease add model information"));
 
 			msg.Format(_T("Model Matching Fail"));
 			WriteLogFile(msg);
@@ -738,7 +751,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 			funcUpdatePAT_List();
 			UpdateData(FALSE);
 
-			//lpSysInfo->f_AutoFusing = true;
+			lpSysInfo->f_AutoFusing = true;
 			COpBoxFusing Op_Fusing;
 			//Op_Fusing.OnBnBcrScanFusing(info.OpBox_Send_Name);
 			Op_Fusing.OnBnBcrScanFusing(M_Name);
@@ -746,6 +759,8 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 
 			m_colorFusingStatus = RGB(0, 255, 0);
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
+			GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
+			GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(_T("FUSING OK"));
 
 			return M_Name;
 		}
@@ -823,7 +838,9 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnFusing()
 	COpBoxFusing OpFusing;
 	CString modelText;
 	GetDlgItemText(IDC_EDT_MODEL, modelText);
+	lpSysInfo->f_AutoFusing = true;
 	OpFusing.OnBnBcrScanFusing(modelText);
+	lpSysInfo->f_AutoFusing = false;
 }
 
 
@@ -988,7 +1005,6 @@ void CTS_WR_HS_FUSINGDlg::fuc1stPtnDataChange(void)
 
 void CTS_WR_HS_FUSINGDlg::fucDrawLogo(void)
 {
-	HBITMAP hbit, tbit, sbit;
 	hbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_LOGO));
 	tbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_TEST));
 	sbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_SYSTEM));
@@ -1399,7 +1415,7 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 
 	m_Font[0].CreateFont(150, 70, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
-	m_Font[1].CreateFont(80, 35, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+	m_Font[1].CreateFont(50, 30, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
 	
 
@@ -1432,7 +1448,7 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 
 	m_Font[3].CreateFont(23, 10, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
-	m_Font[4].CreateFont(21, 9, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+	m_Font[4].CreateFont(21, 9, 0, 0, FW_DONTCARE, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
 	m_Font[5].CreateFont(19, 8, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
@@ -1444,6 +1460,8 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 
 	m_Font[9].CreateFont(11, 4, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
+	m_Font[10].CreateFont(23, 10, 0, 0, FW_DONTCARE, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
+
 
 	// Model Information
 
@@ -1454,153 +1472,153 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	/// PG TIMMING //
 	GetDlgItem(IDC_GRP_TIMMING)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STATIC1)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC3)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC4)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC5)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC6)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC7)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC8)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC9)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC10)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC11)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC12)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC13)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC14)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STATIC1)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC3)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC4)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC5)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC6)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC7)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC8)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC9)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC10)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC11)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC12)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC13)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC14)->SetFont(&m_Font[10]);
 
-	GetDlgItem(IDC_EDT_MCLK)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_H_TOTAL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_H_WIDTH)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HACTIVE)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HBPORCH)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HFPORCH)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_PIXEL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_SWAP)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_V_TOTAL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_V_WIDTH)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_VACTIVE)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_VBPORCH)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_VFPORCH)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_EDT_MCLK)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_H_TOTAL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_H_WIDTH)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HACTIVE)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HBPORCH)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HFPORCH)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_PIXEL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_SWAP)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_V_TOTAL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_V_WIDTH)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_VACTIVE)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_VBPORCH)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_VFPORCH)->SetFont(&m_Font[10]);
 	////////////////////
 
 	// PATTERN
 	GetDlgItem(IDC_GRP_PATTERN)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STT_PAT_NAME)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STT_PAT_GRAY)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_PAT_NAME)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_PAT_GRAY)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_LIST_PATVIEW)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_BTN_PAT_ADD)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_BTN_PAT_CHG)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_BTN_PAT_UP)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_BTN_PAT_DEL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_BTN_PAT_DN)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STT_PAT_NAME)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STT_PAT_GRAY)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_PAT_NAME)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_PAT_GRAY)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_LIST_PATVIEW)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_BTN_PAT_ADD)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_BTN_PAT_CHG)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_BTN_PAT_UP)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_BTN_PAT_DEL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_BTN_PAT_DN)->SetFont(&m_Font[10]);
 	/////////////////////
 
 	// IF-[SIGNAL]
 	GetDlgItem(IDC_GRP_SIGNAL)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STATIC15)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC16)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC17)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC18)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC19)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STATIC15)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC16)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC17)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC18)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC19)->SetFont(&m_Font[4]);
 
-	GetDlgItem(IDC_CMB_TYPE)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_BIT)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_COPEN)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_PEMPH)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_DIVISION)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_CMB_TYPE)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_BIT)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_COPEN)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_PEMPH)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_DIVISION)->SetFont(&m_Font[10]);
 	/////////////////////
 
 	// IF-[GPIO]
 	GetDlgItem(IDC_GRP_GPIO)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STATIC20)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC21)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC22)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC23)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC24)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC25)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC26)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC27)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP1)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP3)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP4)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP5)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP6)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP7)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_CMB_GP8)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STATIC20)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC21)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC22)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC23)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC24)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC25)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC26)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC27)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP1)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP3)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP4)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP5)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP6)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP7)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_GP8)->SetFont(&m_Font[10]);
 	/////////////////////
 
 	// SET FUNCTION
 	GetDlgItem(IDC_GRP_FUNCTION)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_BUTTON_FLICKER)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_BUTTON_FLICKER)->SetFont(&m_Font[10]);
 	/////////////////////
 
 	// POWER[VOLT SET]
 	GetDlgItem(IDC_GRP_PWRVOLCUR)->SetFont(&m_Font[2]);
 	GetDlgItem(IDC_CMB_PWR_TYP)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STATIC31)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC32)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC33)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC34)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC35)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC36)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC37)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_SVCC)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_SVDD)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_SVBL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_SVBL2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_OVCC)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_OVBL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_OVBL2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC_STR_CNT)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC_STR_PWR_ID)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_STR_CNT1)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_STR_CNT2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_STR_PWR_ID)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STATIC31)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC32)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC33)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC34)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC35)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC36)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC37)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_SVCC)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_SVDD)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_SVBL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_SVBL2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_OVCC)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_OVBL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_OVBL2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC_STR_CNT)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC_STR_PWR_ID)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_STR_CNT1)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_STR_CNT2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_STR_PWR_ID)->SetFont(&m_Font[10]);
 	/////////////////////
 
 
 	// POWER[LIMIT]
 	GetDlgItem(IDC_GRP_PWRLIMIT)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STATIC38)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC39)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC40)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC41)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC42)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC43)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC44)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC45)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC46)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC47)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC48)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC49)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC50)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC51)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_STATIC38)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC39)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC40)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC41)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC42)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC43)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC44)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC45)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC46)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC47)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC48)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC49)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC50)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC51)->SetFont(&m_Font[10]);
 
-	GetDlgItem(IDC_EDT_LICC)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_LIDD)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_LIBL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_LIBL2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HICC)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HIDD)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HIBL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HIBL2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_LVCC)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_LVDD)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_LVBL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_LVBL2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HVCC)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HVDD)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HVBL)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_HVBL2)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_EDT_LICC)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_LIDD)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_LIBL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_LIBL2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HICC)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HIDD)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HIBL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HIBL2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_LVCC)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_LVDD)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_LVBL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_LVBL2)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HVCC)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HVDD)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HVBL)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_EDT_HVBL2)->SetFont(&m_Font[10]);
 	/////////////////////
 
 	// POWER[SEQUENCE]
@@ -1609,15 +1627,15 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	GetDlgItem(IDC_SEQ1_SEL)->SetFont(&m_Font[4]);
 	GetDlgItem(IDC_SEQ2_SEL)->SetFont(&m_Font[4]);
 
-	GetDlgItem(IDC_EDT_TSEQ1)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC28)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_TSEQ2)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC29)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_TSEQ3)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STATIC30)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_TSEQ4)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_STT_SEQOFF_DIN_CNT)->SetFont(&m_Font[2]);
-	GetDlgItem(IDC_EDT_SEQOFF_COUNT)->SetFont(&m_Font[2]);
+	GetDlgItem(IDC_EDT_TSEQ1)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC28)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_EDT_TSEQ2)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC29)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_EDT_TSEQ3)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC30)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_EDT_TSEQ4)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STT_SEQOFF_DIN_CNT)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_EDT_SEQOFF_COUNT)->SetFont(&m_Font[4]);
 	/////////////////////
 
 	// BARCODE SCAN
@@ -1627,6 +1645,7 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	GetDlgItem(IDC_STATIC53)->SetFont(&m_Font[8]);
 	GetDlgItem(IDC_EDIT_PN)->SetFont(&m_Font[8]);
 	GetDlgItem(IDC_EDIT_MODEL_NAME)->SetFont(&m_Font[8]);
+	GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetFont(&m_Font[2]);
 	/////////////////////
 
 	// Title
@@ -2650,7 +2669,10 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 		msg.Format(_T("Port[%d] Fail"), lpSysInfo->m_ComPort);
 		WriteLogFile(msg);
 	}
-	if (CheckOracleDBConnection())
+
+	if (lpSysInfo->m_sUserID == "PM")
+	{
+		if (CheckOracleDBConnection())
 		{
 			//AfxMessageBox(_T("DB 연결 성공!"));
 			m_colorMesBg = RGB(0, 255, 0);
@@ -2661,9 +2683,10 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnPortOpen()
 		{
 			AfxMessageBox(_T("DB Connect Fail"));
 			m_colorMesBg = RGB(255, 0, 0);
-				GetDlgItem(IDC_STATIC_MES)->Invalidate();
-				WriteLogFile(_T("MES SERVER Fail"));
+			GetDlgItem(IDC_STATIC_MES)->Invalidate();
+			WriteLogFile(_T("MES SERVER Fail"));
 		}
+	}
 }
 
 bool CTS_WR_HS_FUSINGDlg::OnBnClickedBcrPortOpen() // bcr 스캔시 포트 연결
@@ -3144,11 +3167,19 @@ void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect()
 void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSystem()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CSetSystemDlg dlg;
+
+	m_bSystemClicked = !m_bSystemClicked;
+
+	if (m_bSystemClicked)
+		CtrlSystem.SetBitmap(sbit);
+	else
+		CtrlSystem.SetBitmap(hbit);
+
+	/*CSetSystemDlg dlg;
 	if (dlg.DoModal() == IDOK)
 	{
 
-	}
+	}*/
 }
 
 void CTS_WR_HS_FUSINGDlg::WriteLogFile(const CString& Log_Message)
@@ -3200,4 +3231,18 @@ void CTS_WR_HS_FUSINGDlg::WriteLogFile(const CString& Log_Message)
 	{
 		AfxMessageBox(_T("MLOG.txt File Open Fail"));
 	}
+}
+
+void CTS_WR_HS_FUSINGDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	CRect rect;
+	CtrlSystem.GetWindowRect(&rect);
+	ScreenToClient(&rect);
+
+	if (rect.PtInRect(point))
+	{
+		CtrlSystem.SetBitmap(m_hBmpSystemPressed);
+	}
+
+	// 부모 클래스 기본 동작 호출
 }
