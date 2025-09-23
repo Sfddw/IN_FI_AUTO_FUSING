@@ -213,7 +213,8 @@ void CTS_WR_HS_FUSINGDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MaxChars(pDX, strSeqOffDinCount, 2);
 	DDX_Control(pDX, IDC_LOGO, CtrlLogo);
 	DDX_Control(pDX, IDC_PIC_SELECT, CtrlSelect);
-	DDX_Control(pDX, IDC_PIC_SYSTEM, CtrlSystem);
+	//DDX_Control(pDX, IDC_PIC_SYSTEM, CtrlSystem);
+	DDX_Control(pDX, IDC_PIC_SYSTEM, m_picSystem);
 	DDX_Control(pDX, IDC_CMB_COPEN, ctrlCopenchk);
 	DDX_Text(pDX, IDC_EDT_SVBL2, ctrlEdtSVBL2);
 	DDV_MaxChars(pDX, ctrlEdtSVBL2, 5);
@@ -758,7 +759,9 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 			m_colorFusingStatus = RGB(0, 255, 0);
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
 			GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
-			GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(_T("FUSING OK"));
+			CString strLog;
+			strLog.Format(_T("FUSING OK\r\n[%s]"), M_Name);
+			GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
 
 			return M_Name;
 		}
@@ -1005,11 +1008,12 @@ void CTS_WR_HS_FUSINGDlg::fucDrawLogo(void)
 {
 	hbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_LOGO));
 	tbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_TEST));
-	sbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_SYSTEM));
+	sbit = ::LoadBitmap(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_COG_O));
 
 	CtrlLogo.SetBitmap(hbit);
 	CtrlSelect.SetBitmap(tbit);
-	CtrlSystem.SetBitmap(sbit);
+	//CtrlSystem.SetBitmap(sbit);
+	m_picSystem.SetBitmap(sbit);
 }
 
 
@@ -1415,33 +1419,6 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 
 	m_Font[1].CreateFont(50, 30, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
-	
-
-
-	//for (int id : {IDC_STATIC1, IDC_STATIC2, IDC_STATIC3, IDC_STATIC4, IDC_STATIC5, IDC_STATIC6, IDC_STATIC7, IDC_STATIC8, IDC_STATIC9, IDC_STATIC10, IDC_STATIC11, IDC_STATIC12
-	//	, IDC_STATIC13, IDC_STATIC14, IDC_STATIC15, IDC_STATIC16, IDC_STATIC17, IDC_STATIC18, IDC_STATIC19, IDC_STATIC20, IDC_STATIC21, IDC_STATIC22
-	//	, IDC_STATIC23, IDC_STATIC24, IDC_STATIC25, IDC_STATIC26, IDC_STATIC26, IDC_STATIC28, IDC_STATIC29, IDC_STATIC30, IDC_STATIC31, IDC_STATIC32
-	//	, IDC_STATIC33, IDC_STATIC34, IDC_STATIC35, IDC_STATIC36, IDC_STATIC37, IDC_STATIC38, IDC_STATIC39, IDC_STATIC40, IDC_STATIC41, IDC_STATIC42
-	//	, IDC_STATIC43, IDC_STATIC44, IDC_STATIC45, IDC_STATIC46, IDC_STATIC47, IDC_STATIC48, IDC_STATIC49, IDC_STATIC50, IDC_STATIC51})
-	//{
-	//	CWnd* pWnd = GetDlgItem(id);
-	//	if (pWnd != nullptr)
-	//	{
-	//		// 크기만 바꾸고 위치는 그대로
-	//		CRect rect;
-	//		pWnd->GetWindowRect(&rect);
-	//		ScreenToClient(&rect);
-
-	//		int newWidth = rect.Width() + 50;   // 가로 +50
-	//		int newHeight = rect.Height() + 20;  // 세로 +20
-
-	//		pWnd->SetWindowPos(nullptr,
-	//			rect.left, rect.top,
-	//			newWidth, newHeight,
-	//			SWP_NOZORDER | SWP_NOMOVE);
-	//	}
-	//}
-
 	m_Font[2].CreateFont(26, 10, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
 
 	m_Font[3].CreateFont(23, 10, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 0, 0, DEFAULT_FONT);
@@ -1518,11 +1495,11 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	// IF-[SIGNAL]
 	GetDlgItem(IDC_GRP_SIGNAL)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STATIC15)->SetFont(&m_Font[4]);
-	GetDlgItem(IDC_STATIC16)->SetFont(&m_Font[4]);
-	GetDlgItem(IDC_STATIC17)->SetFont(&m_Font[4]);
-	GetDlgItem(IDC_STATIC18)->SetFont(&m_Font[4]);
-	GetDlgItem(IDC_STATIC19)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_STATIC15)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC16)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC17)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC18)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_STATIC19)->SetFont(&m_Font[10]);
 
 	GetDlgItem(IDC_CMB_TYPE)->SetFont(&m_Font[10]);
 	GetDlgItem(IDC_CMB_BIT)->SetFont(&m_Font[10]);
@@ -1639,15 +1616,26 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	// BARCODE SCAN
 	GetDlgItem(IDC_GRP_MODEL3)->SetFont(&m_Font[2]);
 
-	GetDlgItem(IDC_STATIC52)->SetFont(&m_Font[8]);
-	GetDlgItem(IDC_STATIC53)->SetFont(&m_Font[8]);
-	GetDlgItem(IDC_EDIT_PN)->SetFont(&m_Font[8]);
-	GetDlgItem(IDC_EDIT_MODEL_NAME)->SetFont(&m_Font[8]);
+	GetDlgItem(IDC_STATIC52)->SetFont(&m_Font[6]);
+	GetDlgItem(IDC_STATIC53)->SetFont(&m_Font[6]);
+	GetDlgItem(IDC_EDIT_PN)->SetFont(&m_Font[6]);
+	GetDlgItem(IDC_EDIT_MODEL_NAME)->SetFont(&m_Font[6]);
 	GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetFont(&m_Font[2]);
 	/////////////////////
 
 	// Title
 
+	/////////////////////
+
+	// MODEL
+	GetDlgItem(IDC_GRP_MODEL2)->SetFont(&m_Font[2]);
+
+	GetDlgItem(IDC_EDT_MODELSEARCH)->SetFont(&m_Font[4]);
+	GetDlgItem(IDC_CMB_MODEL_NAME)->SetFont(&m_Font[6]);
+
+	GetDlgItem(IDC_BTN_SAVEAS)->SetFont(&m_Font[6]);
+	GetDlgItem(IDC_BTN_SAVE)->SetFont(&m_Font[6]);
+	GetDlgItem(IDC_BTN_FUSING)->SetFont(&m_Font[6]);
 	/////////////////////
 
 
@@ -3066,6 +3054,7 @@ void CTS_WR_HS_FUSINGDlg::WriteInitFile()
 	{
 		// 파일이 이미 존재하므로 다시 쓰지 않음
 		Read_InitFile("SYSTEM", "PORT", &lpSysInfo->m_ComPort);
+		Read_InitFile("SYSTEM", "MODELPATH", &lpSysInfo->m_sModelSavePath);
 		return;
 	}
 
@@ -3083,6 +3072,7 @@ void CTS_WR_HS_FUSINGDlg::WriteInitFile()
 	CString content;
 	content += _T("[SYSTEM]\r\n");
 	content += _T("PORT=1\r\n");
+	content += _T("MODELPATH=\r\n");
 
 	// 6. 파일 쓰기
 	CStdioFile file;
@@ -3133,32 +3123,78 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch()
 
 void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect()
 {
+	//// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//CString strSearch;
+	//m_editSearch.GetWindowText(strSearch); // Edit Control에서 검색어 가져오기
+
+	//if (strSearch.IsEmpty()) {
+	//	AfxMessageBox(_T("검색어를 입력하세요."));
+	//	return;
+	//}
+
+	//// ComboBox에서 항목 검색
+	//int nCount = ctrlSelModelName.GetCount();
+	//for (int i = 0; i < nCount; ++i)
+	//{
+	//	CString strItem;
+	//	ctrlSelModelName.GetLBText(i, strItem); // i번째 아이템 텍스트 가져오기
+
+	//	if (strItem.Find(strSearch) != -1) // 대소문자 무시 비교
+	//	{
+	//		ctrlSelModelName.SetCurSel(i); // 해당 항목 선택
+	//		OnCbnSelchangeCmbModelName();
+	//		return;
+	//	}
+	//}
+
+	//// 검색 실패 시 메시지
+	//AfxMessageBox(_T("일치하는 모델명이 없습니다."));
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	m_strKeyBuffer = _T("");
+
 	CString strSearch;
 	m_editSearch.GetWindowText(strSearch); // Edit Control에서 검색어 가져오기
 
 	if (strSearch.IsEmpty()) {
-		AfxMessageBox(_T("검색어를 입력하세요."));
+		/*AfxMessageBox(_T("검색어를 입력하세요."));
+		return;*/
+		ctrlSelModelName.ResetContent();
+		for (int i = 0; i < modelList.GetCount(); ++i)
+			ctrlSelModelName.AddString(modelList[i]);
 		return;
 	}
 
-	// ComboBox에서 항목 검색
-	int nCount = ctrlSelModelName.GetCount();
-	for (int i = 0; i < nCount; ++i)
-	{
-		CString strItem;
-		ctrlSelModelName.GetLBText(i, strItem); // i번째 아이템 텍스트 가져오기
+	// 기존 콤보박스 항목 제거
+	ctrlSelModelName.ResetContent();
 
-		if (strItem.Find(strSearch) != -1) // 대소문자 무시 비교
+	// 원본 리스트(modelList)에서 검색
+	int nMatchCount = 0;
+	for (int i = 0; i < modelList.GetCount(); ++i)
+	{
+		CString strItem = modelList[i];  // 원본 모델명
+
+		if (strItem.MakeUpper().Find(strSearch.MakeUpper()) != -1) // 대소문자 무시
 		{
-			ctrlSelModelName.SetCurSel(i); // 해당 항목 선택
-			OnCbnSelchangeCmbModelName();
-			return;
+			ctrlSelModelName.AddString(strItem);
+			nMatchCount++;
 		}
 	}
 
-	// 검색 실패 시 메시지
-	AfxMessageBox(_T("일치하는 모델명이 없습니다."));
+	if (nMatchCount > 0) {
+		ctrlSelModelName.SetCurSel(0); // 첫 번째 결과 선택
+		OnCbnSelchangeCmbModelName();  // 기존 선택 변경 이벤트 호출
+	}
+	else {
+		AfxMessageBox(_T("일치하는 모델명이 없습니다."));
+	}
+
+	/*if (strSearch.IsEmpty()) {
+		ctrlSelModelName.ResetContent();
+		for (int i = 0; i < modelList.GetCount(); ++i)
+			ctrlSelModelName.AddString(modelList[i]);
+		return;
+	}*/
 }
 
 
@@ -3229,4 +3265,16 @@ void CTS_WR_HS_FUSINGDlg::WriteLogFile(const CString& Log_Message)
 	{
 		AfxMessageBox(_T("MLOG.txt File Open Fail"));
 	}
+}
+
+
+//void CTS_WR_HS_FUSINGDlg::OnBnClickedButton3()
+//{
+//	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+//}
+
+
+void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnModelReset()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

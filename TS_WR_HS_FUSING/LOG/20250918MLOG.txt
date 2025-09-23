@@ -426,3 +426,67 @@
 [17:09:13] : Program Start! [OP MODE]
 [17:09:13] : Port[2] Connect
 [17:09:34] : Program Exit
+[17:35:33] : Program Start! [OP MODE]
+[17:35:34] : Port[2] Connect
+[17:35:37] : Program Exit
+[17:59:09] : Program Start! [OP MODE]
+[18:01:30] : Program Start! [OP MODE]
+[18:02:01] : Program Start! [OP MODE]
+[18:02:01] : Port[2] Connect
+[18:02:09] : Program Exit
+[18:02:42] : Program Start! [OP MODE]
+[18:02:42] : Port[2] Connect
+[18:02:43] : Program Exit
+[18:05:35] : Program Start! [OP MODE]
+[18:05:35] : Port[2] Connect
+[18:05:52] : Program Start! [OP MODE]
+[18:05:53] : Port[2] Connect
+[18:06:07] : Program Start! [OP MODE]
+[18:06:07] : Port[2] Connect
+[18:10:10] : Program Start! [OP MODE]
+[18:10:10] : Port[2] Connect
+[18:11:07] : Program Start! [OP MODE]
+[18:11:07] : Port[2] Connect
+[18:16:08] : Program Exit
+[18:16:57] : Program Start! [OP MODE]
+[18:16:58] : Port[2] Connect
+[18:17:21] : Program Exit
+[18:19:35] : Program Start! [OP MODE]
+[18:19:36] : Port[2] Connect
+[18:19:47] : Program Exit
+[18:20:27] : Program Start! [OP MODE]
+[18:20:27] : Port[2] Connect
+[18:23:43] : Program Exit
+[18:29:04] : Program Start! [OP MODE]
+[18:29:05] : Port[2] Connect
+[18:29:15] : Program Exit
+[18:29:39] : Program Start! [OP MODE]
+[18:29:39] : Port[2] Connect
+[18:29:41] : Program Exit
+[18:33:29] : Program Start! [OP MODE]
+[18:33:29] : Port[2] Connect
+[18:33:35] : Program Exit
+[18:33:53] : Program Start! [OP MODE]
+[18:33:53] : Port[2] Connect
+[18:33:56] : Program Exit
+[18:34:22] : Program Start! [OP MODE]
+[18:34:22] : Port[2] Connect
+[18:34:24] : Program Exit
+[18:35:34] : Program Start! [OP MODE]
+[18:35:34] : Port[2] Connect
+[18:35:39] : Program Exit
+[18:35:52] : Program Start! [OP MODE]
+[18:35:52] : Port[2] Connect
+[18:35:54] : Program Exit
+[18:36:02] : Program Start! [OP MODE]
+[18:36:02] : Port[2] Connect
+[18:36:05] : Program Exit
+[18:36:15] : Program Start! [OP MODE]
+[18:36:16] : Port[2] Connect
+[18:36:22] : Program Exit
+[18:36:46] : Program Start! [OP MODE]
+[18:36:46] : Port[2] Connect
+[18:36:49] : Program Exit
+[18:39:18] : Program Start! [OP MODE]
+[18:39:19] : Port[2] Connect
+[18:39:44] : Program Exit

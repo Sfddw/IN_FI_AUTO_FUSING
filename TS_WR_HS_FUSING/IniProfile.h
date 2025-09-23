@@ -207,6 +207,16 @@ static void Write_InitFile(char* lpTitle, char* lpKey, int fdata)
 	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath);
 }
 
+static void Write_InitFile(char* lpTitle, char* lpKey, CString fdata)
+{
+	CString szData;
+	CString szModelPath;
+
+	szData.Format(_T("%s"), fdata);
+	szModelPath.Format(_T(".\\INFO\\init.txt"));
+	::WritePrivateProfileString(lpTitle, lpKey, szData, szModelPath);
+}
+
 static void Read_ModelFile(CString lpModelName, char *lpTitle, char *lpKey, CString *szRetString)
 {
 	char wszData[100] = {0,};
@@ -321,6 +331,21 @@ static void Read_InitFile(char* lpTitle, char* lpKey, int *Port)
 
 	*Port = atoi(wszData);
 }
+
+static void Read_InitFile(char* lpTitle, char* lpKey, CString* ModelName)
+{
+	CString szModelPath;
+	char wszData[100] = { 0, };
+
+	szModelPath.Format(_T(".\\INFO\\init.txt"));
+
+	::GetPrivateProfileString(lpTitle, lpKey, "", wszData, sizeof(wszData), szModelPath);
+
+	// CString으로 바로 대입
+	*ModelName = wszData;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 static void wchar_To_char(wchar_t* wszOrg, char* szConv)
 {

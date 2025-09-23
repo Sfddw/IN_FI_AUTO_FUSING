@@ -16,6 +16,8 @@
 #define IDB_SYSTEM                      154
 #define IDB_BMP_USER_IMG                157
 #define IDD_USER_LOGIN                  158
+#define IDB_COG_O                       160
+#define IDB_COG_T                       161
 #define IDC_GRP_TIMMING                 1000
 #define IDC_GRP_SIGNAL                  1001
 #define IDC_GRP_PATTERN                 1002
@@ -182,7 +184,6 @@
 #define IDC_EDIT_ORACLE_NAME            1110
 #define IDC_EDT_MODELSEARCH             1110
 #define IDC_EDIT_USER_ID                1111
-#define IDC_EDIT_MODEL_NAME2            1111
 #define IDC_EDIT_FUSING_STATUS          1111
 #define IDC_EDIT_PASSWORD               1112
 #define IDC_BUTTON_MODEL_PATH           1115
@@ -269,9 +270,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        160
+#define _APS_NEXT_RESOURCE_VALUE        162
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1195
+#define _APS_NEXT_CONTROL_VALUE         1196
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

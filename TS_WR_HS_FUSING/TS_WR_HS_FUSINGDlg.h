@@ -5,6 +5,7 @@
 #pragma once
 #include "afxwin.h"
 #include "afxcmn.h"
+#include "CMyPictureCtrl.h"
 
 struct BarcodeInfo
 {
@@ -179,6 +180,7 @@ protected:
 	CTS_WR_HS_FUSINGApp* m_pApp;
 	LPMODELINFO		lpModelInfo;
 	LPSYSTEMINFO	lpSysInfo;
+	CMyPictureCtrl m_picSystem;
 	
 	CComboBox* m_pComboInternal;
 	//CComboBox* m_pCmb1stPtn;		/* 2019.04.02. KSM. 1st 패턴 삭제. */
@@ -366,6 +368,10 @@ public:
 
 	bool    m_bSystemClicked = false;
 	HBITMAP hbit, tbit, sbit;
+
+	CStatic m_ctrlSystem;
+	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedBtnModelReset();
 };
 
 

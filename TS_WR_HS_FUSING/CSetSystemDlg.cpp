@@ -90,6 +90,9 @@ BOOL CSetSystemDlg::OnInitDialog()
 
     // 콤보박스 기본값: COM3
     ctrlComPort.SetCurSel(Com_Index);  // 인덱스 2 → COM3
+    CString For;
+    For.Format("%s", lpSysInfo->m_sModelSavePath);
+    GetDlgItem(IDC_EDIT_MAIN_MODELPATH)->SetWindowText(For);
     lpSysInfo->c_ComPort = lpSysInfo->m_ComPort;
 
     return TRUE;
@@ -118,7 +121,7 @@ void CSetSystemDlg::OnOK()
 	/*AfxMessageBox(_T("Oracle Info Saved:\n") + m_strOracleName + _T(", ") + m_strUserID + _T(", ") + m_strPassword);
 
 	CDialogEx::OnOK();*/
-    int result = AfxMessageBox(_T("저장하시겠습니까?"), MB_OKCANCEL | MB_ICONQUESTION);
+    int result = AfxMessageBox(_T("Do you want to save?"), MB_OKCANCEL | MB_ICONQUESTION);
     int ComBoBox_Flag = 0;
 
     if (result == 1)
@@ -127,6 +130,7 @@ void CSetSystemDlg::OnOK()
         // (선택사항) 저장 성공 메시지 출력
         lpSysInfo->m_ComPort = ctrlComPort.GetCurSel() + 1; // COM PORT 저장
         Write_InitFile("SYSTEM", "PORT", lpSysInfo->m_ComPort);
+        Write_InitFile("SYSTEM", "MODELPATH", lpSysInfo->m_sModelSavePath);
         // 다이얼로그 종료
         if (lpSysInfo->c_ComPort != lpSysInfo->m_ComPort)
         {
@@ -150,7 +154,7 @@ void CSetSystemDlg::OnBnClickedButtonSelModel()
     TCHAR szSelectedPath[MAX_PATH];
 
     bi.hwndOwner = this->m_hWnd;
-    bi.lpszTitle = _T("복사할 대상 폴더를 선택하세요");
+    bi.lpszTitle = _T("Select the destination folder to copy to");
     bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
     bi.pszDisplayName = szDisplayName;
 
@@ -172,7 +176,7 @@ void CSetSystemDlg::OnBnClickedButtonSelPattern()
     TCHAR szSelectedPath[MAX_PATH];
 
     bi.hwndOwner = this->m_hWnd;
-    bi.lpszTitle = _T("복사할 대상 폴더를 선택하세요");
+    bi.lpszTitle = _T("Select the destination folder to copy to");
     bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
     bi.pszDisplayName = szDisplayName;
 
@@ -193,7 +197,7 @@ void CSetSystemDlg::OnBnClickedButtonModelCopyMod()
 
     if (m_strModelFolderPath.IsEmpty())
     {
-        AfxMessageBox(_T("폴더 경로를 먼저 선택해 주세요."));
+        AfxMessageBox(_T("Please select the folder path first."));
         return;
     }
 
@@ -232,7 +236,7 @@ void CSetSystemDlg::OnBnClickedButtonModelCopyMod()
     }
 
     CString msg;
-    msg.Format(_T("총 %d개 .MOD 파일을 복사했습니다."), copiedCount);
+    msg.Format(_T("Copied a total of %d .MOD files."), copiedCount);
     AfxMessageBox(msg);
 }
 
@@ -275,13 +279,13 @@ void CSetSystemDlg::OnBnClickedButtonPatternCopyMod()
         else
         {
             CString err;
-            err.Format(_T("파일 복사 실패: %s"), fileName);
+            err.Format(_T("File Copy Fail: %s"), fileName);
             AfxMessageBox(err);
         }
     }
 
     CString msg;
-    msg.Format(_T("총 %d개 .PDB 파일을 복사했습니다."), copiedCount);
+    msg.Format(_T("Copied a total of %d .PDB files."), copiedCount);
     AfxMessageBox(msg);
 }
 
@@ -293,7 +297,7 @@ void CSetSystemDlg::OnBnClickedButtonSavePath()
     TCHAR szSelectedPath[MAX_PATH];
 
     bi.hwndOwner = this->m_hWnd;
-    bi.lpszTitle = _T("복사할 대상 폴더를 선택하세요");
+    bi.lpszTitle = _T("Select the destination folder to copy to");
     bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
     bi.pszDisplayName = szDisplayName;
 

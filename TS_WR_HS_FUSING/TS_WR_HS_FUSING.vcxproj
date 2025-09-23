@@ -311,6 +311,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CMyPictureCtrl.cpp" />
     <ClCompile Include="CSetSystemDlg.cpp" />
     <ClCompile Include="CUSERDlg.cpp" />
     <ClCompile Include="FWupdateDlg.cpp">
@@ -386,6 +387,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="CMyPictureCtrl.h" />
     <ClInclude Include="CSetSystemDlg.h" />
     <ClInclude Include="CUSERDlg.h" />
     <ClInclude Include="FWupdateDlg.h">
@@ -471,6 +473,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bmp00005.bmp" />
+    <Image Include="res\cogwheel_in.bmp" />
+    <Image Include="res\cogwheel_out.bmp" />
     <Image Include="res\System.bmp" />
     <Image Include="res\TEST(2).bmp" />
     <Image Include="res\TEST.bmp" />
