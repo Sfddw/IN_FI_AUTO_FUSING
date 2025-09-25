@@ -687,6 +687,12 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 		M_Name = "39_HC700DQG-VHDA_1DDD";
 	}*/
 
+	int pos = M_Name.ReverseFind('-'); // 마지막 '-' 위치 찾기
+	if (pos != -1)
+	{
+		M_Name = M_Name.Left(pos); // pos 앞까지만 잘라서 다시 저장
+	}
+
 	if (M_Name == _T(""))
 	{
 		m_colorFusingStatus = RGB(255, 0, 0);
@@ -753,17 +759,31 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 			lpSysInfo->f_AutoFusing = true;
 			COpBoxFusing Op_Fusing;
 			//Op_Fusing.OnBnBcrScanFusing(info.OpBox_Send_Name);
-			Op_Fusing.OnBnBcrScanFusing(M_Name);
+			bool Fusing_Yn = Op_Fusing.OnBnBcrScanFusing(M_Name);
 			lpSysInfo->f_AutoFusing = false;
 
 			m_colorFusingStatus = RGB(0, 255, 0);
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
 			GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
 			CString strLog;
-			strLog.Format(_T("FUSING OK\r\n[%s]"), M_Name);
-			GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
 
-			return M_Name;
+			if (Fusing_Yn == true)
+			{
+				strLog.Format(_T("FUSING OK\r\n[%s]"), M_Name);
+				GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
+
+				return M_Name;
+			}
+			else
+			{
+				strLog.Format(_T("FUSING FAIL\r\n[%s]"), M_Name);
+				GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
+
+				m_colorFusingStatus = RGB(255, 0, 0);
+				GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
+
+				return M_Name;
+			}
 		}
 	}
 }
@@ -2818,15 +2838,14 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
 	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
 
+	ret = SQLConnectW(hDbc,
+		(SQLWCHAR*)L"hsmes", SQL_NTS,
+		(SQLWCHAR*)L"mmif", SQL_NTS,
+		(SQLWCHAR*)L"mmif", SQL_NTS);
 	/*ret = SQLConnectW(hDbc,
 		(SQLWCHAR*)L"OracleDB", SQL_NTS,
 		(SQLWCHAR*)L"system", SQL_NTS,
 		(SQLWCHAR*)L"1234", SQL_NTS);*/
-	ret = SQLConnectW(hDbc,
-		/*(SQLWCHAR*)L"Oracle1523", SQL_NTS,*/
-		(SQLWCHAR*)L"OracleWifi", SQL_NTS,
-		(SQLWCHAR*)L"system", SQL_NTS,
-		(SQLWCHAR*)L"4321", SQL_NTS);
 
 	// 3. 연결 성공 시 쿼리 실행
 	if (SQL_SUCCEEDED(ret)) {
@@ -2900,10 +2919,13 @@ bool CTS_WR_HS_FUSINGDlg::CheckOracleDBConnection()
 
 	// 3. 연결 시도 (DSN, ID, PW는 실제 환경에 맞게 수정)
 	ret = SQLConnectW(hDbc,
-		//(SQLWCHAR*)L"Oracle1523", SQL_NTS,
-		(SQLWCHAR*)L"OracleWifi", SQL_NTS,
+		(SQLWCHAR*)L"hsmes", SQL_NTS,
+		(SQLWCHAR*)L"mmif", SQL_NTS,
+		(SQLWCHAR*)L"mmif", SQL_NTS);
+	/*ret = SQLConnectW(hDbc,
+		(SQLWCHAR*)L"OracleDB", SQL_NTS,
 		(SQLWCHAR*)L"system", SQL_NTS,
-		(SQLWCHAR*)L"4321", SQL_NTS);
+		(SQLWCHAR*)L"1234", SQL_NTS);*/
 
 	bool isConnected = SQL_SUCCEEDED(ret);
 

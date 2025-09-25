@@ -81,7 +81,7 @@ public:
 	afx_msg void OnBnClickedBtnDn();
 	afx_msg void OnBnClickedBtnSave();
 	afx_msg void OnBnClickedBtnFusing();
-	afx_msg void OnBnBcrScanFusing(CString Model_Name);
+	afx_msg bool OnBnBcrScanFusing(CString Model_Name);
 	CStatic ctrlOpBoxFusingMsg;
 	afx_msg void OnBnClickedBtnExport();
 };

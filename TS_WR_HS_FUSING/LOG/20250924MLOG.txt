@@ -1,0 +1,275 @@
+[13:14:11] : Program Start! [OP MODE]
+[13:14:11] : Port[2] Connect
+[13:14:44] : Program Exit
+[13:20:08] : Program Start! [OP MODE]
+[13:20:08] : Port[2] Connect
+[13:21:36] : Program Exit
+[13:31:48] : Program Start! [PM MODE]
+[13:31:48] : Port[2] Connect
+[13:31:48] : MES SERVER Connect
+[13:36:50] : Program Exit
+[13:37:17] : Program Start! [PM MODE]
+[13:37:18] : Port[2] Connect
+[13:37:18] : MES SERVER Connect
+[13:37:23] : Barcode Scan LCM ID = [EAJ11111111]
+[13:37:23] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[13:37:24] : Scan Success
+[13:37:24] : Return Model Name = [HC550EQH-ABED1]
+[13:37:25] : Model Matching Fail
+[13:38:03] : Program Exit
+[13:38:36] : Program Start! [PM MODE]
+[13:38:36] : Port[2] Connect
+[13:38:36] : MES SERVER Connect
+[13:38:41] : Barcode Scan LCM ID = [EAJ11111111]
+[13:38:41] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[13:38:41] : Scan Success
+[13:38:41] : Return Model Name = [HC550EQH-ABED1]
+[13:38:41] : Model Matching Success
+[13:39:00] : Barcode Scan LCM ID = [EAJ11111111]
+[13:39:00] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[13:39:00] : Scan Success
+[13:39:00] : Return Model Name = [HC550EQH-ABED1]
+[13:39:00] : Model Matching Success
+[13:39:12] : Program Exit
+[13:39:35] : Program Start! [PM MODE]
+[13:39:35] : Port[2] Connect
+[13:39:35] : MES SERVER Connect
+[13:39:44] : Barcode Scan LCM ID = [EAJ11111111]
+[13:39:44] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[13:39:44] : Scan Success
+[13:39:44] : Return Model Name = [HC550EQH-ABED1]
+[13:39:44] : Model Matching Success
+[13:40:03] : Program Exit
+[13:47:21] : Program Start! [PM MODE]
+[13:47:23] : Port[2] Connect
+[13:47:23] : MES SERVER Connect
+[13:47:32] : Barcode Scan LCM ID = [EAJ11111111]
+[13:47:32] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[13:47:32] : Scan Success
+[13:47:32] : Return Model Name = [HC550EQH-ABED1]
+[13:47:33] : Model Matching Success
+[15:31:39] : Program Start! [PM MODE]
+[15:31:39] : Port[2] Connect
+[15:31:39] : MES SERVER Connect
+[15:31:45] : Barcode Scan LCM ID = [EAJ11111111]
+[15:31:45] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[15:31:45] : Scan Success
+[15:31:45] : Return Model Name = [HC550EQH-ABED1]
+[15:31:45] : Model Matching Success
+[15:32:03] : Barcode Scan LCM ID = [EAJ11111111]
+[15:32:03] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[15:32:04] : Scan Success
+[15:32:04] : Return Model Name = [HC550EQH-ABED1]
+[15:32:04] : Model Matching Success
+[15:32:13] : Program Exit
+[15:34:46] : Program Start! [PM MODE]
+[15:34:46] : Port[2] Connect
+[15:34:46] : MES SERVER Connect
+[15:34:52] : Barcode Scan LCM ID = [EAJ11111111]
+[15:34:52] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[15:34:52] : Scan Success
+[15:34:52] : Return Model Name = [HC550EQH-ABED1]
+[15:34:52] : Model Matching Success
+[15:35:10] : Barcode Scan LCM ID = [EAJ22222222]
+[15:35:11] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[15:35:11] : Scan Success
+[15:35:11] : Return Model Name = [HC430DUN-ABTL1(BOE)]
+[15:35:12] : Model Matching Fail
+[15:35:40] : Program Exit
+[15:38:01] : Program Start! [PM MODE]
+[15:38:01] : Port[2] Connect
+[15:38:01] : MES SERVER Connect
+[15:38:07] : Barcode Scan LCM ID = [EAJ11111111]
+[15:38:07] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[15:38:07] : Scan Success
+[15:38:07] : Return Model Name = [HC550EQH-ABED1]
+[15:38:07] : Model Matching Success
+[15:38:17] : Program Exit
+[15:45:33] : Program Start! [PM MODE]
+[15:45:33] : Port[2] Connect
+[15:45:33] : MES SERVER Connect
+[15:45:39] : Barcode Scan LCM ID = [EAJ11111111]
+[15:45:39] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[15:45:39] : Scan Success
+[15:45:39] : Return Model Name = [HC550EQH-ABED1]
+[15:45:39] : Model Matching Success
+[15:45:53] : Barcode Scan LCM ID = [EAJ22222222]
+[15:45:53] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[15:45:53] : Scan Success
+[15:45:53] : Return Model Name = [HC430DUN-ABTL1(BOE)]
+[15:45:55] : Model Matching Fail
+[15:46:08] : Program Exit
+[15:46:35] : Program Start! [PM MODE]
+[15:46:36] : Port[2] Connect
+[15:46:36] : MES SERVER Connect
+[15:46:42] : Barcode Scan LCM ID = [EAJ22222222]
+[15:46:42] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[15:46:42] : Scan Success
+[15:46:42] : Return Model Name = [HC430DUN-ABTL1(BOE)]
+[15:46:43] : Model Matching Fail
+[15:46:50] : Program Exit
+[15:47:07] : Program Start! [PM MODE]
+[15:47:08] : Port[2] Connect
+[15:47:08] : MES SERVER Connect
+[15:47:13] : Barcode Scan LCM ID = [EAJ22222222]
+[15:47:13] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[15:47:13] : Scan Success
+[15:47:13] : Return Model Name = [HC430DUN-ABTL1(BOE)]
+[15:47:14] : Model Matching Fail
+[15:47:23] : Program Exit
+[15:48:05] : Program Start! [PM MODE]
+[15:48:05] : Port[2] Connect
+[15:48:05] : MES SERVER Connect
+[15:48:11] : Barcode Scan LCM ID = [EAJ22222222]
+[15:48:11] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[15:48:11] : Scan Success
+[15:48:11] : Return Model Name = [HC430DUN-ABTL1(BOE)]
+[15:48:11] : Model Matching Success
+[15:48:28] : Barcode Scan LCM ID = [DEASEW]
+[15:48:28] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('DEASEW') FROM DUAL
+[15:48:28] : Scan Success
+[15:48:28] : Return Model Name = [FALSE]
+[15:48:30] : Model Matching Fail
+[15:48:34] : Barcode Scan LCM ID = [EAJ11111111]
+[15:48:34] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[15:48:34] : Scan Success
+[15:48:34] : Return Model Name = [HC550EQH-ABED1]
+[15:48:34] : Model Matching Success
+[15:48:46] : Barcode Scan LCM ID = [EAJ22222222]
+[15:48:47] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[15:48:47] : Scan Success
+[15:48:47] : Return Model Name = [HC430DUN-ABTL1(BOE)]
+[15:48:47] : Model Matching Success
+[15:48:58] : Barcode Scan LCM ID = [EAJ11111111]
+[15:48:58] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[15:48:58] : Scan Success
+[15:48:58] : Return Model Name = [HC550EQH-ABED1]
+[15:48:58] : Model Matching Success
+[15:49:07] : Program Exit
+[15:49:40] : Program Start! [PM MODE]
+[15:49:40] : Port[2] Connect
+[15:49:40] : MES SERVER Connect
+[15:49:45] : Barcode Scan LCM ID = [EAJ22222222]
+[15:49:45] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ22222222') FROM DUAL
+[15:49:45] : Scan Success
+[15:49:45] : Return Model Name = [HC430DUN-ABTL1(BOE)]
+[15:49:45] : Model Matching Success
+[15:49:52] : Barcode Scan LCM ID = [WEASDFQW]
+[15:49:52] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('WEASDFQW') FROM DUAL
+[15:49:52] : Scan Success
+[15:49:52] : Return Model Name = [FALSE]
+[15:49:53] : Model Matching Fail
+[15:49:58] : Program Exit
+[15:57:07] : Program Start! [PM MODE]
+[15:57:08] : Port[2] Connect
+[15:57:08] : MES SERVER Connect
+[15:57:09] : Program Exit
+[16:03:51] : Program Start! [PM MODE]
+[16:03:51] : Port[2] Connect
+[16:03:52] : MES SERVER Connect
+[16:03:56] : Barcode Scan LCM ID = [EAJ11111111]
+[16:03:57] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[16:03:57] : Scan Success
+[16:03:57] : Return Model Name = [HC550EQH-ABED1]
+[16:03:57] : Model Matching Success
+[16:04:06] : Program Exit
+[16:07:52] : Program Start! [PM MODE]
+[16:07:52] : Port[2] Connect
+[16:07:52] : MES SERVER Connect
+[16:07:57] : Barcode Scan LCM ID = [EAJ11111111]
+[16:07:57] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[16:07:57] : Scan Success
+[16:07:57] : Return Model Name = [HC550EQH-ABED1]
+[16:07:57] : Model Matching Success
+[16:08:14] : Program Exit
+[16:08:53] : Program Start! [PM MODE]
+[16:08:56] : Port[2] Connect
+[16:08:56] : MES SERVER Connect
+[16:09:08] : Barcode Scan LCM ID = [EAJ11111111]
+[16:09:08] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[16:09:08] : Scan Success
+[16:09:08] : Return Model Name = [HC550EQH-ABED1]
+[16:09:09] : Model Matching Success
+[16:09:45] : Program Exit
+[16:10:16] : Program Start! [PM MODE]
+[16:10:16] : Port[2] Connect
+[16:10:16] : MES SERVER Connect
+[16:10:22] : Barcode Scan LCM ID = [EAJ11111111]
+[16:10:22] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[16:10:22] : Scan Success
+[16:10:22] : Return Model Name = [HC550EQH-ABED1]
+[16:10:22] : Model Matching Success
+[16:10:35] : Program Exit
+[16:12:01] : Program Start! [PM MODE]
+[16:12:01] : Port[2] Connect
+[16:12:02] : MES SERVER Connect
+[16:12:04] : Program Exit
+[16:12:15] : Program Start! [PM MODE]
+[16:12:17] : Port[2] Connect
+[16:12:17] : MES SERVER Connect
+[16:12:24] : Barcode Scan LCM ID = [EAJ11111111]
+[16:12:24] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[16:12:24] : Scan Success
+[16:12:24] : Return Model Name = [HC550EQH-ABED1]
+[16:12:25] : Model Matching Success
+[16:12:44] : Program Exit
+[16:13:11] : Program Start! [PM MODE]
+[16:13:13] : Port[2] Connect
+[16:13:13] : MES SERVER Connect
+[16:13:18] : Barcode Scan LCM ID = [EAJ11111111]
+[16:13:18] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[16:13:18] : Scan Success
+[16:13:18] : Return Model Name = [HC550EQH-ABED1]
+[16:13:19] : Model Matching Success
+[16:15:37] : Program Start! [PM MODE]
+[16:15:40] : Port[2] Connect
+[16:15:40] : MES SERVER Connect
+[16:15:49] : Barcode Scan LCM ID = [EAJ11111111]
+[16:15:49] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[16:15:49] : Scan Success
+[16:15:49] : Return Model Name = [HC550EQH-ABED1]
+[16:15:53] : Model Matching Success
+[16:16:33] : Program Exit
+[16:20:08] : Program Start! [PM MODE]
+[16:20:08] : Port[2] Connect
+[16:20:31] : MES SERVER Fail
+[16:20:32] : Program Exit
+[16:22:53] : Program Start! [PM MODE]
+[16:22:53] : Port[2] Connect
+[16:22:53] : MES SERVER Connect
+[16:22:58] : Program Exit
+[16:24:45] : Program Start! [PM MODE]
+[16:24:46] : Port[2] Connect
+[16:24:46] : MES SERVER Connect
+[16:25:01] : Program Exit
+[18:32:35] : Program Start! [PM MODE]
+[18:32:35] : Port[2] Connect
+[18:32:35] : MES SERVER Connect
+[18:32:51] : Program Exit
+[19:27:19] : Program Start! [PM MODE]
+[19:27:19] : Port[2] Connect
+[19:27:19] : MES SERVER Connect
+[19:27:26] : Barcode Scan LCM ID = [EAJ11111111]
+[19:27:26] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[19:27:26] : Scan Success
+[19:27:26] : Return Model Name = [HC550EQH-ABED1]
+[19:27:26] : Model Matching Success
+[19:39:30] : Program Exit
+[19:40:28] : Program Start! [PM MODE]
+[19:40:28] : Port[2] Connect
+[19:40:28] : MES SERVER Connect
+[19:44:14] : Barcode Scan LCM ID = [CCCCCCEAJ11111111]
+[19:44:14] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('CCCCCCEAJ11111111') FROM DUAL
+[19:44:14] : Scan Success
+[19:44:14] : Return Model Name = [FALSE]
+[19:44:15] : Model Matching Fail
+[19:44:17] : Program Exit
+[19:44:23] : Program Start! [PM MODE]
+[19:44:23] : Port[2] Connect
+[19:44:23] : MES SERVER Connect
+[19:44:27] : Barcode Scan LCM ID = [EAJ11111111]
+[19:44:27] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ11111111') FROM DUAL
+[19:44:27] : Scan Success
+[19:44:27] : Return Model Name = [HC320DXN-ABHA1-91251]
+[19:44:27] : Model Matching Success
+[19:44:48] : Program Exit

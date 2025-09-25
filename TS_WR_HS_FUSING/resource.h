@@ -18,6 +18,8 @@
 #define IDD_USER_LOGIN                  158
 #define IDB_COG_O                       160
 #define IDB_COG_T                       161
+#define IDD_DIALOG1                     162
+#define IDD_DIGA_FUSING_OK              162
 #define IDC_GRP_TIMMING                 1000
 #define IDC_GRP_SIGNAL                  1001
 #define IDC_GRP_PATTERN                 1002
@@ -270,7 +272,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        162
+#define _APS_NEXT_RESOURCE_VALUE        164
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1196
 #define _APS_NEXT_SYMED_VALUE           101

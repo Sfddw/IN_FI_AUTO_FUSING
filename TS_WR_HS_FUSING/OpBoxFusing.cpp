@@ -5,6 +5,7 @@
 #include "TS_WR_HS_FUSING.h"
 #include "TS_WR_HS_FUSINGDlg.h"
 #include "OpBoxFusing.h"
+#include "CDlgFusingOk.h"
 
 
 // COpBoxFusing 대화 상자입니다.
@@ -1201,7 +1202,7 @@ void COpBoxFusing::OnBnClickedBtnFusing()
 	ctrlOpBoxFusingMsg.SetWindowText("OP-Box FUSING SUCCESS.");
 }
 
-void COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
+bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
@@ -1217,6 +1218,7 @@ void COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 
 	nResult = execDelAllMod();
 	if (nResult == 0)
+	//if (Model_Name == "HC320DXN-ABHA1")
 	{
 		for (nLoop = 0; nLoop < 1; nLoop++)
 		{
@@ -1227,21 +1229,28 @@ void COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 				CString msg;
 				msg.Format(_T("Fusing Fail [%s]\nCable & Op-Box Check Please"), _T(Model_Name));
 				AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);
-				return;
+				return false;
 			}
 			CString msg;
 			msg.Format(_T("Fusing Success [%s]"), _T(Model_Name));
 			AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);
+			return true;
 			 // ok일 경우
 
 		}
+		/*CString msg;
+		msg.Format(_T("Fusing Success [%s]"), _T(Model_Name));
+		AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);*/
+		/*CDlgFusingOk Fok;
+		Fok.DoModal();
+		return true;*/
 	}
 	else
 	{
 		CString msg;
 		msg.Format(_T("Fusing Fail [%s]\nCable & Op-Box Check Please"), _T(Model_Name));
 		AfxMessageBox(msg, MB_ICONERROR | MB_OK);
-		return;
+		return false;
 	}
 }
 
