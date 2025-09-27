@@ -18,7 +18,6 @@
 #define IDD_USER_LOGIN                  158
 #define IDB_COG_O                       160
 #define IDB_COG_T                       161
-#define IDD_DIALOG1                     162
 #define IDD_DIGA_FUSING_OK              162
 #define IDC_GRP_TIMMING                 1000
 #define IDC_GRP_SIGNAL                  1001
@@ -188,6 +187,7 @@
 #define IDC_EDIT_USER_ID                1111
 #define IDC_EDIT_FUSING_STATUS          1111
 #define IDC_EDIT_PASSWORD               1112
+#define IDC_STATIC_STR_CNT2             1112
 #define IDC_BUTTON_MODEL_PATH           1115
 #define IDC_BUTTON_PATTERN_PATH         1116
 #define IDC_CBOX_PORT                   1117

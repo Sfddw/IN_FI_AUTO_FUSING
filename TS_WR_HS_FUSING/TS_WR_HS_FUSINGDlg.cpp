@@ -1489,7 +1489,7 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	GetDlgItem(IDC_EDT_HBPORCH)->SetFont(&m_Font[10]);
 	GetDlgItem(IDC_EDT_HFPORCH)->SetFont(&m_Font[10]);
 	GetDlgItem(IDC_CMB_PIXEL)->SetFont(&m_Font[10]);
-	GetDlgItem(IDC_CMB_SWAP)->SetFont(&m_Font[10]);
+	GetDlgItem(IDC_CMB_SWAP)->SetFont(&m_Font[4]);
 	GetDlgItem(IDC_EDT_V_TOTAL)->SetFont(&m_Font[10]);
 	GetDlgItem(IDC_EDT_V_WIDTH)->SetFont(&m_Font[10]);
 	GetDlgItem(IDC_EDT_VACTIVE)->SetFont(&m_Font[10]);
@@ -2176,6 +2176,8 @@ void CTS_WR_HS_FUSINGDlg::funcUpdateModel_List(void)
 	m_pComboModel = (CComboBox* ) GetDlgItem(IDC_CMB_MODEL_NAME);
 
 	m_pComboModel->ResetContent();
+
+	modelList.RemoveAll(); // 모델리스트 초기화 - 검색시 두 개 표기되는 현상 제거
 
 	fucAllModelList();
 
@@ -3145,33 +3147,6 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch()
 
 void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect()
 {
-	//// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	//CString strSearch;
-	//m_editSearch.GetWindowText(strSearch); // Edit Control에서 검색어 가져오기
-
-	//if (strSearch.IsEmpty()) {
-	//	AfxMessageBox(_T("검색어를 입력하세요."));
-	//	return;
-	//}
-
-	//// ComboBox에서 항목 검색
-	//int nCount = ctrlSelModelName.GetCount();
-	//for (int i = 0; i < nCount; ++i)
-	//{
-	//	CString strItem;
-	//	ctrlSelModelName.GetLBText(i, strItem); // i번째 아이템 텍스트 가져오기
-
-	//	if (strItem.Find(strSearch) != -1) // 대소문자 무시 비교
-	//	{
-	//		ctrlSelModelName.SetCurSel(i); // 해당 항목 선택
-	//		OnCbnSelchangeCmbModelName();
-	//		return;
-	//	}
-	//}
-
-	//// 검색 실패 시 메시지
-	//AfxMessageBox(_T("일치하는 모델명이 없습니다."));
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
 	m_strKeyBuffer = _T("");
 
@@ -3181,9 +3156,12 @@ void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect()
 	if (strSearch.IsEmpty()) {
 		/*AfxMessageBox(_T("검색어를 입력하세요."));
 		return;*/
-		ctrlSelModelName.ResetContent();
+
+
+		/*ctrlSelModelName.ResetContent();
 		for (int i = 0; i < modelList.GetCount(); ++i)
-			ctrlSelModelName.AddString(modelList[i]);
+			ctrlSelModelName.AddString(modelList[i]);*/
+		funcUpdateModel_List();
 		return;
 	}
 
@@ -3210,13 +3188,6 @@ void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect()
 	else {
 		AfxMessageBox(_T("일치하는 모델명이 없습니다."));
 	}
-
-	/*if (strSearch.IsEmpty()) {
-		ctrlSelModelName.ResetContent();
-		for (int i = 0; i < modelList.GetCount(); ++i)
-			ctrlSelModelName.AddString(modelList[i]);
-		return;
-	}*/
 }
 
 
