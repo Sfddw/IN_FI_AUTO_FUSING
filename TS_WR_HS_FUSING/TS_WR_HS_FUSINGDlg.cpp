@@ -688,10 +688,21 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 		M_Name = "39_HC700DQG-VHDA_1DDD";
 	}*/
 
-	int pos = M_Name.ReverseFind('-'); // 마지막 '-' 위치 찾기
-	if (pos != -1)
+	int nCount = 0;
+	for (int i = 0; i < M_Name.GetLength(); i++)
 	{
-		M_Name = M_Name.Left(pos); // pos 앞까지만 잘라서 다시 저장
+		if (M_Name[i] == _T('-'))
+			nCount++;
+	}
+
+	// 하이픈이 2개 이상일 때만 잘라내기
+	if (nCount >= 2)
+	{
+		int pos = M_Name.ReverseFind(_T('-')); // 마지막 '-' 위치 찾기
+		if (pos != -1)
+		{
+			M_Name = M_Name.Left(pos); // pos 앞까지만 잘라서 다시 저장
+		}
 	}
 
 	if (M_Name == _T(""))
@@ -707,15 +718,37 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 	else
 	{
 		bool bFound = false;
-		for (int i = 0; i < modelList.GetCount(); i++) // 모델리스트 처음부터 길이만큼 반복
+		for (int i = 0; i < modelList.GetCount(); i++)
 		{
-			if (M_Name.Compare(modelList[i]) == 0)
+			CString strItem = modelList[i];
+
+			// 하이푼 개수 세기
+			int nCount = 0;
+			for (int j = 0; j < strItem.GetLength(); j++)
+			{
+				if (strItem[j] == _T('-'))
+					nCount++;
+			}
+
+			// 하이푼이 2개 이상이면 마지막 '-' 뒤를 잘라낸다
+			if (nCount >= 2)
+			{
+				int pos = strItem.ReverseFind(_T('-'));
+				if (pos != -1)
+				{
+					strItem = strItem.Left(pos); // 마지막 '-' 앞까지만 남김
+				}
+			}
+
+			// 이제 M_Name 과 비교
+			if (M_Name.Compare(strItem) == 0)
 			{
 				bFound = true;
 
 				CString msg;
 				msg.Format(_T("Model Matching Success"));
 				WriteLogFile(msg);
+				M_Name = modelList[i];
 				break;
 			}
 		}
