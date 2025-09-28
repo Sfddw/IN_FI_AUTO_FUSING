@@ -19,6 +19,7 @@
 #define IDB_COG_O                       160
 #define IDB_COG_T                       161
 #define IDD_DIGA_FUSING_OK              162
+#define IDD_DIGA_FUSING_NG              164
 #define IDC_GRP_TIMMING                 1000
 #define IDC_GRP_SIGNAL                  1001
 #define IDC_GRP_PATTERN                 1002
@@ -267,14 +268,20 @@
 #define IDC_STATIC51                    1192
 #define IDC_STATIC52                    1193
 #define IDC_STATIC53                    1194
+#define IDC_STATIC_OK                   1196
+#define IDC_STATIC_NG                   1197
+#define IDC_STATIC_MODELNAME            1198
+#define IDC_STATIC_STATUS               1198
+#define IDC_STATIC_MODELNAME2           1199
+#define IDC_STATIC_CHECK                1199
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        164
+#define _APS_NEXT_RESOURCE_VALUE        166
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1196
+#define _APS_NEXT_CONTROL_VALUE         1200
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

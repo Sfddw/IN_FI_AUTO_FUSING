@@ -63,6 +63,12 @@
     <ClCompile Include="CMyPictureCtrl.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CDlgFusingOk.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CDlgFusingNg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CheckModelNAme.h">
@@ -123,6 +129,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CMyPictureCtrl.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CDlgFusingOk.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CDlgFusingNg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

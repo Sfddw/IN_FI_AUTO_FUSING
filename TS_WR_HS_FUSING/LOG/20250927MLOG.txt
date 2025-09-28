@@ -240,3 +240,7 @@
 [18:47:04] : Port[2] Connect
 [18:47:04] : MES SERVER Connect
 [18:47:17] : Program Exit
+[19:16:24] : Program Start! [PM MODE]
+[19:16:25] : Port[2] Connect
+[19:16:25] : MES SERVER Connect
+[19:26:55] : Program Exit

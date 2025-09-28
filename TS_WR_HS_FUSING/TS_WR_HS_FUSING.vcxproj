@@ -306,6 +306,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CDlgFusingNg.cpp" />
     <ClCompile Include="CDlgFusingOk.cpp" />
     <ClCompile Include="CheckModelNAme.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -383,6 +384,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CDlgFusingNg.h" />
     <ClInclude Include="CDlgFusingOk.h" />
     <ClInclude Include="CheckModelNAme.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

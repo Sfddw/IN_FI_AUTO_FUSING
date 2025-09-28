@@ -12,6 +12,7 @@
 #include "SetFlicker.h"
 #include "VersionInfo.h"
 #include "CSetSystemDlg.h"
+#include "CDlgFusingNg.h"
 
 #include <windows.h>
 #include <sql.h>
@@ -723,8 +724,13 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 		{
 			//return _T("");
 			CString msg;
-			msg.Format(_T("There is no Matching Model Name"));
-			AfxMessageBox(msg);
+			/*msg.Format(_T("There is no Matching Model Name"));
+			AfxMessageBox(msg);*/
+
+			CDlgFusingNg Fng;
+			msg.Format(_T("Model Not Found \r\n[%s]"), M_Name);
+			Fng.m_strStatus = msg;
+			Fng.DoModal();
 
 			m_colorFusingStatus = RGB(255,0, 0);
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
