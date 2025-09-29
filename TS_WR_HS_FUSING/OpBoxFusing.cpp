@@ -1223,7 +1223,7 @@ bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 	CDlgFusingNg Fng; // ng
 	CString msg;
 	if (nResult == 0)
-	//if (Model_Name == "HC320DXN-ABHA1")
+		//if (Model_Name == "HC320DXN-ABHA1")
 	{
 		for (nLoop = 0; nLoop < 1; nLoop++)
 		{
@@ -1242,12 +1242,12 @@ bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 			Fok.m_strModelName = Model_Name;
 			Fok.DoModal();
 			return true;
-			 // ok일 경우
+			// ok일 경우
 		}
 		/*CString msg;
 		msg.Format(_T("Fusing Success [%s]"), _T(Model_Name));
 		AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);*/
-		
+
 		Fok.m_strModelName = Model_Name;
 		Fok.DoModal();
 		return true;
@@ -1257,7 +1257,53 @@ bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 		/*CString msg;
 		msg.Format(_T("Fusing Fail [%s]\nCable & Op-Box Check Please"), _T(Model_Name));
 		AfxMessageBox(msg, MB_ICONERROR | MB_OK);*/
-		
+
+		Fng.m_strStatus = _T("Cable Connect Check Please!!");
+		Fng.DoModal();
+		return false;
+	}
+}
+
+bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name, CString Full_Name)
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	int nLoop;
+	int nResult = 0;
+	CString strMsg = _T("");
+
+	lpModelInfo = new MODEL_INFO;
+	strcpy(szFusingModelList[0], Model_Name);
+
+	nResult = execDelAllMod();
+
+	CDlgFusingOk Fok; // ok
+	CDlgFusingNg Fng; // ng
+	CString msg;
+	if (nResult == 0)
+	//if (Model_Name == "HC320DXN-ABHA1")
+	{
+		for (nLoop = 0; nLoop < 1; nLoop++)
+		{
+			if (strlen(szFusingModelList[nLoop]) == 0)	break;
+
+			if (procOpBoxFusing(nLoop) != 0) // ng일 경우
+			{
+				Fng.m_strStatus = _T("Cable Connect Check Please!!");
+				Fng.DoModal();
+				return false;
+			}
+			Fok.m_strModelName = Full_Name;
+			Fok.DoModal();
+			return true;
+			 // ok일 경우
+		}
+		Fok.m_strModelName = Full_Name;
+		Fok.DoModal();
+		return true;
+	}
+	else
+	{
 		Fng.m_strStatus = _T("Cable Connect Check Please!!");
 		Fng.DoModal();
 		return false;

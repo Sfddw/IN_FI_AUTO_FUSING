@@ -530,6 +530,12 @@ HBRUSH CTS_WR_HS_FUSINGDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		brushFusing.CreateSolidBrush(m_colorFusingStatus);
 		return brushFusing;
 	}
+	else if (pWnd->GetDlgCtrlID() == IDC_STATIC_STR_CNT2) // ÇØ´ç Static ÄÁÆ®·Ñ¸¸
+	{
+		pDC->SetTextColor(RGB(255, 0, 0));   // »¡°£»ö ±ÛÀÚ
+		pDC->SetBkMode(TRANSPARENT);         // ¹è°æ Åõ¸í (±ÇÀå)
+		return (HBRUSH)GetStockObject(HOLLOW_BRUSH); // ¹è°æ»ö Åõ¸í Ã³¸®
+	}
 
 	// TODO:  ±âº»°ªÀÌ Àû´çÇÏÁö ¾ÊÀ¸¸é ´Ù¸¥ ºê·¯½Ã¸¦ ¹ÝÈ¯ÇÕ´Ï´Ù.
 	return hbr;
@@ -639,55 +645,6 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 	msg.Format(_T("Return Model Name = [%s]"), M_Name);
 	WriteLogFile(msg);
 
-	/*if (Model_Name == "EAJ64811801")
-	{
-		M_Name = "07HC650DQG-ABXA2-A111";
-	}
-	else if (Model_Name == "EAJ65329801")
-	{
-		M_Name = "05_HC430DUN-ABXL1_3";
-	}
-	else if (Model_Name == "EAJ65329001")
-	{
-		M_Name = "01_HC55EQH-SLHA1";
-	}
-	else if (Model_Name == "EAJ65863901")
-	{
-		M_Name = "10_HC430DGG-ABWL1(BOE)";
-	}
-	else if (Model_Name == "EAJ64811908")
-	{
-		M_Name = "06_HC430DUN-ABTL1_5_7(BOE)";
-	}
-	else if (Model_Name == "EAJ64811911")
-	{
-		M_Name = "65QNED";
-	}
-	else if (Model_Name == "EAJ65329210")
-	{
-		M_Name = "22_HC500DQG-SLDA_1_3(LGD)";
-	}
-	else if (Model_Name == "EAJ65288601")
-	{
-		M_Name = "23_HC500DQG-VKDA(HKC)";
-	}
-	else if (Model_Name == "EAJ65740101")
-	{
-		M_Name = "24_HC500DQG-VKFL_1";
-	}
-	else if (Model_Name == "EAJ65740201")
-	{
-		M_Name = "25_HC500DQG-VKXL(A)1_3(HKC)";
-	}
-	else if (Model_Name == "EAJ65794101")
-	{
-		M_Name = "26_HC550DQG-ABDA_1_3(BOE)";
-	}
-	else if (Model_Name == "EAJ65794201")
-	{
-		M_Name = "39_HC700DQG-VHDA_1DDD";
-	}*/
-
 	int nCount = 0;
 	for (int i = 0; i < M_Name.GetLength(); i++)
 	{
@@ -761,7 +718,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 			AfxMessageBox(msg);*/
 
 			CDlgFusingNg Fng;
-			msg.Format(_T("Model Not Found \r\n[%s]"), M_Name);
+			msg.Format(_T("Model Not Found \r\n[%s]"), info.name);
 			Fng.m_strStatus = msg;
 			Fng.DoModal();
 
@@ -774,7 +731,8 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 			msg.Format(_T("Model Matching Fail"));
 			WriteLogFile(msg);
 
-			return M_Name;
+			//return M_Name;
+			return info.name;
 		}
 		else
 		{
@@ -798,7 +756,7 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 			lpSysInfo->f_AutoFusing = true;
 			COpBoxFusing Op_Fusing;
 			//Op_Fusing.OnBnBcrScanFusing(info.OpBox_Send_Name);
-			bool Fusing_Yn = Op_Fusing.OnBnBcrScanFusing(M_Name);
+			bool Fusing_Yn = Op_Fusing.OnBnBcrScanFusing(M_Name, info.name);
 			lpSysInfo->f_AutoFusing = false;
 
 			m_colorFusingStatus = RGB(0, 255, 0);
@@ -808,20 +766,22 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // ¹
 
 			if (Fusing_Yn == true)
 			{
-				strLog.Format(_T("FUSING OK\r\n[%s]"), M_Name);
+				strLog.Format(_T("FUSING OK\r\n[%s]"), info.name);
 				GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
 
-				return M_Name;
+				//return M_Name;
+				return info.name;
 			}
 			else
 			{
-				strLog.Format(_T("FUSING FAIL\r\n[%s]"), M_Name);
+				strLog.Format(_T("FUSING FAIL\r\n[%s]"), info.name);
 				GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
 
 				m_colorFusingStatus = RGB(255, 0, 0);
 				GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
 
-				return M_Name;
+				//return M_Name;
+				return info.name;
 			}
 		}
 	}
@@ -1701,6 +1661,8 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	GetDlgItem(IDC_STATIC_RS232)->SetFont(&m_Font[6]);
 	GetDlgItem(IDC_STATIC_MES)->SetFont(&m_Font[6]);
 	GetDlgItem(IDC_STATIC_CONNECT)->SetFont(&m_Font[6]);
+
+	GetDlgItem(IDC_STATIC_STR_CNT2)->SetFont(&m_Font[6]);
 }
 
 
@@ -2930,12 +2892,19 @@ BarcodeInfo CTS_WR_HS_FUSINGDlg::FindDataInDB(CString partNumber)
 		}
 
 		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		m_colorMesBg = RGB(0, 255, 0);
+		GetDlgItem(IDC_STATIC_MES)->Invalidate();
 	}
 	else {
-		AfxMessageBox(_T("DB ¿¬°á¿¡ ½ÇÆÐÇß½À´Ï´Ù."));
 		CString msg;
+		CDlgFusingNg Fng;
+		msg.Format(_T("MES CONNECT FAIL"));
+		Fng.m_strStatus = msg;
+		Fng.DoModal();
 		msg.Format(_T("Scan DB Fail"));
 		WriteLogFile(msg);
+		m_colorMesBg = RGB(255, 0, 0);
+		GetDlgItem(IDC_STATIC_MES)->Invalidate();
 	}
 
 	// 5. ¿¬°á ÇØÁ¦ ¹× ÇÚµé Á¤¸®

@@ -894,3 +894,10 @@
 [22:56:00] : Return Model Name = [HC430DUN-VKXL1-914X]
 [22:56:00] : Model Matching Success
 [22:56:05] : Program Exit
+[22:59:56] : Program Start! [PM MODE]
+[22:59:56] : Port[2] Connect
+[23:00:19] : MES SERVER Fail
+[23:02:45] : Barcode Scan LCM ID = [((&((&&&(((&&&(((&&(&&&&(((((&&&&(((((&&&&&&&&((((((((&&&&&&HC320DUNABXL12]
+[23:03:14] : Scan DB Fail
+[23:03:14] : Return Model Name = []
+[23:09:26] : Program Exit
