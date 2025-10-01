@@ -335,3 +335,11 @@
 [19:40:26] : Return Model Name = [HC650DQK-ABRDA-91251]
 [19:40:26] : Model Matching Success
 [19:42:05] : Program Exit
+[19:48:25] : Program Start! [PM MODE]
+[19:48:26] : Port[2] Connect
+[19:48:26] : MES SERVER Connect
+[20:01:01] : Program Exit
+[20:06:20] : Program Start! [PM MODE]
+[20:06:20] : Port[2] Connect
+[20:06:20] : MES SERVER Connect
+[20:07:39] : Program Exit

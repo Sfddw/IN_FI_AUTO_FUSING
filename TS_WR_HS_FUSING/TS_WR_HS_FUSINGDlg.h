@@ -138,6 +138,7 @@ public:
 
 	void initFontSet(void);
 	void initControl(void);
+	void initComboBoxSet(void);
 
 	void funcModelEditReadOnly(char onoff);
 

@@ -1,0 +1,387 @@
+[12:11:49] : Program Start! [PM MODE]
+[12:11:50] : Port[2] Connect
+[12:11:50] : MES SERVER Connect
+[12:11:55] : Barcode Scan LCM ID = [EAJ65329802]
+[12:11:55] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65329802') FROM DUAL
+[12:11:55] : Scan Success
+[12:11:55] : Return Model Name = [HC650EQH-ABHA4-91211]
+[12:11:55] : Model Matching Success
+[12:12:03] : Barcode Scan LCM ID = [EAJ65740101]
+[12:12:03] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65740101') FROM DUAL
+[12:12:03] : Return Model Name = []
+[12:12:07] : Barcode Scan LCM ID = [EAJ65288601]
+[12:12:07] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65288601') FROM DUAL
+[12:12:07] : Return Model Name = []
+[12:12:08] : Barcode Scan LCM ID = [EAJ65329801]
+[12:12:08] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65329801') FROM DUAL
+[12:12:08] : Scan Success
+[12:12:08] : Return Model Name = [FALSE]
+[12:12:13] : Model Matching Fail
+[12:12:17] : Barcode Scan LCM ID = [EAJ65329801]
+[12:12:17] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65329801') FROM DUAL
+[12:12:17] : Scan Success
+[12:12:17] : Return Model Name = [FALSE]
+[12:12:17] : Model Matching Fail
+[12:12:18] : Barcode Scan LCM ID = [EAJ65329801]
+[12:12:18] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65329801') FROM DUAL
+[12:12:18] : Scan Success
+[12:12:18] : Return Model Name = [FALSE]
+[12:12:19] : Model Matching Fail
+[12:12:20] : Barcode Scan LCM ID = [EAJ65329801]
+[12:12:20] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65329801') FROM DUAL
+[12:12:20] : Scan Success
+[12:12:20] : Return Model Name = [FALSE]
+[12:12:20] : Model Matching Fail
+[12:12:21] : Barcode Scan LCM ID = [EAJ65329802]
+[12:12:21] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65329802') FROM DUAL
+[12:12:21] : Scan Success
+[12:12:21] : Return Model Name = [HC650EQH-ABHA4-91211]
+[12:12:21] : Model Matching Success
+[12:12:27] : Barcode Scan LCM ID = [EAJ64811801]
+[12:12:27] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ64811801') FROM DUAL
+[12:12:27] : Scan Success
+[12:12:27] : Return Model Name = [HC500DQG-VKHD2-914XA]
+[12:12:27] : Model Matching Success
+[12:12:35] : Barcode Scan LCM ID = [EAJ65813902]
+[12:12:35] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65813902') FROM DUAL
+[12:12:35] : Scan Success
+[12:12:35] : Return Model Name = [FALSE]
+[12:12:38] : Model Matching Fail
+[12:12:41] : Barcode Scan LCM ID = [EAJ65813901]
+[12:12:41] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65813901') FROM DUAL
+[12:12:41] : Scan Success
+[12:12:41] : Return Model Name = [FALSE]
+[12:12:42] : Model Matching Fail
+[12:12:42] : Barcode Scan LCM ID = [EAJ65813902]
+[12:12:42] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65813902') FROM DUAL
+[12:12:42] : Scan Success
+[12:12:42] : Return Model Name = [FALSE]
+[12:12:43] : Model Matching Fail
+[12:13:43] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[12:13:43] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[12:13:43] : Scan Success
+[12:13:43] : Return Model Name = [FALSE]
+[12:13:48] : Model Matching Fail
+[12:14:17] : Barcode Scan LCM ID = [CCCR9W498J2E300284025J1E]
+[12:14:17] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('CCCR9W498J2E300284025J1E') FROM DUAL
+[12:14:17] : Scan Success
+[12:14:17] : Return Model Name = [FALSE]
+[12:14:19] : Model Matching Fail
+[12:14:48] : Barcode Scan LCM ID = [CCR9W498J2E300284025J1E]
+[12:14:48] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('CCR9W498J2E300284025J1E') FROM DUAL
+[12:14:48] : Scan Success
+[12:14:48] : Return Model Name = [FALSE]
+[12:15:01] : Model Matching Fail
+[12:15:04] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:04] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:04] : Return Model Name = []
+[12:15:07] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:07] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:07] : Return Model Name = []
+[12:15:09] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:09] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:09] : Return Model Name = []
+[12:15:10] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:10] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:10] : Return Model Name = []
+[12:15:15] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[12:15:15] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[12:15:15] : Scan Success
+[12:15:15] : Return Model Name = [HC550EQH-ABBA1-91241]
+[12:15:15] : Model Matching Success
+[12:15:23] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[12:15:23] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[12:15:23] : Scan Success
+[12:15:23] : Return Model Name = [HC550EQH-ABBA1-91241]
+[12:15:23] : Model Matching Success
+[12:15:31] : Barcode Scan LCM ID = [D3YW5800XF03B1]
+[12:15:31] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('D3YW5800XF03B1') FROM DUAL
+[12:15:31] : Scan Success
+[12:15:31] : Return Model Name = [FALSE]
+[12:15:34] : Model Matching Fail
+[12:15:37] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:37] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:37] : Return Model Name = []
+[12:15:40] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:40] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:40] : Return Model Name = []
+[12:15:42] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:42] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:42] : Return Model Name = []
+[12:15:42] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:42] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:42] : Return Model Name = []
+[12:15:43] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:15:43] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:15:43] : Return Model Name = []
+[12:16:05] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[12:16:05] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[12:16:05] : Scan Success
+[12:16:05] : Return Model Name = [HC550EQH-ABBA1-91241]
+[12:16:05] : Model Matching Success
+[12:16:13] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:16:13] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:16:13] : Return Model Name = []
+[12:16:52] : Barcode Scan LCM ID = [D3YW58010T04B2]
+[12:16:52] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('D3YW58010T04B2') FROM DUAL
+[12:16:52] : Scan Success
+[12:16:52] : Return Model Name = [FALSE]
+[12:17:03] : Model Matching Fail
+[12:17:06] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:17:07] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:17:07] : Scan Success
+[12:17:07] : Return Model Name = [FALSE]
+[12:17:08] : Model Matching Fail
+[12:17:11] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:17:11] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:17:11] : Scan Success
+[12:17:11] : Return Model Name = [FALSE]
+[12:17:12] : Model Matching Fail
+[12:17:13] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:17:13] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:17:13] : Scan Success
+[12:17:13] : Return Model Name = [FALSE]
+[12:17:14] : Model Matching Fail
+[12:17:15] : Barcode Scan LCM ID = [D3YW58010T04B2]
+[12:17:15] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('D3YW58010T04B2') FROM DUAL
+[12:17:15] : Scan Success
+[12:17:15] : Return Model Name = [FALSE]
+[12:17:17] : Model Matching Fail
+[12:17:18] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:17:18] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:17:18] : Scan Success
+[12:17:18] : Return Model Name = [FALSE]
+[12:17:19] : Model Matching Fail
+[12:17:20] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:17:20] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:17:20] : Scan Success
+[12:17:20] : Return Model Name = [FALSE]
+[12:17:22] : Model Matching Fail
+[12:17:23] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:17:23] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:17:23] : Scan Success
+[12:17:23] : Return Model Name = [FALSE]
+[12:17:24] : Model Matching Fail
+[12:17:58] : Barcode Scan LCM ID = [D3YW58010T04B2]
+[12:17:58] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('D3YW58010T04B2') FROM DUAL
+[12:17:58] : Scan Success
+[12:17:58] : Return Model Name = [FALSE]
+[12:18:00] : Model Matching Fail
+[12:18:03] : Barcode Scan LCM ID = [D3YW58010T04B2]
+[12:18:03] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('D3YW58010T04B2') FROM DUAL
+[12:18:03] : Scan Success
+[12:18:03] : Return Model Name = [FALSE]
+[12:18:05] : Model Matching Fail
+[12:18:09] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:18:09] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:18:09] : Scan Success
+[12:18:09] : Return Model Name = [FALSE]
+[12:18:10] : Model Matching Fail
+[12:18:11] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:18:12] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:18:12] : Scan Success
+[12:18:12] : Return Model Name = [FALSE]
+[12:18:12] : Model Matching Fail
+[12:18:39] : Program Exit
+[12:20:56] : Program Start! [PM MODE]
+[12:20:57] : Port[2] Connect
+[12:20:57] : MES SERVER Connect
+[12:21:35] : Program Exit
+[12:21:40] : Program Start! [OP MODE]
+[12:21:40] : Port[2] Connect
+[12:22:05] : Program Exit
+[12:25:19] : Program Start! [OP MODE]
+[12:25:20] : Port[2] Connect
+[12:25:39] : Program Exit
+[12:25:53] : Program Start! [OP MODE]
+[12:25:54] : Port[2] Connect
+[12:25:56] : Program Exit
+[12:26:16] : Program Start! [PM MODE]
+[12:26:16] : Port[2] Connect
+[12:26:17] : MES SERVER Connect
+[12:26:41] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[12:26:41] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[12:26:41] : Scan Success
+[12:26:41] : Return Model Name = [HC550EQH-ABBA1-91241]
+[12:26:41] : Model Matching Success
+[12:26:49] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:26:49] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:26:49] : Return Model Name = []
+[12:26:54] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:26:54] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:26:54] : Scan Success
+[12:26:54] : Return Model Name = [FALSE]
+[12:27:00] : Model Matching Fail
+[12:27:01] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[12:27:01] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[12:27:01] : Scan Success
+[12:27:01] : Return Model Name = [HC550EQH-ABBA1-91241]
+[12:27:01] : Model Matching Success
+[12:27:08] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[12:27:08] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[12:27:08] : Return Model Name = []
+[12:27:13] : Barcode Scan LCM ID = [R9W4BLJ2E300284025J1E]
+[12:27:13] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W4BLJ2E300284025J1E') FROM DUAL
+[12:27:13] : Scan Success
+[12:27:13] : Return Model Name = [FALSE]
+[12:27:17] : Model Matching Fail
+[12:27:18] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[12:27:18] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[12:27:18] : Scan Success
+[12:27:18] : Return Model Name = [HC550EQH-ABBA1-91241]
+[12:27:18] : Model Matching Success
+[12:52:06] : Program Exit
+[12:53:09] : Program Start! [OP MODE]
+[12:53:10] : Port[2] Connect
+[12:53:25] : Program Exit
+[13:00:11] : Program Start! [PM MODE]
+[13:00:11] : Port[2] Connect
+[13:00:11] : MES SERVER Connect
+[13:00:32] : Program Start! [PM MODE]
+[13:00:32] : Port[2] Connect
+[13:00:32] : MES SERVER Connect
+[13:01:16] : Program Exit
+[13:01:41] : Program Start! [PM MODE]
+[13:01:42] : Port[2] Connect
+[13:01:42] : MES SERVER Connect
+[13:01:57] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[13:01:57] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[13:01:57] : Scan Success
+[13:01:57] : Return Model Name = [HC550EQH-ABBA1-91241]
+[13:01:57] : Model Matching Success
+[13:02:14] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[13:02:14] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[13:02:14] : Scan Success
+[13:02:14] : Return Model Name = [HC550EQH-ABBA1-91241]
+[13:02:14] : Model Matching Success
+[13:02:23] : Barcode Scan LCM ID = [R9W498J2E300284025J1E]
+[13:02:23] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W498J2E300284025J1E') FROM DUAL
+[13:02:23] : Return Model Name = []
+[13:03:15] : Program Exit
+[13:14:20] : Program Start! [PM MODE]
+[13:14:20] : Port[2] Connect
+[13:14:20] : MES SERVER Connect
+[13:14:49] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[13:14:50] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[13:14:50] : Scan Success
+[13:14:50] : Return Model Name = [HC550EQH-ABBA1-91241]
+[13:14:50] : Model Matching Success
+[13:14:58] : Barcode Scan LCM ID = [9R9W491J3E65845902HR2E]
+[13:14:58] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('9R9W491J3E65845902HR2E') FROM DUAL
+[13:14:58] : Scan Success
+[13:14:58] : Return Model Name = [FALSE]
+[13:15:00] : Model Matching Fail
+[13:15:04] : Barcode Scan LCM ID = [9R9W491J3E65845902HR2E]
+[13:15:04] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('9R9W491J3E65845902HR2E') FROM DUAL
+[13:15:04] : Scan Success
+[13:15:04] : Return Model Name = [FALSE]
+[13:15:05] : Model Matching Fail
+[13:15:09] : Program Exit
+[13:20:54] : Program Start! [PM MODE]
+[13:20:54] : Port[2] Connect
+[13:20:55] : MES SERVER Connect
+[13:21:09] : Barcode Scan LCM ID = [9AB5570152A7AB]
+[13:21:09] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('9AB5570152A7AB') FROM DUAL
+[13:21:09] : Scan Success
+[13:21:09] : Return Model Name = [FALSE]
+[13:21:11] : Model Matching Fail
+[13:21:14] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[13:21:14] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[13:21:14] : Scan Success
+[13:21:14] : Return Model Name = [HC550EQH-ABBA1-91241]
+[13:21:14] : Model Matching Success
+[13:21:25] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[13:21:25] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[13:21:25] : Scan Success
+[13:21:25] : Return Model Name = [HC550EQH-ABBA1-91241]
+[13:21:25] : Model Matching Success
+[13:21:35] : Barcode Scan LCM ID = [R9W491J3E65845902HR2E]
+[13:21:35] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('R9W491J3E65845902HR2E') FROM DUAL
+[13:21:35] : Scan Success
+[13:21:35] : Return Model Name = [HC550EQH-ABBA1-91241]
+[13:21:35] : Model Matching Success
+[13:22:02] : Program Exit
+[14:03:31] : Program Start! [OP MODE]
+[14:03:33] : Port[2] Fail
+[14:03:44] : Program Exit
+[14:03:57] : Program Start! [PM MODE]
+[14:03:59] : Port[2] Fail
+[14:03:59] : MES SERVER Connect
+[14:04:09] : Program Exit
+[14:06:12] : Program Start! [PM MODE]
+[14:06:14] : Port[2] Fail
+[14:06:14] : MES SERVER Connect
+[14:06:18] : Program Exit
+[14:06:33] : Program Start! [PM MODE]
+[14:06:35] : Port[2] Fail
+[14:06:35] : MES SERVER Connect
+[14:06:45] : Program Exit
+[14:07:15] : Program Start! [PM MODE]
+[14:07:17] : Port[2] Fail
+[14:07:17] : MES SERVER Connect
+[14:07:19] : Program Exit
+[14:29:19] : Program Start! [OP MODE]
+[14:29:20] : Port[2] Fail
+[14:29:23] : Program Exit
+[14:30:57] : Program Start! [OP MODE]
+[14:30:58] : Port[2] Fail
+[14:31:49] : Program Exit
+[14:31:57] : Program Start! [OP MODE]
+[14:31:58] : Port[2] Fail
+[14:32:00] : Program Exit
+[14:32:21] : Program Start! [OP MODE]
+[14:32:23] : Port[2] Fail
+[14:32:24] : Program Exit
+[14:33:02] : Program Start! [OP MODE]
+[14:33:04] : Port[2] Fail
+[14:33:06] : Program Exit
+[14:33:25] : Program Start! [PM MODE]
+[14:33:26] : Port[2] Fail
+[14:33:26] : MES SERVER Connect
+[14:33:47] : Program Exit
+[14:34:25] : Program Start! [OP MODE]
+[14:34:26] : Port[2] Fail
+[14:34:42] : Program Exit
+[16:04:26] : Program Start! [OP MODE]
+[16:04:28] : Port[2] Fail
+[16:04:44] : Program Exit
+[16:05:04] : Program Start! [OP MODE]
+[16:05:06] : Port[2] Fail
+[16:05:14] : Program Exit
+[16:05:32] : Program Start! [OP MODE]
+[16:05:34] : Port[2] Fail
+[16:27:27] : Program Exit
+[16:29:08] : Program Start! [PM MODE]
+[16:29:09] : Port[2] Connect
+[16:29:10] : MES SERVER Connect
+[16:29:28] : Barcode Scan LCM ID = [EAJ65970501]
+[16:29:28] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65970501') FROM DUAL
+[16:29:28] : Return Model Name = []
+[16:29:33] : Barcode Scan LCM ID = [EAJ64811801]
+[16:29:33] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ64811801') FROM DUAL
+[16:29:33] : Scan Success
+[16:29:33] : Return Model Name = [HC500DQG-VKHD2-914XA]
+[16:29:33] : Model Matching Success
+[16:30:09] : Barcode Scan LCM ID = [EAJ65970501]
+[16:30:09] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ65970501') FROM DUAL
+[16:30:09] : Return Model Name = []
+[16:30:37] : Barcode Scan LCM ID = [EAJ657401010]
+[16:30:37] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ657401010') FROM DUAL
+[16:30:37] : Scan Success
+[16:30:37] : Return Model Name = [FALSE]
+[16:30:38] : Model Matching Fail
+[16:30:43] : Barcode Scan LCM ID = [EAJ657401010]
+[16:30:43] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ657401010') FROM DUAL
+[16:30:43] : Scan Success
+[16:30:43] : Return Model Name = [FALSE]
+[16:31:06] : Model Matching Fail
+[16:31:06] : Program Exit
+[16:33:43] : Program Start! [PM MODE]
+[16:33:44] : Port[2] Connect
+[16:33:44] : MES SERVER Connect
+[16:34:32] : Barcode Scan LCM ID = [EAJ657401001]
+[16:34:32] : Barcode Scan SELECT FNC_RETURN_MODEL_BY_LCM('EAJ657401001') FROM DUAL
+[16:34:32] : Scan Success
+[16:34:32] : Return Model Name = [FALSE]
+[16:34:54] : Model Matching Fail
+[16:34:59] : Program Exit

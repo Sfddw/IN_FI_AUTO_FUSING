@@ -431,6 +431,18 @@ BOOL CTS_WR_HS_FUSINGDlg::PreTranslateMessage(MSG* pMsg)
 		//	return TRUE;
 
 		case VK_RETURN: // 엔터키 입력시
+			/*if (m_strKeyBuffer.GetLength() == 21)
+			{
+				funcBarcodeScan();
+				m_strKeyBuffer = _T("");
+				return TRUE;
+			}*/
+			// 첫 글자가 '('이면 제거
+			if (m_strKeyBuffer.Left(1) == _T("("))
+			{
+				m_strKeyBuffer = m_strKeyBuffer.Mid(1); // 1번째 글자부터 끝까지 잘라냄
+			}
+
 			funcBarcodeScan();
 			m_strKeyBuffer = _T("");
 			return TRUE;
@@ -1665,6 +1677,41 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 	GetDlgItem(IDC_STATIC_STR_CNT2)->SetFont(&m_Font[6]);
 }
 
+void CTS_WR_HS_FUSINGDlg::initComboBoxSet(void)
+{
+	CComboBox* pComboDiv = (CComboBox*)GetDlgItem(IDC_CMB_DIVISION);
+	CComboBox* pComboCable = (CComboBox*)GetDlgItem(IDC_CMB_COPEN);
+	CComboBox* pCombPemph = (CComboBox*)GetDlgItem(IDC_CMB_PEMPH);
+	CComboBox* pComboPixel = (CComboBox*)GetDlgItem(IDC_CMB_PIXEL);
+	CComboBox* pComboType = (CComboBox*)GetDlgItem(IDC_CMB_TYPE);
+	CComboBox* pComboSwap = (CComboBox*)GetDlgItem(IDC_CMB_SWAP);
+
+	auto AdjustCombo = [&](CComboBox* pCmb)
+		{
+			if (pCmb)
+			{
+				// 글자 크기에 맞게 아이템 높이 설정
+				pCmb->SetItemHeight(-1, 25);   // 에디트 영역
+				pCmb->SetItemHeight(0, 25);    // 드롭다운 리스트 첫 항목 기준
+
+				// 드롭다운 창 전체 높이 재설정
+				CRect rc;
+				pCmb->GetWindowRect(&rc);
+				ScreenToClient(&rc);
+
+				rc.bottom = rc.top + 200;  // 드롭다운 높이를 200px로
+				pCmb->MoveWindow(&rc);
+			}
+		};
+
+	// 각각 호출
+	AdjustCombo(pComboDiv);
+	AdjustCombo(pComboCable);
+	AdjustCombo(pCombPemph);
+	AdjustCombo(pComboPixel);
+	AdjustCombo(pComboType);
+	AdjustCombo(pComboSwap);
+}
 
 void CTS_WR_HS_FUSINGDlg::initControl(void)
 {
@@ -1681,6 +1728,7 @@ void CTS_WR_HS_FUSINGDlg::initControl(void)
 	funcDefaultGray();
 
 	initFontSet();
+	initComboBoxSet();
 	funcModelEditReadOnly(TRUE);
 	
 	ctrlSelModelName.SetCurSel(0);
@@ -2970,7 +3018,7 @@ bool CTS_WR_HS_FUSINGDlg::InsertModelInfoToDB(const BarcodeInfo& info)
 		(SQLWCHAR*)L"1234", SQL_NTS);
 
 	if (!SQL_SUCCEEDED(ret)) {
-		AfxMessageBox(_T("DB 연결 실패"));
+		AfxMessageBox(_T("DB CONNECT FAIL"));
 		SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
 		SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
 		return false;
@@ -3129,7 +3177,7 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch()
 	m_editSearch.GetWindowText(strSearch); // Edit Control에서 검색어 가져오기
 
 	if (strSearch.IsEmpty()) {
-		AfxMessageBox(_T("검색어를 입력하세요."));
+		AfxMessageBox(_T("Please enter your search term."));
 		return;
 	}
 
@@ -3149,7 +3197,7 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSearch()
 	}
 
 	// 검색 실패 시 메시지
-	AfxMessageBox(_T("일치하는 모델명이 없습니다."));
+	AfxMessageBox(_T("There is no matching model name. Please register a model name."));
 }
 
 
@@ -3194,7 +3242,7 @@ void CTS_WR_HS_FUSINGDlg::OnStnClickedPicSelect()
 		OnCbnSelchangeCmbModelName();  // 기존 선택 변경 이벤트 호출
 	}
 	else {
-		AfxMessageBox(_T("일치하는 모델명이 없습니다."));
+		AfxMessageBox(_T("There is no matching model name. Please register a model name."));
 	}
 }
 
