@@ -1,0 +1,37 @@
+[07:18:51] : Program Start! [PM MODE]
+[07:18:55] : Port[2] Fail
+[07:20:13] : MES SERVER Fail
+[07:21:12] : Program Exit
+[07:22:07] : Program Start! [PM MODE]
+[07:22:11] : Port[2] Fail
+[07:22:36] : MES SERVER Fail
+[07:27:09] : Program Start! [PM MODE]
+[07:27:12] : Port[2] Fail
+[07:27:35] : MES SERVER Fail
+[07:28:41] : Program Start! [PM MODE]
+[07:28:44] : Port[2] Fail
+[07:29:06] : MES SERVER Fail
+[07:31:50] : Program Start! [PM MODE]
+[07:31:53] : Port[2] Fail
+[07:32:15] : MES SERVER Fail
+[07:38:17] : Program Exit
+[07:42:01] : Program Start! [PM MODE]
+[07:42:04] : Port[2] Fail
+[07:42:27] : MES SERVER Fail
+[07:44:45] : Program Exit
+[07:45:54] : Program Start! [PM MODE]
+[07:45:57] : Port[2] Fail
+[07:46:21] : MES SERVER Fail
+[07:49:03] : Program Start! [PM MODE]
+[07:49:06] : Port[2] Fail
+[07:49:30] : MES SERVER Fail
+[07:53:54] : Program Start! [PM MODE]
+[07:53:59] : Port[2] Fail
+[07:54:22] : MES SERVER Fail
+[07:55:45] : Program Exit
+[07:57:47] : Program Start! [PM MODE]
+[07:57:49] : Port[2] Fail
+[07:58:12] : MES SERVER Fail
+[08:00:29] : Program Start! [PM MODE]
+[08:00:31] : Port[2] Fail
+[08:00:54] : MES SERVER Fail

@@ -1,0 +1,3 @@
+[12:18:16] : Program Start! [OP MODE]
+[12:18:18] : Port[2] Fail
+[12:18:43] : Program Exit

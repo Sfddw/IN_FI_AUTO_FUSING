@@ -1679,38 +1679,56 @@ void CTS_WR_HS_FUSINGDlg::initFontSet(void)
 
 void CTS_WR_HS_FUSINGDlg::initComboBoxSet(void)
 {
-	CComboBox* pComboDiv = (CComboBox*)GetDlgItem(IDC_CMB_DIVISION);
-	CComboBox* pComboCable = (CComboBox*)GetDlgItem(IDC_CMB_COPEN);
-	CComboBox* pCombPemph = (CComboBox*)GetDlgItem(IDC_CMB_PEMPH);
-	CComboBox* pComboPixel = (CComboBox*)GetDlgItem(IDC_CMB_PIXEL);
-	CComboBox* pComboType = (CComboBox*)GetDlgItem(IDC_CMB_TYPE);
-	CComboBox* pComboSwap = (CComboBox*)GetDlgItem(IDC_CMB_SWAP);
+	CComboBox* pComboDiv =
+		(CComboBox*)GetDlgItem(IDC_CMB_DIVISION);
+
+	CComboBox* pComboCable =
+		(CComboBox*)GetDlgItem(IDC_CMB_COPEN);
+
+	CComboBox* pCombPemph =
+		(CComboBox*)GetDlgItem(IDC_CMB_PEMPH);
+
+	CComboBox* pComboPixel =
+		(CComboBox*)GetDlgItem(IDC_CMB_PIXEL);
+
+	CComboBox* pComboType =
+		(CComboBox*)GetDlgItem(IDC_CMB_TYPE);
+
+	CComboBox* pComboSwap =
+		(CComboBox*)GetDlgItem(IDC_CMB_SWAP);
+
+	// 추가
+	CComboBox* pComboPwrType =
+		(CComboBox*)GetDlgItem(IDC_CMB_PWR_TYP);
+
 
 	auto AdjustCombo = [&](CComboBox* pCmb)
 		{
 			if (pCmb)
 			{
-				// 글자 크기에 맞게 아이템 높이 설정
-				pCmb->SetItemHeight(-1, 25);   // 에디트 영역
-				pCmb->SetItemHeight(0, 25);    // 드롭다운 리스트 첫 항목 기준
+				// 선택 영역과 드롭다운 항목 높이
+				pCmb->SetItemHeight(-1, 25);
+				pCmb->SetItemHeight(0, 25);
 
-				// 드롭다운 창 전체 높이 재설정
 				CRect rc;
 				pCmb->GetWindowRect(&rc);
 				ScreenToClient(&rc);
 
-				rc.bottom = rc.top + 200;  // 드롭다운 높이를 200px로
+				// 드롭다운 전체 높이
+				rc.bottom = rc.top + 200;
 				pCmb->MoveWindow(&rc);
 			}
 		};
 
-	// 각각 호출
 	AdjustCombo(pComboDiv);
 	AdjustCombo(pComboCable);
 	AdjustCombo(pCombPemph);
 	AdjustCombo(pComboPixel);
 	AdjustCombo(pComboType);
 	AdjustCombo(pComboSwap);
+
+	// 추가
+	AdjustCombo(pComboPwrType);
 }
 
 void CTS_WR_HS_FUSINGDlg::initControl(void)
