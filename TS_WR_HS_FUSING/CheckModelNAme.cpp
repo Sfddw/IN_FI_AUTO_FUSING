@@ -442,6 +442,12 @@ void CCheckModelNAme::Lf_getLoadVariFromModelFile(char *pModelName)
 	Read_ModelFile(pModelName, "POWER_LIMIT", "VDD_HIGH",	&lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][1]);
 	Read_ModelFile(pModelName, "POWER_LIMIT", "VBL_HIGH",	&lpModelInfo->fPWR_voltLIMIT[LIMIT_HIGH][2]);
 	Read_ModelFile(pModelName, "POWER_LIMIT", "VBL2_HIGH",	&lpModelInfo->fPWR_AddVBL_VoltLIMIT[1]);
+
+	/**********************************************************************************************************/
+	Read_ModelFile(pModelName, "LOCALDIMMING", "INVERTERTYPE", &lpModelInfo->nInverterType, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "DIMMINGMODE", &lpModelInfo->nDimmingMode, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty, "0");
 #endif
 
 	char szModKey[16];

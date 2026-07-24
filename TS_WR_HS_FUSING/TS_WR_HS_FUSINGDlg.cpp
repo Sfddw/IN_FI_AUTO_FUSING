@@ -2046,6 +2046,12 @@ void CTS_WR_HS_FUSINGDlg::funcSaveVariToModelFile(char *pModelName)
 	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT1", lpModelInfo->nStringCount[0], lpSysInfo->m_sModelSavePath);
 	Write_ModelFile(pModelName, "POWER_SET", "STR_CNT2", lpModelInfo->nStringCount[1], lpSysInfo->m_sModelSavePath);
 
+	/*Local Dimming*/
+	Write_ModelFile(pModelName, "LOCALDIMMING", "INVERTERTYPE", lpModelInfo->nInverterType, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "LOCALDIMMING", "DIMMINGMODE", lpModelInfo->nDimmingMode, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", lpModelInfo->nPwmFreq, lpSysInfo->m_sModelSavePath);
+	Write_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", lpModelInfo->nPwmDuty, lpSysInfo->m_sModelSavePath);
+
 	funcSavePAT_ModelFile(pModelName);
 }
 
@@ -2206,6 +2212,12 @@ void CTS_WR_HS_FUSINGDlg::funcLoadVariFromModelFile(char *pModelName)
 	Read_ModelFile(pModelName, "POWER_SET", "POWER_TYPE", &lpModelInfo->nPowerType, "1");
 	Read_ModelFile(pModelName, "POWER_SET", "STR_CNT1", &lpModelInfo->nStringCount[0]);
 	Read_ModelFile(pModelName, "POWER_SET", "STR_CNT2", &lpModelInfo->nStringCount[1]);
+
+	/**********************************************************************************************************/
+	Read_ModelFile(pModelName, "LOCALDIMMING", "INVERTERTYPE", &lpModelInfo->nInverterType, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "DIMMINGMODE", &lpModelInfo->nDimmingMode, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty, "0");
 
 	UpdateModelTotal();
 	funcLoadPAT_ModelFile(pModelName);

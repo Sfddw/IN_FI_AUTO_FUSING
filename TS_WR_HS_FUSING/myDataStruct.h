@@ -74,12 +74,18 @@ typedef struct{
 	int nVcomNonVol_WrData = 0;
 	int nVcomNonVol_RdData = 0;
 
-	/* 0-edge, 1-direct, 2-led_driver */
+	/* 0-edge, 1-direct, 2-led_driver 3-Local_Dimming*/
 	int nPowerType = 1;
 	int nStringCount[2] = {6,6};
 	int nPowerId = 1;
 
 	bool f_AutoFusing = false;
+
+	// Local Dimming
+	int nInverterType = 0;
+	int nDimmingMode = 0;
+	int nPwmFreq = 0;
+	int nPwmDuty = 0;
 
 }MODEL_INFO, *LPMODELINFO;
 
