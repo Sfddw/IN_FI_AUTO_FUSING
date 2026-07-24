@@ -82,10 +82,10 @@ typedef struct{
 	bool f_AutoFusing = false;
 
 	// Local Dimming
-	int nInverterType = 0;
-	int nDimmingMode = 0;
-	int nPwmFreq = 0;
-	int nPwmDuty = 0;
+	int nInverterType = 7;
+	int nDimmingMode = 7;
+	int nPwmFreq = 7;
+	int nPwmDuty = 7;
 
 }MODEL_INFO, *LPMODELINFO;
 

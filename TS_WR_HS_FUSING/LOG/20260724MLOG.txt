@@ -6,3 +6,90 @@
 [11:17:35] : Port[2] Fail
 [11:18:07] : MES SERVER Fail
 [11:18:29] : Program Exit
+[11:30:47] : Program Start! [PM MODE]
+[11:30:49] : Port[2] Fail
+[11:31:11] : MES SERVER Fail
+[11:50:06] : Program Start! [PM MODE]
+[11:50:07] : Port[2] Fail
+[11:50:31] : MES SERVER Fail
+[13:09:56] : Program Start! [PM MODE]
+[13:09:57] : Port[2] Fail
+[13:10:21] : MES SERVER Fail
+[13:16:23] : Program Start! [PM MODE]
+[13:16:25] : Port[2] Fail
+[13:16:55] : MES SERVER Fail
+[13:17:54] : Program Exit
+[13:18:19] : Program Start! [PM MODE]
+[13:18:20] : Port[2] Fail
+[13:18:49] : MES SERVER Fail
+[13:20:06] : Program Exit
+[13:20:16] : Program Start! [PM MODE]
+[13:20:17] : Port[2] Fail
+[13:20:55] : MES SERVER Fail
+[13:22:01] : Program Exit
+[13:22:20] : Program Start! [PM MODE]
+[13:22:22] : Port[2] Fail
+[13:22:28] : Program Exit
+[13:23:30] : Program Start! [PM MODE]
+[13:23:32] : Port[2] Fail
+[13:23:37] : Program Exit
+[13:24:12] : Program Start! [PM MODE]
+[13:24:14] : Port[2] Fail
+[13:24:17] : Program Exit
+[13:25:55] : Program Start! [PM MODE]
+[13:25:56] : Port[2] Fail
+[13:25:59] : Program Exit
+[13:26:09] : Program Start! [PM MODE]
+[13:26:11] : Port[2] Fail
+[13:26:22] : Program Exit
+[13:26:54] : Program Start! [PM MODE]
+[13:26:55] : Port[2] Fail
+[13:26:59] : Program Exit
+[13:50:04] : Program Start! [PM MODE]
+[13:50:06] : Port[2] Fail
+[13:51:36] : Program Exit
+[13:51:46] : Program Start! [PM MODE]
+[13:51:48] : Port[2] Fail
+[13:51:50] : Program Exit
+[13:52:05] : Program Start! [PM MODE]
+[13:52:06] : Port[2] Fail
+[13:52:12] : Program Exit
+[13:52:36] : Program Start! [PM MODE]
+[13:52:38] : Port[2] Fail
+[13:52:44] : Program Exit
+[14:20:27] : Program Start! [PM MODE]
+[14:20:29] : Port[2] Fail
+[14:20:48] : Program Exit
+[14:21:18] : Program Start! [PM MODE]
+[14:21:20] : Port[2] Fail
+[14:34:46] : Program Exit
+[14:53:18] : Program Start! [PM MODE]
+[14:53:19] : Port[2] Fail
+[14:53:21] : Program Exit
+[15:00:51] : Program Start! [PM MODE]
+[15:00:52] : Port[2] Fail
+[15:01:08] : Program Exit
+[15:01:27] : Program Start! [PM MODE]
+[15:01:28] : Port[2] Fail
+[15:01:34] : Program Exit
+[15:30:00] : Program Start! [PM MODE]
+[15:30:02] : Port[2] Fail
+[15:30:28] : Program Exit
+[15:32:05] : Program Start! [PM MODE]
+[15:32:07] : Port[2] Fail
+[15:35:52] : Program Exit
+[16:04:03] : Program Start! [PM MODE]
+[16:04:05] : Port[2] Fail
+[16:04:43] : Program Exit
+[16:05:37] : Program Start! [PM MODE]
+[16:05:38] : Port[2] Fail
+[16:07:13] : Program Exit
+[16:07:31] : Program Start! [PM MODE]
+[16:07:33] : Port[2] Fail
+[16:11:33] : Program Start! [PM MODE]
+[16:11:35] : Port[2] Fail
+[16:12:00] : MES SERVER Fail
+[16:12:32] : Program Start! [PM MODE]
+[16:12:34] : Port[2] Fail
+[16:12:57] : MES SERVER Fail
+[16:13:17] : Program Exit

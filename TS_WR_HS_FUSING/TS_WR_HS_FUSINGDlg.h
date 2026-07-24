@@ -329,6 +329,12 @@ public:
 	CComboBox ctrlGPIO6;
 	CComboBox ctrlGPIO7;
 	CComboBox ctrlGPIO8;
+
+	CComboBox ctrlINVERTER;
+	CComboBox ctrlDIMMING;
+	CString ctrlPWMFREQ;
+	CString ctrlPWMDUTY;
+
 	afx_msg void OnBnClickedBtnPortOpen();
 	afx_msg bool OnBnClickedBcrPortOpen();
 	CComboBox ctrlComPort;

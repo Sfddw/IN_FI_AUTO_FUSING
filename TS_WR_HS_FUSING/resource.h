@@ -79,6 +79,7 @@
 #define IDC_GRP_VOLATILE                1040
 #define IDC_BTN_ADD                     1041
 #define IDC_GRP_NON_VOLATILE            1041
+#define IDC_CMB_INVERTER                1041
 #define IDC_BTN_DEL                     1042
 #define IDC_PIC_SELECT                  1042
 #define IDC_BTN_UP                      1043
@@ -87,6 +88,7 @@
 #define IDC_GRP_MODEL3                  1044
 #define IDC_STT_FUSING_MSG              1045
 #define IDC_PIC_SYSTEM                  1045
+#define IDC_CMB_DIMMING                 1046
 #define IDC_STT_MODEL_NAME_PATH         1047
 #define IDC_EDIT_MODELNAME_PATH         1048
 #define IDC_BTN_MODELFILE_PATH          1049
@@ -112,6 +114,7 @@
 #define IDC_COMBO_VCOM_IC2              1057
 #define IDC_COMBO_DATA_SIZE             1057
 #define IDC_STT_LOCAL_MODEL_NAME_TIT    1058
+#define IDC_GRP_INVERTERINFO            1058
 #define IDC_STT_LOCAL_MODEL_NAME        1059
 #define IDC_CMB_PWR_TYP                 1059
 #define IDC_STATIC_STR_CNT              1060
@@ -189,6 +192,9 @@
 #define IDC_EDIT_FUSING_STATUS          1111
 #define IDC_EDIT_PASSWORD               1112
 #define IDC_STATIC_STR_CNT2             1112
+#define IDC_INVERTER_FREQ               1113
+#define IDC_INVERTER_FREQ2              1114
+#define IDC_INVERTER_DUTY               1114
 #define IDC_BUTTON_MODEL_PATH           1115
 #define IDC_BUTTON_PATTERN_PATH         1116
 #define IDC_CBOX_PORT                   1117
@@ -268,12 +274,18 @@
 #define IDC_STATIC51                    1192
 #define IDC_STATIC52                    1193
 #define IDC_STATIC53                    1194
+#define IDC_STATIC54                    1195
 #define IDC_STATIC_OK                   1196
+#define IDC_STATIC55                    1196
 #define IDC_STATIC_NG                   1197
+#define IDC_STATIC56                    1197
 #define IDC_STATIC_MODELNAME            1198
 #define IDC_STATIC_STATUS               1198
+#define IDC_STATIC57                    1198
 #define IDC_STATIC_MODELNAME2           1199
 #define IDC_STATIC_CHECK                1199
+#define IDC_STATIC58                    1199
+#define IDC_STATIC59                    1200
 
 // Next default values for new objects
 // 

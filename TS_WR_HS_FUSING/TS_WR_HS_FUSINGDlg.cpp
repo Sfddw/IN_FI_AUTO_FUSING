@@ -75,6 +75,8 @@ CTS_WR_HS_FUSINGDlg::CTS_WR_HS_FUSINGDlg(CWnd* pParent /*=NULL*/)
 	, ctrlEdtHVBL2(_T(""))
 	, ctrlStrCnt1(_T(""))
 	, ctrlStrPwrId(_T(""))
+	, ctrlPWMFREQ(_T(""))
+	, ctrlPWMDUTY(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -238,6 +240,15 @@ void CTS_WR_HS_FUSINGDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MaxChars(pDX, ctrlStrPwrId, 2);
 
 	DDX_Text(pDX, IDC_EDIT_FOLDER, m_strFolderPath);
+
+	DDX_Control(pDX, IDC_CMB_INVERTER, ctrlINVERTER);
+	DDX_Control(pDX, IDC_CMB_DIMMING, ctrlDIMMING);
+	DDX_Text(pDX, IDC_INVERTER_FREQ, ctrlPWMFREQ);
+	DDV_MaxChars(pDX, ctrlPWMFREQ, 5);
+	DDX_Text(pDX, IDC_INVERTER_DUTY, ctrlPWMDUTY);
+	DDV_MaxChars(pDX, ctrlPWMDUTY, 5);
+	/*DDX_Control(pDX, IDC_INVERTER_FREQ, ctrlPWMFREQ);
+	DDX_Control(pDX, IDC_INVERTER_DUTY, ctrlPWMDUTY);*/
 }
 
 BEGIN_MESSAGE_MAP(CTS_WR_HS_FUSINGDlg, CDialog)
@@ -1322,6 +1333,9 @@ void CTS_WR_HS_FUSINGDlg::funcDefaultIFLoad(void)
 	ctrlGPIO7.SetCurSel(0);
 	ctrlGPIO8.SetCurSel(0);
 
+	ctrlINVERTER.SetCurSel(0);
+	ctrlDIMMING.SetCurSel(0);
+
 }
 
 void CTS_WR_HS_FUSINGDlg::funcDefaultPWRLoad(void)
@@ -1355,6 +1369,9 @@ void CTS_WR_HS_FUSINGDlg::funcDefaultPWRLoad(void)
 	ctrlEdtHVCC.Format("14.0");
 	ctrlEdtHVDD.Format("7.0");
 	ctrlEdtHVBL.Format("27.0");
+
+	ctrlPWMFREQ.Format("0");
+	ctrlPWMDUTY.Format("0");
 }
 
 void CTS_WR_HS_FUSINGDlg::funcDefaultGray(void)
@@ -1857,6 +1874,11 @@ void CTS_WR_HS_FUSINGDlg::funcSaveCtrlToVari(void)
 	lpModelInfo->nStringCount[0] = atoi(ctrlStrCnt1.GetBuffer(0));
 	lpModelInfo->nStringCount[1] = atoi(ctrlStrCnt2.GetBuffer(0));
 	lpModelInfo->nPowerId = atoi(ctrlStrPwrId.GetBuffer(0));
+
+	lpModelInfo->nInverterType = ctrlINVERTER.GetCurSel();
+	lpModelInfo->nDimmingMode = ctrlDIMMING.GetCurSel();
+	lpModelInfo->nPwmFreq = (int)atof(ctrlPWMFREQ.GetBuffer(0));
+	lpModelInfo->nPwmDuty = (int)atof(ctrlPWMDUTY.GetBuffer(0));
 }
 
 
@@ -1942,6 +1964,11 @@ void CTS_WR_HS_FUSINGDlg::funcLoadCtrlFormVari(void)
 	ctrlStrCnt1.Format("%d", lpModelInfo->nStringCount[0]);
 	ctrlStrCnt2.Format("%d", lpModelInfo->nStringCount[1]);
 	ctrlStrPwrId.Format("%d", lpModelInfo->nPowerId);
+
+	ctrlINVERTER.SetCurSel(lpModelInfo->nInverterType);
+	ctrlDIMMING.SetCurSel(lpModelInfo->nDimmingMode);
+	ctrlPWMFREQ.Format("%d", lpModelInfo->nPwmFreq);
+	ctrlPWMDUTY.Format("%d", lpModelInfo->nPwmDuty);
 }
 
 
@@ -2216,8 +2243,8 @@ void CTS_WR_HS_FUSINGDlg::funcLoadVariFromModelFile(char *pModelName)
 	/**********************************************************************************************************/
 	Read_ModelFile(pModelName, "LOCALDIMMING", "INVERTERTYPE", &lpModelInfo->nInverterType, "0");
 	Read_ModelFile(pModelName, "LOCALDIMMING", "DIMMINGMODE", &lpModelInfo->nDimmingMode, "0");
-	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq, "0");
-	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq);
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty);
 
 	UpdateModelTotal();
 	funcLoadPAT_ModelFile(pModelName);

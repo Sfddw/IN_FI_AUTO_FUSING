@@ -642,8 +642,8 @@ void COpBoxFusing::funcLoadVariFromModelFile(char *pModelName)
 	/**********************************************************************************************************/
 	Read_ModelFile(pModelName, "LOCALDIMMING", "INVERTERTYPE", &lpModelInfo->nInverterType, "0");
 	Read_ModelFile(pModelName, "LOCALDIMMING", "DIMMINGMODE", &lpModelInfo->nDimmingMode, "0");
-	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq, "0");
-	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq);
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty);
 #endif
 
 	funcLoadPAT_ModelFile(pModelName);
@@ -806,7 +806,8 @@ int COpBoxFusing::funcMakeSystemFusingPacket(char *pModelName, char *pszRtnPack)
 	nLenPos = strlen(pszRtnPack);
 
 	/* INVERTER INFO */
-	sprintf(&pszRtnPack[nLenPos], "%01d%01d%01d%01d%01d%01d%01d%01d%01d%01d%01d%02d%01d%01d%01d%01d%01d%01d%01d%01d%01d%05d%03d%01d%01d%01d%01d", 0\
+	sprintf(&pszRtnPack[nLenPos], "%01d%01d%01d%01d%01d%01d%01d%01d%01d%01d%01d%02d%01d%01d%01d%01d%01d%01d%01d%01d%01d%05d%03d%01d%01d%01d%01d", int(lpModelInfo->nInverterType)\
+																																				, int(lpModelInfo->nDimmingMode)\
 																																				, 0\
 																																				, 0\
 																																				, 0\
@@ -826,9 +827,8 @@ int COpBoxFusing::funcMakeSystemFusingPacket(char *pModelName, char *pszRtnPack)
 																																				, 0\
 																																				, 0\
 																																				, 0\
-																																				, 0\
-																																				, 0\
-																																				, 0\
+																																				, int(lpModelInfo->nPwmFreq)\
+																																				, int(lpModelInfo->nPwmDuty)\
 																																				, 0\
 																																				, 0\
 																																				, 0\

@@ -446,8 +446,8 @@ void CCheckModelNAme::Lf_getLoadVariFromModelFile(char *pModelName)
 	/**********************************************************************************************************/
 	Read_ModelFile(pModelName, "LOCALDIMMING", "INVERTERTYPE", &lpModelInfo->nInverterType, "0");
 	Read_ModelFile(pModelName, "LOCALDIMMING", "DIMMINGMODE", &lpModelInfo->nDimmingMode, "0");
-	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq, "0");
-	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty, "0");
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMFREQ", &lpModelInfo->nPwmFreq);
+	Read_ModelFile(pModelName, "LOCALDIMMING", "PWMDUTY", &lpModelInfo->nPwmDuty);
 #endif
 
 	char szModKey[16];
