@@ -1,0 +1,22 @@
+[13:21:55] : Program Start! [PM MODE]
+[13:21:58] : Port[2] Fail
+[13:22:43] : MES SERVER Fail
+[13:23:06] : Barcode Scan LCM ID = [HC320D]
+[13:23:30] : Scan DB Fail
+[13:23:30] : Return Model Name = []
+[13:29:28] : Program Exit
+[14:19:36] : Program Start! [PM MODE]
+[14:19:43] : Port[2] Fail
+[16:05:03] : MES SERVER Fail
+[16:05:05] : Program Exit
+[16:05:13] : Program Start! [PM MODE]
+[16:05:15] : Port[2] Fail
+[16:05:40] : MES SERVER Fail
+[16:05:59] : Program Exit
+[16:06:10] : Program Start! [PM MODE]
+[16:06:12] : Port[2] Fail
+[16:06:35] : MES SERVER Fail
+[16:09:32] : Program Start! [PM MODE]
+[16:09:34] : Port[2] Fail
+[16:09:57] : MES SERVER Fail
+[16:10:29] : Program Exit

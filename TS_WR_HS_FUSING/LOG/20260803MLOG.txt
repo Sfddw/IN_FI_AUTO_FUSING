@@ -1,0 +1,14 @@
+[08:20:42] : Program Start! [PM MODE]
+[08:20:45] : Port[2] Fail
+[11:21:53] : Program Start! [PM MODE]
+[11:21:55] : Port[2] Fail
+[11:33:19] : Program Start! [PM MODE]
+[11:33:21] : Port[2] Fail
+[11:34:12] : Program Exit
+[11:42:05] : Program Start! [PM MODE]
+[11:42:07] : Port[2] Fail
+[11:42:37] : Program Exit
+[11:43:03] : Program Start! [PM MODE]
+[11:43:05] : Port[2] Fail
+[11:43:28] : MES SERVER Fail
+[11:43:30] : Program Exit

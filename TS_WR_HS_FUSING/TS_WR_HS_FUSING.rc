@@ -444,8 +444,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,0,0,0
- PRODUCTVERSION 2,0,0,0
+ FILEVERSION 2,0,0,3
+ PRODUCTVERSION 2,0,0,3
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -461,12 +461,12 @@ BEGIN
         BLOCK "041203b5"
         BEGIN
             VALUE "CompanyName", "TimeSystem"
-            VALUE "FileVersion", "2.0.0.0"
+            VALUE "FileVersion", "2.0.0.3"
             VALUE "InternalName", "TS_WR_HS_FUSING.exe"
             VALUE "LegalCopyright", "(c) TimeSystem.  All rights reserved."
             VALUE "OriginalFilename", "TS_WR_HS_FUSING.exe"
             VALUE "ProductName", "TS_WR_HS_FUSING"
-            VALUE "ProductVersion", "2.0.0.0"
+            VALUE "ProductVersion", "2.0.0.3"
         END
     END
     BLOCK "VarFileInfo"

@@ -672,34 +672,100 @@ int COpBoxFusing::funcGetSignalType(char cmbSignalType)
 
 int COpBoxFusing::funcMakeSystemFusingPacket(char *pModelName, char *pszRtnPack)
 {
-	CString strTmp("");
-	int nInterface=0;
-	int nLenPos=0;
-	float fClock=0;
+	CString strTmp(_T(""));
+	int nInterface = 0;
+	int nLenPos = 0;
+	float fClock = 0;
 
 	CString modelName(pModelName);
+	modelName.Trim();
 
-	CString digits;
+	CString prefix;
+	CString outputModelName = modelName;
 
-	for (int i = 0; i < modelName.GetLength(); i++)
+	int underscorePos = modelName.Find(_T('_'));
+
+	BOOL bStartsWithTwoDigits =
+		modelName.GetLength() >= 2 &&
+		_istdigit(modelName[0]) &&
+		_istdigit(modelName[1]);
+
+	if (bStartsWithTwoDigits && underscorePos >= 0)
 	{
-		if (_istdigit(modelName[i]))   // 숫자면
-			digits += modelName[i];
-		else if (!digits.IsEmpty())
-			break; // 첫 숫자 구간 끝났으면 중단
+		/*
+			04H_HC550EQH-SLHA1
+			04_HC043...
+			05_HC022...
+			06G_HC345...
+		*/
+		prefix = modelName.Left(2);
+		outputModelName = modelName.Mid(underscorePos + 1);
 	}
-
-	// 결과 조합
-	if (!digits.IsEmpty())
-		digits.Format(_T("%s_%s"), digits, modelName);
 	else
-		digits = modelName;  // 숫자가 없으면 원본 그대로
-
-	strTmp.Format("%s", digits);
-	for(int n=strTmp.GetLength(); n< 30; n++)
 	{
-		strTmp.Insert(n, "*");
+		/*
+			HC320DXN-VKFL1
+		*/
+		CString digits;
+
+		for (int i = 0; i < modelName.GetLength(); i++)
+		{
+			if (_istdigit(modelName[i]))
+			{
+				digits += modelName[i];
+			}
+			else if (!digits.IsEmpty())
+			{
+				break;
+			}
+		}
+
+		if (!digits.IsEmpty())
+		{
+			if (digits.GetLength() >= 3 &&
+				digits.Right(1) == _T("0"))
+			{
+				digits.Delete(digits.GetLength() - 1);
+			}
+
+			prefix = digits;
+		}
 	}
+
+	if (!prefix.IsEmpty())
+	{
+		strTmp.Format(
+			_T("%s_%s"),
+			prefix.GetString(),
+			outputModelName.GetString()
+		);
+	}
+	else
+	{
+		strTmp = outputModelName;
+	}
+
+	// 프로토콜 모델명 영역을 30자리로 고정
+	if (strTmp.GetLength() > 30)
+	{
+		strTmp = strTmp.Left(30);
+	}
+	else
+	{
+		while (strTmp.GetLength() < 30)
+		{
+			strTmp += _T("*");
+		}
+	}
+
+	sprintf(
+		pszRtnPack,
+		"%s%02d",
+		strTmp.GetBuffer(0),
+		99
+	);
+
+	nLenPos = strlen(pszRtnPack);
 
 	sprintf(pszRtnPack, "%s%02d", strTmp.GetBuffer(0), 99);
 	nLenPos = strlen(pszRtnPack);
@@ -708,7 +774,9 @@ int COpBoxFusing::funcMakeSystemFusingPacket(char *pModelName, char *pszRtnPack)
 	{
 	case 0:		/* SINGLE */
 		{
+			//nInterface = 0;
 			nInterface = 0;
+			fClock = lpModelInfo->fMclk;
 		}break;
 
 	case 1:		/* DUAL */
