@@ -1193,42 +1193,69 @@ int COpBoxFusing::execModelVoltCurrentFusing(void)
 }
 
 
-
+// 260811 KDW .MOD 파일 읽기 -> 현재 MODEL_INFO 그대로 사용
 int COpBoxFusing::procOpBoxFusing(int nModListNumber)
 {
-	int nResult=-1;
+	int nResult = -1;
 
-	funcLoadVariFromModelFile(szFusingModelList[nModListNumber]);
-	TRACE("%d - %s \r\n", nModListNumber, szFusingModelList[nModListNumber]);
+	CTS_WR_HS_FUSINGApp* pApp =
+		(CTS_WR_HS_FUSINGApp*)AfxGetApp();
+
+	LPSYSTEMINFO pSysInfo =
+		pApp->GetSystemInfo();
+
+	/*
+		일반 OP BOX 메뉴에서 FUSING할 때:
+			-> 기존처럼 MOD 파일에서 읽는다.
+
+		메인 화면 FUSING / Barcode Auto Fusing:
+			-> 현재 메모리의 MODEL_INFO를 그대로 사용한다.
+	*/
+	if (pSysInfo->f_AutoFusing == false)
+	{
+		funcLoadVariFromModelFile(
+			szFusingModelList[nModListNumber]
+		);
+	}
+
+	TRACE("%d - %s \r\n",
+		nModListNumber,
+		szFusingModelList[nModListNumber]);
 
 	nResult = execCreateModelFile(nModListNumber);
-	if(nResult == 0)
+
+	if (nResult == 0)
 	{
 		Sleep(100);
-		if(execSystemFusing(szFusingModelList[nModListNumber]) != 0)
+
+		if (execSystemFusing(
+			szFusingModelList[nModListNumber]) != 0)
 		{
 			return (-1);
 		}
 
 		Sleep(100);
-		if(execPatternFusing() != 0)
+
+		if (execPatternFusing() != 0)
 		{
 			return (-1);
 		}
 
 		Sleep(100);
-		if(execControlIOFusing() != 0)
-		{
-			return (-1);
-		}
-		
-		Sleep(100);
-		if(execModelVoltCurrentFusing() != 0)
+
+		if (execControlIOFusing() != 0)
 		{
 			return (-1);
 		}
 
-		Sleep(100);		//2019.05.06. KSM. ADD.
+		Sleep(100);
+
+		if (execModelVoltCurrentFusing() != 0)
+		{
+			return (-1);
+		}
+
+		Sleep(100); //2019.05.06. KSM. ADD.
 	}
 
 	return 0;
@@ -1277,50 +1304,43 @@ void COpBoxFusing::OnBnClickedBtnFusing()
 	ctrlOpBoxFusingMsg.SetWindowText("OP-Box FUSING SUCCESS.");
 }
 
+// 260811 KDW FUSING 데이터 수정 (SAVE 버튼 안눌러도 현재 화면 데이터로 FUSING) - 수동 FUSING
 bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
 	int nLoop;
 	int nResult = 0;
 	CString strMsg = _T("");
 
-	lpModelInfo = new MODEL_INFO;
-
-	//TRACE("lpModelInfo address = %p, f_AutoFusing = %d\n", lpSysInfo, lpSysInfo->f_AutoFusing);
+	// 메인 화면과 동일한 MODEL_INFO 사용
+	m_pApp = (CTS_WR_HS_FUSINGApp*)AfxGetApp();
+	lpModelInfo = m_pApp->GetModelInfo();
 
 	strcpy(szFusingModelList[0], Model_Name);
 
 	nResult = execDelAllMod();
 
-	CDlgFusingOk Fok; // ok
-	CDlgFusingNg Fng; // ng
+	CDlgFusingOk Fok;
+	CDlgFusingNg Fng;
 	CString msg;
+
 	if (nResult == 0)
-		//if (Model_Name == "HC320DXN-ABHA1")
 	{
 		for (nLoop = 0; nLoop < 1; nLoop++)
 		{
-			if (strlen(szFusingModelList[nLoop]) == 0)	break;
+			if (strlen(szFusingModelList[nLoop]) == 0)
+				break;
 
-			if (procOpBoxFusing(nLoop) != 0) // ng일 경우
+			if (procOpBoxFusing(nLoop) != 0)
 			{
-				/*msg.Format(_T("Fusing Fail [%s]\nCable & Op-Box Check Please"), _T(Model_Name));
-				AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);*/
 				Fng.m_strStatus = _T("Cable Connect Check Please!!");
 				Fng.DoModal();
 				return false;
 			}
-			/*msg.Format(_T("Fusing Success [%s]"), _T(Model_Name));
-			AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);*/
+
 			Fok.m_strModelName = Model_Name;
 			Fok.DoModal();
 			return true;
-			// ok일 경우
 		}
-		/*CString msg;
-		msg.Format(_T("Fusing Success [%s]"), _T(Model_Name));
-		AfxMessageBox(msg, MB_ICONINFORMATION | MB_OK);*/
 
 		Fok.m_strModelName = Model_Name;
 		Fok.DoModal();
@@ -1328,50 +1348,50 @@ bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name)
 	}
 	else
 	{
-		/*CString msg;
-		msg.Format(_T("Fusing Fail [%s]\nCable & Op-Box Check Please"), _T(Model_Name));
-		AfxMessageBox(msg, MB_ICONERROR | MB_OK);*/
-
 		Fng.m_strStatus = _T("Cable Connect Check Please!!");
 		Fng.DoModal();
 		return false;
 	}
 }
 
+// 260811 KDW FUSING 데이터 수정 (SAVE 버튼 안눌러도 현재 화면 데이터로 FUSING) - 자동 FUSING
 bool COpBoxFusing::OnBnBcrScanFusing(CString Model_Name, CString Full_Name)
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-
 	int nLoop;
 	int nResult = 0;
 	CString strMsg = _T("");
 
-	lpModelInfo = new MODEL_INFO;
+	// 메인 화면과 동일한 MODEL_INFO 사용
+	m_pApp = (CTS_WR_HS_FUSINGApp*)AfxGetApp();
+	lpModelInfo = m_pApp->GetModelInfo();
+
 	strcpy(szFusingModelList[0], Model_Name);
 
 	nResult = execDelAllMod();
 
-	CDlgFusingOk Fok; // ok
-	CDlgFusingNg Fng; // ng
+	CDlgFusingOk Fok;
+	CDlgFusingNg Fng;
 	CString msg;
+
 	if (nResult == 0)
-	//if (Model_Name == "HC320DXN-ABHA1")
 	{
 		for (nLoop = 0; nLoop < 1; nLoop++)
 		{
-			if (strlen(szFusingModelList[nLoop]) == 0)	break;
+			if (strlen(szFusingModelList[nLoop]) == 0)
+				break;
 
-			if (procOpBoxFusing(nLoop) != 0) // ng일 경우
+			if (procOpBoxFusing(nLoop) != 0)
 			{
 				Fng.m_strStatus = _T("Cable Connect Check Please!!");
 				Fng.DoModal();
 				return false;
 			}
+
 			Fok.m_strModelName = Full_Name;
 			Fok.DoModal();
 			return true;
-			 // ok일 경우
 		}
+
 		Fok.m_strModelName = Full_Name;
 		Fok.DoModal();
 		return true;

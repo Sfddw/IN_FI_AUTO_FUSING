@@ -757,53 +757,121 @@ CString CTS_WR_HS_FUSINGDlg::OnCbnSelchangeCmbModelName(CString Model_Name) // �
 			//return M_Name;
 			return info.name;
 		}
-		else
+		else // #260811 KDW - BARCODE 스캔 시 같은 모델이면 화면 값 유지
 		{
-
 			funcModelEditReadOnly(TRUE);
 
-			//GetDlgItemText(IDC_CMB_MODEL_NAME, M_Name);
+			/*
+				현재 PC 화면에 열려 있는 모델명
+			*/
+			CString currentModelName;
+			GetDlgItemText(
+				IDC_EDT_MODEL,
+				currentModelName
+			);
 
-			ctrlEdtModelName.Format("%s", M_Name.GetBuffer(0));
+			currentModelName.Trim();
+			M_Name.Trim();
 
-			/* 모델 파일 선택시 해당 모델 LOAD 할 것. */
-			funcLoadVariFromModelFile(ctrlEdtModelName.GetBuffer(0));
+			/*
+				Barcode로 검색된 모델이
+				현재 화면에 열려 있는 모델과 같은지 확인
+			*/
+			BOOL bSameModel =
+				(currentModelName.CompareNoCase(M_Name) == 0);
 
-			funcLoadCtrlFormVari();
-			UpdateData(FALSE);
+			if (bSameModel)
+			{
+				/*
+					같은 모델이면 MOD 파일을 다시 읽지 않는다.
 
-			/* 패턴 목록을 갱신 한다. */
-			funcUpdatePAT_List();
-			UpdateData(FALSE);
+					현재 화면에서 변경된 값을
+					MODEL_INFO에만 반영한다.
+				*/
+				funcSaveCtrlToVari();
 
+				TRACE(
+					"[BARCODE] SAME MODEL - USE CURRENT UI VALUE\r\n"
+				);
+			}
+			else
+			{
+				/*
+					다른 모델을 Barcode로 읽었다면
+					그 모델의 MOD 파일을 불러오는 것이 맞다.
+				*/
+				ctrlEdtModelName.Format(
+					"%s",
+					M_Name.GetBuffer(0)
+				);
+
+				funcLoadVariFromModelFile(
+					ctrlEdtModelName.GetBuffer(0)
+				);
+
+				funcLoadCtrlFormVari();
+				UpdateData(FALSE);
+
+				funcUpdatePAT_List();
+				UpdateData(FALSE);
+
+				TRACE(
+					"[BARCODE] DIFFERENT MODEL - LOAD MOD FILE\r\n"
+				);
+			}
+
+			/*
+				여기서부터 실제 Auto Fusing
+			*/
 			lpSysInfo->f_AutoFusing = true;
+
 			COpBoxFusing Op_Fusing;
-			//Op_Fusing.OnBnBcrScanFusing(info.OpBox_Send_Name);
-			bool Fusing_Yn = Op_Fusing.OnBnBcrScanFusing(M_Name, info.name);
+
+			bool Fusing_Yn =
+				Op_Fusing.OnBnBcrScanFusing(
+					M_Name,
+					info.name
+				);
+
 			lpSysInfo->f_AutoFusing = false;
 
 			m_colorFusingStatus = RGB(0, 255, 0);
+
 			GetDlgItem(IDC_EDIT_MODEL_NAME)->Invalidate();
 			GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
+
 			CString strLog;
 
 			if (Fusing_Yn == true)
 			{
-				strLog.Format(_T("FUSING OK\r\n[%s]"), info.name);
-				GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
+				strLog.Format(
+					_T("FUSING OK\r\n[%s]"),
+					info.name
+				);
 
-				//return M_Name;
+				GetDlgItem(
+					IDC_EDIT_FUSING_STATUS
+				)->SetWindowText(strLog);
+
 				return info.name;
 			}
 			else
 			{
-				strLog.Format(_T("FUSING FAIL\r\n[%s]"), info.name);
-				GetDlgItem(IDC_EDIT_FUSING_STATUS)->SetWindowText(strLog);
+				strLog.Format(
+					_T("FUSING FAIL\r\n[%s]"),
+					info.name
+				);
+
+				GetDlgItem(
+					IDC_EDIT_FUSING_STATUS
+				)->SetWindowText(strLog);
 
 				m_colorFusingStatus = RGB(255, 0, 0);
-				GetDlgItem(IDC_EDIT_FUSING_STATUS)->Invalidate();
 
-				//return M_Name;
+				GetDlgItem(
+					IDC_EDIT_FUSING_STATUS
+				)->Invalidate();
+
 				return info.name;
 			}
 		}
@@ -874,15 +942,30 @@ void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnSave() // 세이브 버튼 클릭
 //	}
 //}
 
+// 260811 KDW 현재 화면 값을 MODEL_INFO에 반영, MOD 파일에는 저장 X
 void CTS_WR_HS_FUSINGDlg::OnBnClickedBtnFusing()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	/*
+		현재 화면 값을 MODEL_INFO에 반영한다.
+		주의: MOD 파일에는 저장하지 않는다.
+	*/
+	funcSaveCtrlToVari();
 
-	COpBoxFusing OpFusing;
 	CString modelText;
 	GetDlgItemText(IDC_EDT_MODEL, modelText);
+
+	if (modelText.IsEmpty())
+	{
+		AfxMessageBox(_T("Please select a model."));
+		return;
+	}
+
+	COpBoxFusing OpFusing;
+
 	lpSysInfo->f_AutoFusing = true;
+
 	OpFusing.OnBnBcrScanFusing(modelText);
+
 	lpSysInfo->f_AutoFusing = false;
 }
 

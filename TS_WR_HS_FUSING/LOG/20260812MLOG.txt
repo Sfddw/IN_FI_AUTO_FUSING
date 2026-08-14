@@ -1,0 +1,6 @@
+[06:55:45] : Program Start! [PM MODE]
+[06:55:47] : Port[3] Fail
+[06:57:46] : Program Exit
+[08:06:11] : Program Start! [PM MODE]
+[08:06:13] : Port[3] Fail
+[08:17:50] : Program Exit

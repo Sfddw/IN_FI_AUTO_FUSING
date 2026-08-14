@@ -1,0 +1,82 @@
+[15:27:43] : Program Start! [PM MODE]
+[15:27:44] : Port[3] Connect
+[15:28:08] : MES SERVER Fail
+[15:29:35] : Program Exit
+[15:29:50] : Program Start! [PM MODE]
+[15:29:52] : Port[3] Connect
+[15:30:20] : Barcode Scan LCM ID = [VVHC750EQMABRD1]
+[15:30:40] : Program Start! [PM MODE]
+[15:30:41] : Port[3] Connect
+[15:33:32] : Program Exit
+[15:35:17] : Program Start! [PM MODE]
+[15:35:19] : Port[3] Connect
+[15:36:07] : Program Exit
+[15:36:18] : Program Start! [PM MODE]
+[15:36:19] : Port[3] Connect
+[15:36:34] : Barcode Scan LCM ID = [QABRD1]
+[15:36:51] : Program Start! [PM MODE]
+[15:36:52] : Port[3] Connect
+[15:37:27] : Program Exit
+[15:38:58] : Program Start! [PM MODE]
+[15:39:00] : Port[3] Connect
+[15:51:03] : Program Exit
+[15:52:48] : Program Start! [PM MODE]
+[15:52:49] : Port[3] Connect
+[15:53:33] : Program Exit
+[15:53:44] : Program Start! [PM MODE]
+[15:53:46] : Port[3] Fail
+[15:53:50] : Program Exit
+[15:54:28] : Program Start! [PM MODE]
+[15:54:29] : Port[3] Connect
+[15:55:17] : Program Exit
+[17:02:47] : Program Start! [PM MODE]
+[17:02:49] : Port[3] Fail
+[17:04:35] : Program Exit
+[17:09:06] : Program Start! [PM MODE]
+[17:09:07] : Port[3] Connect
+[17:13:20] : Program Exit
+[17:15:11] : Program Start! [PM MODE]
+[17:15:13] : Port[3] Connect
+[17:15:46] : Program Exit
+[17:15:52] : Program Start! [PM MODE]
+[17:15:54] : Port[3] Connect
+[17:16:01] : Program Exit
+[17:16:24] : Program Start! [PM MODE]
+[17:16:25] : Port[3] Connect
+[17:18:33] : Program Exit
+[17:18:39] : Program Start! [PM MODE]
+[17:18:40] : Port[3] Connect
+[17:20:33] : Program Exit
+[17:20:38] : Program Start! [PM MODE]
+[17:20:39] : Port[3] Connect
+[17:23:45] : Program Exit
+[17:24:39] : Program Start! [PM MODE]
+[17:24:41] : Port[3] Connect
+[17:29:08] : Program Start! [PM MODE]
+[17:29:09] : Port[3] Connect
+[17:30:58] : Program Start! [PM MODE]
+[17:30:59] : Port[3] Connect
+[17:31:06] : Program Exit
+[17:32:45] : Program Start! [PM MODE]
+[17:32:46] : Port[3] Connect
+[17:34:46] : Program Exit
+[17:34:55] : Program Start! [PM MODE]
+[17:34:56] : Port[3] Connect
+[17:36:39] : Program Exit
+[17:39:22] : Program Start! [PM MODE]
+[17:39:23] : Port[3] Connect
+[17:40:28] : Program Exit
+[17:40:59] : Program Start! [PM MODE]
+[17:41:00] : Port[3] Connect
+[17:42:01] : Program Exit
+[17:42:06] : Program Start! [PM MODE]
+[17:42:07] : Port[3] Connect
+[17:43:24] : Program Start! [PM MODE]
+[17:43:25] : Port[3] Connect
+[17:44:39] : Program Exit
+[17:51:40] : Program Start! [PM MODE]
+[17:51:40] : Port[3] Connect
+[17:51:53] : Program Exit
+[17:55:45] : Program Start! [PM MODE]
+[17:55:46] : Port[3] Connect
+[18:11:34] : Program Exit

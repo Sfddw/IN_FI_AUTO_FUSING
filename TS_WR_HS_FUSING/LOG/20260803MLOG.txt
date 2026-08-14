@@ -12,3 +12,12 @@
 [11:43:05] : Port[2] Fail
 [11:43:28] : MES SERVER Fail
 [11:43:30] : Program Exit
+[15:02:22] : Program Start! [PM MODE]
+[15:02:24] : Port[2] Fail
+[15:02:31] : Barcode Scan LCM ID = [01HC]
+[15:02:52] : Program Start! [PM MODE]
+[15:02:55] : Port[2] Fail
+[15:11:43] : Program Exit
+[16:34:51] : Program Start! [PM MODE]
+[16:34:54] : Port[2] Fail
+[16:35:06] : Program Exit

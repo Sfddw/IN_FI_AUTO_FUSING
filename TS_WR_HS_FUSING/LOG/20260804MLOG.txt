@@ -1,0 +1,12 @@
+[11:01:59] : Program Start! [PM MODE]
+[11:02:02] : Port[2] Fail
+[11:05:00] : Program Exit
+[11:05:12] : Program Start! [PM MODE]
+[11:05:13] : Port[3] Connect
+[11:05:18] : Barcode Scan LCM ID = [CHC550]
+[11:05:38] : Program Start! [PM MODE]
+[11:05:39] : Port[3] Connect
+[11:05:58] : Program Exit
+[11:08:31] : Program Start! [PM MODE]
+[11:08:33] : Port[3] Connect
+[11:10:29] : Program Exit
